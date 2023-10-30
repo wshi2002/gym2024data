@@ -17,7 +17,7 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r cars}
 # load in libraries
-package_list <- c("tidyverse", "vroom", "stringr")
+package_list <- c("tidyverse", "vroom", "stringr", "dplyr")
 
 for (package_name in package_list) {
   if (!requireNamespace(package_name, quietly = TRUE)) {
@@ -29,7 +29,31 @@ for (package_name in package_list) {
 # load in data
 df <- vroom("cleandata/data_2022_2023.csv")
 
+df_men <- df%>%
+  filter(Gender == "m")
 
+
+df_women <- df%>%
+  filter(Gender == "w")
+
+
+
+df_men <- df_men%>%
+  mutate(first_name_only = word(FirstName, 1))
+
+
+df_men%>%
+  distinct(LastName, first_name_only)
+
+
+
+df%>%
+  mutate(
+    clean_name = case_when(name == "asdf" ~ "abcd",
+                           ...,
+                           TRUE ~ name)
+  )
+  
 ```
 
 ## Including Plots

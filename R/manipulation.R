@@ -214,7 +214,8 @@ lvp_tb <- transform_table(table_list = lvp_ls,
                          Date = "29 Oct 2022 - 6 Nov 2022", 
                          Competition = "2022 51st FIG Artistic Gymnastics World Championships", 
                          Location = "Liverpool, England") %>% 
-  arrange(LastName, FirstName, Competition, Apparatus)
+  arrange(LastName, FirstName, Competition, Apparatus)%>%
+  distinct()
 write_csv(lvp_tb, "../cleandata/data_new/liverpool_event.csv")
 
 
@@ -249,6 +250,10 @@ atwp_tb <- atwp_tb %>%
     TRUE ~ LastName
   )) %>% 
   arrange(LastName, FirstName, Competition, Apparatus)
+
+# 对数据框atwp_tb，检查如果有完全相同的行，则删去其中一行
+atwp_tb <- atwp_tb %>%
+  distinct()
 
 write_csv(atwp_tb, "../cleandata/data_new/antwerp_event.csv")
 

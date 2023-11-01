@@ -36,3 +36,13 @@ replace_letters <- function(name){
 df_women_c$first_name_only <- lapply(df_women_c$first_name_only, replace_letters)
 df_women_c$last_name_only <- lapply(df_women_c$last_name_only, replace_letters)
 ```
+
+```{r}
+df_women_c <- df_women %>%
+  mutate(
+    last_name_only = case_when(
+      first_name_only == "Anna" & last_name_only == "Konig" ~ "Koenig"
+    )
+      
+  )
+```

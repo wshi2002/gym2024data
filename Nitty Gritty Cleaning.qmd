@@ -1,0 +1,38 @@
+---
+title: "Nitty Gritty Cleaning"
+format: pdf
+editor: visual
+---
+
+```{r}
+df_women_c <- df_women %>%
+  mutate(
+    clean_country = case_when(Country == "SCO" ~ "GBR", 
+                              Country == "ENG" ~ "GBR", 
+                              Country == "WAL" ~ "GBR",
+                              Country == "SIN" ~ "SIG", 
+                              Country == "GE1" ~ "GER", 
+                              Country == "GE2" ~ "GER", 
+                              Country = "NIR" ~ "GBR",
+                              TRUE ~ Country
+      
+    )
+  )
+  
+```
+
+```{r}
+replace_letters <- function(name){
+  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
+  name <- gsub("Ö", "OE", name)
+  name <- gsub("Ü", "U", name)
+  name <- gsub("Ø", "O", name)
+  name <- sub("-.*", "", name)
+  return(name)
+}
+```
+
+```{r}
+df_women_c$first_name_only <- lapply(df_women_c$first_name_only, replace_letters)
+df_women_c$last_name_only <- lapply(df_women_c$last_name_only, replace_letters)
+```

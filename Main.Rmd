@@ -2,7 +2,7 @@
 title: "Main"
 author: "Wendy"
 date: "2023-10-30"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -47,13 +47,27 @@ df_men%>%
 
 
 
-df%>%
-  mutate(
-    clean_name = case_when(name == "asdf" ~ "abcd",
-                           ...,
-                           TRUE ~ name)
-  )
+#df%>%
+  #mutate(
+    #clean_name = case_when(name == "asdf" ~ "abcd",
+                           #...,
+                           #TRUE ~ name)
+  #)
   
+```
+
+```{r}
+df_women <- df_women%>%
+  mutate(first_name_only = word(FirstName, 1)) %>%
+  mutate(last_name_only = word(LastName, 1))
+
+
+distinct_names <- df_women%>%
+  distinct(first_name_only, last_name_only, Country) %>%
+  arrange((first_name_only))
+
+print(distinct_names, n = Inf)
+
 ```
 
 ## Including Plots

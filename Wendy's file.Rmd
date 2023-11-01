@@ -1,0 +1,79 @@
+---
+title: "Wendy's file"
+author: "Wendy"
+date: "2023-10-31"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+# load in libraries
+package_list <- c("tidyverse", "vroom", "stringr", "dplyr")
+
+for (package_name in package_list) {
+  if (!requireNamespace(package_name, quietly = TRUE)) {
+    install.packages(package_name)
+  }
+  library(package_name, character.only = TRUE)
+}
+
+# load in data
+df <- vroom("cleandata/data_2022_2023.csv")
+
+df_men <- df%>%
+  filter(Gender == "m")
+
+
+df_women <- df%>%
+  filter(Gender == "w")
+
+
+
+df_men <- df_men%>%
+  mutate(first_name_only = word(FirstName, 1), 
+         last_name_only = word(LastName, 1))
+
+df_men_names <- df_men%>%
+  distinct(last_name_only, first_name_only, Country)%>%
+  mutate(name = paste(first_name_only, last_name_only))
+
+
+
+df_men_c<- df_men %>%
+  mutate(
+    clean_country = case_when(Country == "SCO" ~ "GBR", 
+                              Country == "ENG" ~ "GBR", 
+                              Country == "WAL" ~ "GBR",
+                              Country == "SIN" ~ "SIG", 
+                              Country == "GE1" ~ "GER", 
+                              Country == "GE2" ~ "GER", 
+                              Country = "NIR" ~ "GBR",
+                              TRUE ~ Country)
+    )
+
+replace_letters <- function(name){
+  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
+  name <- gsub("Ö", "OE", name)
+  name <- gsub("Ü", "U", name)
+  name <- gsub("Ø", "O", name)
+  name <- sub("-.*", "", name)
+  return(name)
+}
+
+df_men_c$first_name_only <- lapply(df_men_c$first_name_only, replace_letters)
+df_men_c$last_name_only <- lapply(df_men_c$last_name_only, replace_letters)
+
+
+```
+

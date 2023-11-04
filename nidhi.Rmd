@@ -8,22 +8,54 @@ date: "2023-11-01"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+unique(df_women$Competition)
 
-```{r cars}
-summary(cars)
+df_women <- df_women %>%
+  mutate(competition_number = case_when(
+    Competition == "2022 Cottbus World Cup" ~ "1",
+    Competition == "2022 Winter Cup" ~ "2",
+    Competition == "2022 Doha World Cup" ~ "3",
+    Competition == "2022 Cairo World Cup" ~ "4",
+    Competition == "2022 British Gymnastics Championships" ~ "5",
+    Competition == "2022 Varna World Challenge Cup" ~ "6",
+    Competition == "2022 Baku World Cup" ~ "7",
+    Competition == "2022 Osijek World Challenge Cup" ~ "8",
+    Competition == "2022 9th Senior Artistic Gymnastics Asian Championships" ~ "9",
+    Competition == "2022 Koper World Challenge Cup" ~ "10",
+    Competition == "2022 U.S. Classic" ~ "11",
+    Competition == "BIRMINGHAM 2022 Commonwealth Games" ~ "12",
+    Competition == "2022 Senior European Championships" ~ "13",
+    Competition == "2022 U.S. Championships" ~ "14",
+    Competition == "2022 Paris World Challenge Cup" ~ "15",
+    Competition == "2022 Szombathely World Challenge Cup" ~ "16",
+    Competition == "2022 Mersin World Challenge Cup" ~ "17",
+    Competition == "2022 51st FIG Artistic Gymnastics World Championships" ~ "18",
+    Competition == "2023 Cottbus World Cup" ~ "19",
+    Competition == "2023 Winter Cup" ~ "20",
+    Competition == "2023 Doha World Cup" ~ "21",
+    Competition == "2023 Baku World Cup" ~ "22",
+    Competition == "EnBW DTB Pokal Team Challenge 2023" ~ "23",
+    Competition == "2023 British Gymnastics Championships" ~ "24",
+    Competition == "2023 Senior European Championships" ~ "25",
+    Competition == "2023 Cairo World Cup" ~ "26",
+    Competition == "2023 Varna World Challenge Cup" ~ "27",
+    Competition == "2023 Artistic Gymnastics Senior Pan American Championships" ~ "28",
+    Competition == "2023 Tel Aviv World Challenge Cup" ~ "29",
+    Competition == "2023 Osijek World Challenge Cup" ~ "30",
+    Competition == "2023 10th Senior Artistic Gymnastics Asian Championships" ~ "31",
+    Competition == "2023 Central American and Caribbean Games" ~ "32",
+    Competition == "2023 FISU World University Games" ~ "33",
+    Competition == "2023 Core Hydration Classic" ~ "34",
+    Competition == "2023 U.S. Championships" ~ "35",
+    Competition == "2023 52nd FIG Artistic Gymnastics World Championships" ~ "36",
+    TRUE ~ "Other"
+  ))
+
+df_women = df_women %>%
+  mutate(competition_number = as.numeric(competition_number))
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

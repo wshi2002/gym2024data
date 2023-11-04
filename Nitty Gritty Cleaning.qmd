@@ -13,7 +13,9 @@ df_women_c <- df_women %>%
                               Country == "SIN" ~ "SIG", 
                               Country == "GE1" ~ "GER", 
                               Country == "GE2" ~ "GER", 
-                              Country = "NIR" ~ "GBR",
+                              Country == "NIR" ~ "GBR",
+                              Country == "IOM" ~ "GBR", 
+                              Country == "PUR" ~ "USA",
                               TRUE ~ Country
       
     )
@@ -23,11 +25,11 @@ df_women_c <- df_women %>%
 
 ```{r}
 replace_letters <- function(name){
-  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
   name <- gsub("Ö", "OE", name)
   name <- gsub("Ü", "U", name)
   name <- gsub("Ø", "O", name)
   name <- sub("-.*", "", name)
+  name <- gsub("Ä", "AE", name)
   return(name)
 }
 ```
@@ -38,11 +40,55 @@ df_women_c$last_name_only <- lapply(df_women_c$last_name_only, replace_letters)
 ```
 
 ```{r}
-df_women_c <- df_women %>%
+standardize <- function(name){
+  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
+  return (name)
+}
+
+df_women_c$first_name_only <- lapply(df_women_c$first_name_only, standardize)
+df_women_c$last_name_only <- lapply(df_women_c$last_name_only, standardize) 
+```
+
+```{r}
+df_women_c <- df_women_c %>%
+  mutate(name = paste(first_name_only, last_name_only))
+```
+
+```{r}
+df_women_c <- df_women_c %>%
   mutate(
-    last_name_only = case_when(
-      first_name_only == "Anna" & last_name_only == "Konig" ~ "Koenig"
+    clean_name = case_when(
+      name == "Anna KONIG" ~ "Anna KOENIG",
+      name == "Aberdeen O" ~ "Aberdeen O'DRISCOL", 
+      name == "Christina KIOSO" ~ "Christina VASILOPOULOU",
+      name == "Korkem YEROBSSYNKYZY" ~ "Korkem YERBOSSYNKYZY",
+      name == "Larasati REGGANIS" ~ "Larasati RENGGANIS", 
+      name == "Liu MAI" ~ "Mai LIU" ,
+      name == "Melanie DE" ~ "Melanie DE JESUS", 
+      name == "Melanie JESUS" ~ "Melanie DE JESUS", 
+      name == "Milka ELPITIYA" ~ "Milka GEHANI", 
+      name == "NA ELPITIYA" ~ "Milka GEHANI", 
+      name == "Nika KUKULJAN" ~ "Nika FRLETA", 
+      name == "Olivia MAFES" ~ "Olivia Kelly", 
+      name == "Ruby EVAN" ~ "Ruby EVANS", 
+      name == "Sasiwimion MUEANGPHUAN" ~ "Sasiwimon MUEANGPHUAN", 
+      name == "Shade OORSCHOT" ~ "Shade VAN OORSCHOT",
+      name == "Shade VAN" ~ "Shade VAN OORSCHOT", 
+      name == "Vera VAN" ~ "Vera VAN POL", 
+      name == "Vera POL"  ~ "Vera VAN POL", 
+      name == "Wong VANESSA" ~ "Vanessa WONG", 
+      name == "Zeina SHARAF" ~ "Zeina IBRAHIM", 
+      name == "NA JESUS" ~ "Melanie DE JESUS",
+      TRUE ~ name
     )
-      
+  )
+```
+
+```{r}
+df_women_c <- df_women_c %>%
+  mutate(
+    Country = ifelse(clean_name == "Teja BELAK", "SLO", Country), 
+    Country = ifelse(clean_name == "Naveen DARIES", "RSA", Country), 
+    Country = ifelse(clean_name == "Madeleine MARSHALL", "NZL", Country)
   )
 ```

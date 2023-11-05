@@ -42,38 +42,111 @@ df_women <- df%>%
 
 df_men <- df_men%>%
   mutate(first_name_only = word(FirstName, 1), 
-         last_name_only = word(LastName, 1))
-
-df_men_names <- df_men%>%
-  distinct(last_name_only, first_name_only, Country)%>%
+         last_name_only = word(LastName, 1))%>%
   mutate(name = paste(first_name_only, last_name_only))
 
+df_men_names <- df_men%>%
+  distinct(last_name_only, first_name_only, Country, name)
 
+```
 
+```{r}
+
+# Cleaning of data
+# Cleaning of country - standardizing country
 df_men_c<- df_men %>%
-  mutate(
+   mutate(
     clean_country = case_when(Country == "SCO" ~ "GBR", 
                               Country == "ENG" ~ "GBR", 
                               Country == "WAL" ~ "GBR",
                               Country == "SIN" ~ "SIG", 
                               Country == "GE1" ~ "GER", 
                               Country == "GE2" ~ "GER", 
-                              Country = "NIR" ~ "GBR",
-                              TRUE ~ Country)
+                              Country == "NIR" ~ "GBR",
+                              Country == "IOM" ~ "GBR", 
+                              Country == "PUR" ~ "USA",
+                              TRUE ~ Country
+      
     )
+  )
+
 
 replace_letters <- function(name){
-  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
   name <- gsub("Ö", "OE", name)
   name <- gsub("Ü", "U", name)
   name <- gsub("Ø", "O", name)
   name <- sub("-.*", "", name)
+  name <- gsub("Ä", "AE", name)
   return(name)
 }
 
 df_men_c$first_name_only <- lapply(df_men_c$first_name_only, replace_letters)
 df_men_c$last_name_only <- lapply(df_men_c$last_name_only, replace_letters)
 
+standardize <- function(name){
+  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
+  return (name)
+}
+
+df_men_c$first_name_only <- lapply(df_men_c$first_name_only, standardize)
+df_men_c$last_name_only <- lapply(df_men_c$last_name_only, standardize)
+
+df_men_c <- df_men_c %>%
+  mutate(name = paste(first_name_only, last_name_only))
+
+df_men_names <- df_men_c%>%
+  distinct(last_name_only, first_name_only, clean_country, name)
+
+```
+
+```{r}
+
+
+df_men_c <- df_men_c %>%
+  mutate(
+    clean_name = case_when(
+      name == "Mc ATEER" ~ "Ewan MCATEER",
+      name == "Ewan MC" ~ "Ewan MCATEER", 
+      name == "Mc CLENAGHAN" ~ "Rhys MCCLENAGHAN",
+      name == "Rhys MC" ~ "Rhys MCCLENAGHAN",
+      name == "Samual DICK" ~ "Samuel DICK",
+      name == "William FU" ~ "William FUALLEN",
+      name == "Jermain GRUNBERG" ~ "Jermain GRUENBERG", 
+      name == "Rakah HARITHI" ~ "Rakan HARITHI",
+      name == "Vinzenz HOCK" ~ "Vinzenz HOECK",
+      name == "VInzenz HOECK" ~ "Vinzenz HOECK",
+      name == "Mohamad KHALIL" ~ "Mohamed KHALIL",
+      name == "Severin KRANZLMULLER" ~ "Severin KRANZLMUELLER",
+      name == "NA KUMARASINGHEGE" ~ "Hansha KUMARASINGHEGE",
+      name == "Manuel MARTINEZ" ~ "Jose MARTINEZ",
+      name == "Felipe MARTINEZ" ~ "Andres MARTINEZ",
+      name == "Clay MASON" ~ "Clay MASONSTEPHENS",
+      name == "Dimitrijs MICKEVICS" ~ "Dmitrijs MICKEVICS",
+      name == "Dmitry PATANIN" ~ "Dmitriy PATANIN",
+      name == "NA SOUZA" ~ "Caio SOUZA",
+      name == "Jann TIMBANG" ~ "Jan TIMBANG",
+      name == "Kim VANSTROM" ~ "Kim VANSTROEM",
+      name == "Sam ZAKUTNEY" ~ "Samuel ZAKUTNEY",
+      TRUE ~ name
+    )
+  )
+
+df_men_names <- df_men_c%>%
+  distinct(last_name_only, first_name_only, clean_country, clean_name)
+
+
+
+```
+
+```{r}
+df_men_c <- df_men_c %>%
+  mutate(
+    Country = ifelse(clean_name == "Ewan MCATEER", "IRL", Country), 
+    Country = ifelse(clean_name == "Rhys MCCLENAGHAN", "IRL", Country), 
+    Country = ifelse(clean_name == "Dominick CUNNINGHAM", "IRL", Country),
+    Country = ifelse(clean_name == "Eamon MONTGOMERY", "IRL", Country),
+    Country = ifelse(clean_name == "NIkita SIMONOV", "AZE", Country)
+  )
 
 ```
 

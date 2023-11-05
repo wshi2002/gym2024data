@@ -123,9 +123,9 @@ df_women_c <- df_women_c %>%
 ```{r}
 df_women_c <- df_women_c %>%
   mutate(
-    Country = ifelse(clean_name == "Teja BELAK", "SLO", Country), 
-    Country = ifelse(clean_name == "Naveen DARIES", "RSA", Country), 
-    Country = ifelse(clean_name == "Madeleine MARSHALL", "NZL", Country)
+    clean_country = ifelse(clean_name == "Teja BELAK", "SLO", clean_country), 
+    clean_country = ifelse(clean_name == "Naveen DARIES", "RSA", clean_country), 
+    clean_country = ifelse(clean_name == "Madeleine MARSHALL", "NZL", clean_country)
   )
 ```
 
@@ -175,18 +175,210 @@ df_men_names <- df_men_c%>%
 ```{r}
 df_men_c <- df_men_c %>%
   mutate(
-    Country = ifelse(clean_name == "Ewan MCATEER", "IRL", Country), 
-    Country = ifelse(clean_name == "Rhys MCCLENAGHAN", "IRL", Country), 
-    Country = ifelse(clean_name == "Dominick CUNNINGHAM", "IRL", Country),
-    Country = ifelse(clean_name == "Eamon MONTGOMERY", "IRL", Country),
-    Country = ifelse(clean_name == "NIkita SIMONOV", "AZE", Country)
+    clean_country = ifelse(clean_name == "Ewan MCATEER", "IRL", clean_country), 
+    clean_country = ifelse(clean_name == "Rhys MCCLENAGHAN", "IRL", clean_country), 
+    clean_country = ifelse(clean_name == "Dominick CUNNINGHAM", "IRL", clean_country),
+    clean_country = ifelse(clean_name == "Eamon MONTGOMERY", "IRL", clean_country),
+    clean_country = ifelse(clean_name == "NIkita SIMONOV", "AZE", clean_country)
   )
 
 ```
 
 ```{r}
-df_men_names <- df_men_c%>%
+df_men_names <- df_men_c %>%
   distinct(last_name_only, first_name_only, clean_country, name)
+
+```
+
+```{r ordering-competitions-women}
+
+unique(df_women_c$Competition)
+
+df_women_c <- df_women_c %>%
+  mutate(competition_number = case_when(
+    Competition == "2022 Cottbus World Cup" ~ "1",
+    Competition == "2022 Winter Cup" ~ "2",
+    Competition == "2022 Doha World Cup" ~ "3",
+    Competition == "2022 Cairo World Cup" ~ "4",
+    Competition == "2022 British Gymnastics Championships" ~ "5",
+    Competition == "2022 Varna World Challenge Cup" ~ "6",
+    Competition == "2022 Baku World Cup" ~ "7",
+    Competition == "2022 Osijek World Challenge Cup" ~ "8",
+    Competition == "2022 9th Senior Artistic Gymnastics Asian Championships" ~ "9",
+    Competition == "2022 Koper World Challenge Cup" ~ "10",
+    Competition == "2022 U.S. Classic" ~ "11",
+    Competition == "BIRMINGHAM 2022 Commonwealth Games" ~ "12",
+    Competition == "2022 Senior European Championships" ~ "13",
+    Competition == "2022 U.S. Championships" ~ "14",
+    Competition == "2022 Paris World Challenge Cup" ~ "15",
+    Competition == "2022 Szombathely World Challenge Cup" ~ "16",
+    Competition == "2022 Mersin World Challenge Cup" ~ "17",
+    Competition == "2022 51st FIG Artistic Gymnastics World Championships" ~ "18",
+    Competition == "2023 Cottbus World Cup" ~ "19",
+    Competition == "2023 Winter Cup" ~ "20",
+    Competition == "2023 Doha World Cup" ~ "21",
+    Competition == "2023 Baku World Cup" ~ "22",
+    Competition == "EnBW DTB Pokal Team Challenge 2023" ~ "23",
+    Competition == "2023 British Gymnastics Championships" ~ "24",
+    Competition == "2023 Senior European Championships" ~ "25",
+    Competition == "2023 Cairo World Cup" ~ "26",
+    Competition == "2023 Varna World Challenge Cup" ~ "27",
+    Competition == "2023 Artistic Gymnastics Senior Pan American Championships" ~ "28",
+    Competition == "2023 Tel Aviv World Challenge Cup" ~ "29",
+    Competition == "2023 Osijek World Challenge Cup" ~ "30",
+    Competition == "2023 10th Senior Artistic Gymnastics Asian Championships" ~ "31",
+    Competition == "2023 Central American and Caribbean Games" ~ "32",
+    Competition == "2023 FISU World University Games" ~ "33",
+    Competition == "2023 Core Hydration Classic" ~ "34",
+    Competition == "2023 U.S. Championships" ~ "35",
+    Competition == "2023 52nd FIG Artistic Gymnastics World Championships" ~ "36",
+    TRUE ~ "Other"
+  ))
+
+df_women_c = df_women_c %>%
+  mutate(competition_number = as.numeric(competition_number))
+
+```
+
+```{r categorizing-competitions-women}
+
+df_women_c <- df_women_c %>%
+  mutate(competition_scope = case_when(
+    Competition == "2022 Cottbus World Cup" ~ "World",
+    Competition == "2022 Winter Cup" ~ "USA",
+    Competition == "2022 Doha World Cup" ~ "World",
+    Competition == "2022 Cairo World Cup" ~ "World",
+    Competition == "2022 British Gymnastics Championships" ~ "non-USA",
+    Competition == "2022 Varna World Challenge Cup" ~ "World",
+    Competition == "2022 Baku World Cup" ~ "World",
+    Competition == "2022 Osijek World Challenge Cup" ~ "World",
+    Competition == "2022 9th Senior Artistic Gymnastics Asian Championships" ~ "non-USA",
+    Competition == "2022 Koper World Challenge Cup" ~ "World",
+    Competition == "2022 U.S. Classic" ~ "USA",
+    Competition == "BIRMINGHAM 2022 Commonwealth Games" ~ "non-USA",
+    Competition == "2022 Senior European Championships" ~ "non-USA",
+    Competition == "2022 U.S. Championships" ~ "USA",
+    Competition == "2022 Paris World Challenge Cup" ~ "World",
+    Competition == "2022 Szombathely World Challenge Cup" ~ "World",
+    Competition == "2022 Mersin World Challenge Cup" ~ "World",
+    Competition == "2022 51st FIG Artistic Gymnastics World Championships" ~ "World",
+    Competition == "2023 Cottbus World Cup" ~ "World",
+    Competition == "2023 Winter Cup" ~ "USA",
+    Competition == "2023 Doha World Cup" ~ "World",
+    Competition == "2023 Baku World Cup" ~ "World",
+    Competition == "EnBW DTB Pokal Team Challenge 2023" ~ "World",
+    Competition == "2023 British Gymnastics Championships" ~ "non-USA",
+    Competition == "2023 Senior European Championships" ~ "non-USA",
+    Competition == "2023 Cairo World Cup" ~ "World",
+    Competition == "2023 Varna World Challenge Cup" ~ "World",
+    Competition == "2023 Artistic Gymnastics Senior Pan American Championships" ~ "USA",
+    Competition == "2023 Tel Aviv World Challenge Cup" ~ "World",
+    Competition == "2023 Osijek World Challenge Cup" ~ "World",
+    Competition == "2023 10th Senior Artistic Gymnastics Asian Championships" ~ "non-USA",
+    Competition == "2023 Central American and Caribbean Games" ~ "non-USA",
+    Competition == "2023 FISU World University Games" ~ "USA",
+    Competition == "2023 Core Hydration Classic" ~ "USA",
+    Competition == "2023 U.S. Championships" ~ "USA",
+    Competition == "2023 52nd FIG Artistic Gymnastics World Championships" ~ "World",
+    TRUE ~ "Other"
+  ))
+
+```
+
+```{r ordering-competitions-men}
+
+unique(df_men$Competition)
+
+df_men_c <- df_men_c %>%
+  mutate(competition_number = case_when(
+    Competition == "2022 Cottbus World Cup" ~ "1",
+    Competition == "2022 Winter Cup" ~ "2",
+    Competition == "2022 Doha World Cup" ~ "3",
+    Competition == "2022 Cairo World Cup" ~ "4",
+    Competition == "2022 British Gymnastics Championships" ~ "5",
+    Competition == "2022 Varna World Challenge Cup" ~ "6",
+    Competition == "2022 Baku World Cup" ~ "7",
+    Competition == "2022 Osijek World Challenge Cup" ~ "8",
+    Competition == "2022 9th Senior Artistic Gymnastics Asian Championships" ~ "9",
+    Competition == "2022 Koper World Challenge Cup" ~ "10",
+    Competition == "2022 U.S. Classic" ~ "11",
+    Competition == "BIRMINGHAM 2022 Commonwealth Games" ~ "12",
+    Competition == "2022 Senior European Championships" ~ "13",
+    Competition == "2022 U.S. Championships" ~ "14",
+    Competition == "2022 Paris World Challenge Cup" ~ "15",
+    Competition == "2022 Szombathely World Challenge Cup" ~ "16",
+    Competition == "2022 Mersin World Challenge Cup" ~ "17",
+    Competition == "2022 51st FIG Artistic Gymnastics World Championships" ~ "18",
+    Competition == "2023 Cottbus World Cup" ~ "19",
+    Competition == "2023 Winter Cup" ~ "20",
+    Competition == "2023 Doha World Cup" ~ "21",
+    Competition == "2023 Baku World Cup" ~ "22",
+    Competition == "EnBW DTB Pokal Team Challenge 2023" ~ "23",
+    Competition == "2023 British Gymnastics Championships" ~ "24",
+    Competition == "2023 Senior European Championships" ~ "25",
+    Competition == "2023 Cairo World Cup" ~ "26",
+    Competition == "Oceania Continental Championships 2023" ~ "27",
+    Competition == "2023 Varna World Challenge Cup" ~ "28",
+    Competition == "2023 Artistic Gymnastics Senior Pan American Championships" ~ "29",
+    Competition == "2023 Tel Aviv World Challenge Cup" ~ "30",
+    Competition == "2023 Osijek World Challenge Cup" ~ "31",
+    Competition == "2023 10th Senior Artistic Gymnastics Asian Championships" ~ "32",
+    Competition == "2023 Central American and Caribbean Games" ~ "33",
+    Competition == "2023 FISU World University Games" ~ "34",
+    Competition == "2023 Core Hydration Classic" ~ "35",
+    Competition == "2023 U.S. Championships" ~ "36",
+    Competition == "2023 52nd FIG Artistic Gymnastics World Championships" ~ "37",
+    TRUE ~ "Other"
+  ))
+
+df_men_c = df_men_c %>%
+  mutate(competition_number = as.numeric(competition_number))
+
+```
+
+```{r categorizing-competitions-men}
+
+df_men_c <- df_men_c %>%
+  mutate(competition_scope = case_when(
+    Competition == "2022 Cottbus World Cup" ~ "World",
+    Competition == "2022 Winter Cup" ~ "USA",
+    Competition == "2022 Doha World Cup" ~ "World",
+    Competition == "2022 Cairo World Cup" ~ "World",
+    Competition == "2022 British Gymnastics Championships" ~ "non-USA",
+    Competition == "2022 Varna World Challenge Cup" ~ "World",
+    Competition == "2022 Baku World Cup" ~ "World",
+    Competition == "2022 Osijek World Challenge Cup" ~ "World",
+    Competition == "2022 9th Senior Artistic Gymnastics Asian Championships" ~ "non-USA",
+    Competition == "2022 Koper World Challenge Cup" ~ "World",
+    Competition == "2022 U.S. Classic" ~ "USA",
+    Competition == "BIRMINGHAM 2022 Commonwealth Games" ~ "non-USA",
+    Competition == "2022 Senior European Championships" ~ "non-USA",
+    Competition == "2022 U.S. Championships" ~ "USA",
+    Competition == "2022 Paris World Challenge Cup" ~ "World",
+    Competition == "2022 Szombathely World Challenge Cup" ~ "World",
+    Competition == "2022 Mersin World Challenge Cup" ~ "World",
+    Competition == "2022 51st FIG Artistic Gymnastics World Championships" ~ "World",
+    Competition == "2023 Cottbus World Cup" ~ "World",
+    Competition == "2023 Winter Cup" ~ "USA",
+    Competition == "2023 Doha World Cup" ~ "World",
+    Competition == "2023 Baku World Cup" ~ "World",
+    Competition == "EnBW DTB Pokal Team Challenge 2023" ~ "World",
+    Competition == "2023 British Gymnastics Championships" ~ "non-USA",
+    Competition == "2023 Senior European Championships" ~ "non-USA",
+    Competition == "2023 Cairo World Cup" ~ "World",
+    Competition == "Oceania Continental Championships 2023" ~ "non-USA",
+    Competition == "2023 Varna World Challenge Cup" ~ "World",
+    Competition == "2023 Artistic Gymnastics Senior Pan American Championships" ~ "USA",
+    Competition == "2023 Tel Aviv World Challenge Cup" ~ "World",
+    Competition == "2023 Osijek World Challenge Cup" ~ "World",
+    Competition == "2023 10th Senior Artistic Gymnastics Asian Championships" ~ "non-USA",
+    Competition == "2023 Central American and Caribbean Games" ~ "non-USA",
+    Competition == "2023 FISU World University Games" ~ "USA",
+    Competition == "2023 Core Hydration Classic" ~ "USA",
+    Competition == "2023 U.S. Championships" ~ "USA",
+    Competition == "2023 52nd FIG Artistic Gymnastics World Championships" ~ "World",
+    TRUE ~ "Other"
+  ))
 
 ```
 

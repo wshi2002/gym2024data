@@ -1,0 +1,25 @@
+---
+title: "Main"
+author: "Katie"
+date: "2023-10-30"
+output: html_document
+---
+```{r lineplot-of-points-women}
+library(tidyverse)
+
+
+
+US_women <- filter(df_women, Country == "USA")
+
+
+
+
+ggplot(data =US_women, aes(y= FirstName, x = Rank))+
+  geom_boxplot()
+
+
+
+```
+
+
+

@@ -36,23 +36,6 @@ df_men <- df%>%
 df_women <- df%>%
   filter(Gender == "w")
 
-
-
-df_men <- df_men%>%
-  mutate(first_name_only = word(FirstName, 1))
-
-
-df_men%>%
-  distinct(LastName, first_name_only)
-
-
-
-#df%>%
-  #mutate(
-    #clean_name = case_when(name == "asdf" ~ "abcd",
-                           #...,
-                           #TRUE ~ name)
-  #)
   
 ```
 
@@ -62,20 +45,103 @@ df_women <- df_women%>%
   mutate(last_name_only = word(LastName, 1))
 
 
-distinct_names <- df_women%>%
-  distinct(first_name_only, last_name_only, Country) %>%
-  arrange((first_name_only))
+#distinct_names <- df_women%>%
+  #distinct(first_name_only, last_name_only, Country) %>%
+  #arrange((first_name_only))
 
-print(distinct_names, n = Inf)
+#print(distinct_names, n = Inf)
 
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+df_women_c <- df_women %>%
+  mutate(
+    clean_country = case_when(Country == "SCO" ~ "GBR", 
+                              Country == "ENG" ~ "GBR", 
+                              Country == "WAL" ~ "GBR",
+                              Country == "SIN" ~ "SIG", 
+                              Country == "GE1" ~ "GER", 
+                              Country == "GE2" ~ "GER", 
+                              Country == "NIR" ~ "GBR",
+                              Country == "IOM" ~ "GBR", 
+                              Country == "PUR" ~ "USA",
+                              TRUE ~ Country
+      
+    )
+  )
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+replace_letters <- function(name){
+  name <- gsub("Ö", "OE", name)
+  name <- gsub("Ü", "U", name)
+  name <- gsub("Ø", "O", name)
+  name <- sub("-.*", "", name)
+  name <- gsub("Ä", "AE", name)
+  return(name)
+}
+```
+
+```{r}
+df_women_c$first_name_only <- lapply(df_women_c$first_name_only, replace_letters)
+df_women_c$last_name_only <- lapply(df_women_c$last_name_only, replace_letters)
+```
+
+```{r}
+standardize <- function(name){
+  name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
+  return (name)
+}
+
+df_women_c$first_name_only <- lapply(df_women_c$first_name_only, standardize)
+df_women_c$last_name_only <- lapply(df_women_c$last_name_only, standardize) 
+```
+
+```{r}
+df_women_c <- df_women_c %>%
+  mutate(name = paste(first_name_only, last_name_only))
+```
+
+```{r}
+df_women_c <- df_women_c %>%
+  mutate(
+    clean_name = case_when(
+      name == "Anna KONIG" ~ "Anna KOENIG",
+      name == "Aberdeen O" ~ "Aberdeen O'DRISCOL", 
+      name == "Christina KIOSO" ~ "Christina VASILOPOULOU",
+      name == "Korkem YEROBSSYNKYZY" ~ "Korkem YERBOSSYNKYZY",
+      name == "Larasati REGGANIS" ~ "Larasati RENGGANIS", 
+      name == "Liu MAI" ~ "Mai LIU" ,
+      name == "Melanie DE" ~ "Melanie DE JESUS", 
+      name == "Melanie JESUS" ~ "Melanie DE JESUS", 
+      name == "Milka ELPITIYA" ~ "Milka GEHANI", 
+      name == "NA ELPITIYA" ~ "Milka GEHANI", 
+      name == "Nika KUKULJAN" ~ "Nika FRLETA", 
+      name == "Olivia MAFES" ~ "Olivia Kelly", 
+      name == "Ruby EVAN" ~ "Ruby EVANS", 
+      name == "Sasiwimion MUEANGPHUAN" ~ "Sasiwimon MUEANGPHUAN", 
+      name == "Shade OORSCHOT" ~ "Shade VAN OORSCHOT",
+      name == "Shade VAN" ~ "Shade VAN OORSCHOT", 
+      name == "Vera VAN" ~ "Vera VAN POL", 
+      name == "Vera POL"  ~ "Vera VAN POL", 
+      name == "Wong VANESSA" ~ "Vanessa WONG", 
+      name == "Zeina SHARAF" ~ "Zeina IBRAHIM", 
+      name == "NA JESUS" ~ "Melanie DE JESUS",
+      TRUE ~ name
+    )
+  )
+```
+
+```{r}
+df_women_c <- df_women_c %>%
+  mutate(
+    Country = ifelse(clean_name == "Teja BELAK", "SLO", Country), 
+    Country = ifelse(clean_name == "Naveen DARIES", "RSA", Country), 
+    Country = ifelse(clean_name == "Madeleine MARSHALL", "NZL", Country)
+  )
+```
+
+```{r}
+df_men <- df_men%>%
+  mutate(first_name_only = word(FirstName, 1))
+```

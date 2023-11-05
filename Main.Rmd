@@ -29,32 +29,15 @@ for (package_name in package_list) {
 # load in data
 df <- vroom("cleandata/data_2022_2023.csv")
 
-df_men <- df%>%
-  filter(Gender == "m")
 
-
-df_women <- df%>%
-  filter(Gender == "w")
-
-  
 ```
 
 ```{r}
-df_women <- df_women%>%
+df <- df%>%
   mutate(first_name_only = word(FirstName, 1)) %>%
   mutate(last_name_only = word(LastName, 1))
 
-
-#distinct_names <- df_women%>%
-  #distinct(first_name_only, last_name_only, Country) %>%
-  #arrange((first_name_only))
-
-#print(distinct_names, n = Inf)
-
-```
-
-```{r}
-df_women_c <- df_women %>%
+df_c <- df %>%
   mutate(
     clean_country = case_when(Country == "SCO" ~ "GBR", 
                               Country == "ENG" ~ "GBR", 
@@ -69,9 +52,7 @@ df_women_c <- df_women %>%
       
     )
   )
-```
 
-```{r}
 replace_letters <- function(name){
   name <- gsub("Ö", "OE", name)
   name <- gsub("Ü", "U", name)
@@ -80,27 +61,34 @@ replace_letters <- function(name){
   name <- gsub("Ä", "AE", name)
   return(name)
 }
-```
 
-```{r}
-df_women_c$first_name_only <- lapply(df_women_c$first_name_only, replace_letters)
-df_women_c$last_name_only <- lapply(df_women_c$last_name_only, replace_letters)
-```
 
-```{r}
+df_c$first_name_only <- lapply(df_c$first_name_only, replace_letters)
+df_c$last_name_only <- lapply(df_c$last_name_only, replace_letters)
+
+
 standardize <- function(name){
   name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
   return (name)
 }
 
-df_women_c$first_name_only <- lapply(df_women_c$first_name_only, standardize)
-df_women_c$last_name_only <- lapply(df_women_c$last_name_only, standardize) 
+df_c$first_name_only <- lapply(df_c$first_name_only, standardize)
+df_c$last_name_only <- lapply(df_c$last_name_only, standardize) 
+
+
+df_c <- df_c %>%
+  mutate(name = paste(first_name_only, last_name_only))
+
+df_men_c <- df_c%>%
+  filter(Gender == "m")
+
+
+df_women_c <- df_c%>%
+  filter(Gender == "w")
+
+  
 ```
 
-```{r}
-df_women_c <- df_women_c %>%
-  mutate(name = paste(first_name_only, last_name_only))
-```
 
 ```{r}
 df_women_c <- df_women_c %>%
@@ -141,7 +129,65 @@ df_women_c <- df_women_c %>%
   )
 ```
 
+
+
+
+
 ```{r}
-df_men <- df_men%>%
-  mutate(first_name_only = word(FirstName, 1))
+
+
+df_men_c <- df_men_c %>%
+  mutate(
+    clean_name = case_when(
+      name == "Mc ATEER" ~ "Ewan MCATEER",
+      name == "Ewan MC" ~ "Ewan MCATEER", 
+      name == "Mc CLENAGHAN" ~ "Rhys MCCLENAGHAN",
+      name == "Rhys MC" ~ "Rhys MCCLENAGHAN",
+      name == "Samual DICK" ~ "Samuel DICK",
+      name == "William FU" ~ "William FUALLEN",
+      name == "Jermain GRUNBERG" ~ "Jermain GRUENBERG", 
+      name == "Rakah HARITHI" ~ "Rakan HARITHI",
+      name == "Vinzenz HOCK" ~ "Vinzenz HOECK",
+      name == "VInzenz HOECK" ~ "Vinzenz HOECK",
+      name == "Mohamad KHALIL" ~ "Mohamed KHALIL",
+      name == "Severin KRANZLMULLER" ~ "Severin KRANZLMUELLER",
+      name == "NA KUMARASINGHEGE" ~ "Hansha KUMARASINGHEGE",
+      name == "Manuel MARTINEZ" ~ "Jose MARTINEZ",
+      name == "Felipe MARTINEZ" ~ "Andres MARTINEZ",
+      name == "Clay MASON" ~ "Clay MASONSTEPHENS",
+      name == "Dimitrijs MICKEVICS" ~ "Dmitrijs MICKEVICS",
+      name == "Dmitry PATANIN" ~ "Dmitriy PATANIN",
+      name == "NA SOUZA" ~ "Caio SOUZA",
+      name == "Jann TIMBANG" ~ "Jan TIMBANG",
+      name == "Kim VANSTROM" ~ "Kim VANSTROEM",
+      name == "Sam ZAKUTNEY" ~ "Samuel ZAKUTNEY",
+      TRUE ~ name
+    )
+  )
+
+df_men_names <- df_men_c%>%
+  distinct(last_name_only, first_name_only, clean_country, clean_name)
+
+
+
 ```
+
+```{r}
+df_men_c <- df_men_c %>%
+  mutate(
+    Country = ifelse(clean_name == "Ewan MCATEER", "IRL", Country), 
+    Country = ifelse(clean_name == "Rhys MCCLENAGHAN", "IRL", Country), 
+    Country = ifelse(clean_name == "Dominick CUNNINGHAM", "IRL", Country),
+    Country = ifelse(clean_name == "Eamon MONTGOMERY", "IRL", Country),
+    Country = ifelse(clean_name == "NIkita SIMONOV", "AZE", Country)
+  )
+
+```
+
+```{r}
+df_men_names <- df_men_c%>%
+  distinct(last_name_only, first_name_only, clean_country, name)
+
+```
+
+

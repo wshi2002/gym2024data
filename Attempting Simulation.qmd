@@ -1,0 +1,43 @@
+---
+title: "Attempting Simulation"
+format: pdf
+editor: visual
+---
+
+```{r}
+world_elite <- df_women_c %>%
+  filter(competition_scope == "World")%>%
+  filter(Round != "TeamFinal")%>%
+  filter(Round != "TeamQual")%>%
+  filter(Rank <= 15)%>%
+  distinct(clean_name, clean_country)
+
+
+```
+
+```{r}
+other_elites <- df_women_c %>%
+  filter(competition_scope != "World")%>%
+  filter(Round != "TeamFinal")%>%
+  filter(Round != "TeamQual")%>%
+  filter(Rank <= 5)%>%
+  distinct(clean_name, clean_country)
+
+all_elites <- merge(world_elite, other_elites, by = "clean_name", all.x = T, all.y = T) 
+```
+
+```{r}
+all_elites <- full_join(world_elite, other_elites, by = "clean_name") %>%
+  select(c("clean_name", "clean_country.x"))%>%
+  rename(clean_country = clean_country.x)
+all_elites_1 <- full_join(world_elite, other_elites, by = c("clean_name", "clean_country"))
+
+all_elites_1 %>%
+  group_by(clean_name)%>%
+  count()%>%
+  filter(n !=1)
+```
+
+```{r}
+anti_join(all_elites_1, all_elites)
+```

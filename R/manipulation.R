@@ -17,6 +17,31 @@ ca_tb <- transform_table(table_list = ca_ls,
 write_csv(ca_tb, "../cleandata/data_new/central_america.csv")
 
 
+### SANTIAGO 2023 XIX Pan American Games #######################################
+
+pam_path <- "../pdf/23pan_am_event"
+col_names_vt <- c("Rank", "Bib", "Name", "NOC", "vault", "E_Score","D_Score", 
+                  "Penalty", "Score")
+
+pam_ls_raw <- get_gym_tables(folder_path = pam_path) %>% 
+  unlist(recursive = F, use.names = TRUE)
+pam_ls <- align_tables(raw_table_list = pam_ls_raw, col_names = col_names_vt)
+pam_tb <- transform_table(table_list = pam_ls, 
+                          Date = "21-25 Oct 2023", 
+                          Competition = "SANTIAGO 2023 XIX Pan American Games", 
+                          Location = "Santiago, Chile") %>% 
+  filter(!is.na(Score))
+
+pam_tb <- pam_tb %>% 
+  mutate(FirstName = ifelse(LastName == "VILLAVERDE", "Yohendry", FirstName)) %>% 
+  mutate(FirstName = ifelse(LastName == "VELASQUEZ CANDRAY", "Pablo Natanael", FirstName)) %>% 
+  mutate(FirstName = ifelse(LastName == "RODRIGUEZ JOHANNING", "Anelena", FirstName)) %>% 
+  mutate(FirstName = ifelse(LastName == "PINTO ADASME", "Makarena", FirstName)) %>% 
+  mutate(FirstName = ifelse(LastName == "DE LA CRUZ", "	Alejandro", FirstName))
+
+write_csv(pam_tb, "../cleandata/data_new/pan_am_games_23_event.csv")
+
+
 ### 2022 Senior European Championships MUNICH (GER) ############################
 
 eu22_path <- "../pdf/europe_22"
@@ -276,6 +301,34 @@ uni_tb <- uni_tb %>%
   mutate(Score = D_Score + E_Score - if_else(is.na(Penalty), 0, Penalty))
 write_csv(uni_tb, "../cleandata/data_new/univgames_23.csv")
 
+
+
+### HANGZHOU 2022 19th Asian Games #############################################
+asian_path <- "../pdf/23asiangames_event"
+col_names_vt <- c("Rank", "Bib", "Name", "NOC", "vault", "D_Score","E_Score", 
+                  "Penalty", "Score")
+
+asian_ls_raw <- get_gym_tables(folder_path = asian_path) %>% 
+  unlist(recursive = F, use.names = TRUE)
+
+asian_ls_raw1
+
+## 杭州亚运和成都大运会的区别在于，final最后多一列qual rank，VT final还多一列start order
+asian_ls_raw1 <- imap(asian_ls_raw, ~ if (grepl("final_VT", .y)) select(.x, -ncol(.x)) else .x) %>% 
+  imap(~ if (grepl("final", .y)) select(.x, -ncol(.x)) else .x)
+
+asian_ls <- align_tables(raw_table_list = asian_ls_raw1, col_names = col_names_vt)
+
+asian_tb <- transform_table(table_list = asian_ls, 
+                            Date = "24-29 Sep 2023", 
+                            Competition = "HANGZHOU 2022 19th Asian Games", 
+                            Location = "Hangzhou, China") %>% 
+  filter(!D_Score == 0) %>% 
+  mutate(LastName = ifelse(FirstName == "De Leon Justine Ace", "DE LEON", LastName)) %>%
+  mutate(FirstName = ifelse(LastName == "DE LEON", "Justine Ace", FirstName)) %>% 
+  mutate(LastName = ifelse(FirstName == "Thanh Tung", "LE", LastName))
+
+write_csv(asian_tb, "../cleandata/data_new/asiangames_23.csv")
 
 
 ### BIRMINGHAM 2022 Commonwealth Games #########################################

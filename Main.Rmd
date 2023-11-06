@@ -94,7 +94,6 @@ df_women_c <- df_c%>%
   
 ```
 
-
 ```{r}
 # Manual cleaning done on name for women's data
 df_women_c <- df_women_c %>%
@@ -132,12 +131,10 @@ df_women_c <- df_women_c %>%
     clean_country = ifelse(clean_name == "Naveen DARIES", "RSA", clean_country), 
     clean_country = ifelse(clean_name == "Madeleine MARSHALL", "NZL", clean_country)
   )
+
+df_women_c <- df_women_c %>%
+  filter(!is.na(first_name_only))
 ```
-
-
-
-
-
 
 ```{r}
 # Manual cleaning done on name for men's data
@@ -180,8 +177,10 @@ df_men_c <- df_men_c %>%
     clean_country = ifelse(clean_name == "NIkita SIMONOV", "AZE", clean_country)
   )
 
-```
+df_men_c <- df_men_c %>%
+  filter(!is.na(first_name_only))
 
+```
 
 ```{r}
 df_men_names <- df_men_c %>%
@@ -380,5 +379,3 @@ df_men_c <- df_men_c %>%
   ))
 
 ```
-
-

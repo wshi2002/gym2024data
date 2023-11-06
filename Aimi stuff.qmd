@@ -1,0 +1,13 @@
+---
+title: "Aimi stuff"
+format: pdf
+editor: visual
+---
+
+```{r}
+men_country = c("CHN", "JPN", "GBR", "USA", "CAN", "GER", "ITA", "SUI", "ESP", "TUR", "NED", "UKR")
+```
+
+```{r}
+women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
+```

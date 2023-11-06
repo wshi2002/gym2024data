@@ -19,6 +19,7 @@ When you click the **Knit** button a document will be generated that includes bo
 # load in libraries
 package_list <- c("tidyverse", "vroom", "stringr", "dplyr")
 
+# load in packages
 for (package_name in package_list) {
   if (!requireNamespace(package_name, quietly = TRUE)) {
     install.packages(package_name)
@@ -33,10 +34,13 @@ df <- vroom("cleandata/data_2022_2023.csv")
 ```
 
 ```{r}
+# Clean up names to make sure there is unique name for each athlete.
+# taking the first 'word' of the names to simplify
 df <- df%>%
   mutate(first_name_only = word(FirstName, 1)) %>%
   mutate(last_name_only = word(LastName, 1))
 
+# standardizing countries. Ex know Scotland and Wales all compete with England as Great Britain.
 df_c <- df %>%
   mutate(
     clean_country = case_when(Country == "SCO" ~ "GBR", 
@@ -53,6 +57,7 @@ df_c <- df %>%
     )
   )
 
+# Simplifying accents in names and dashes
 replace_letters <- function(name){
   name <- gsub("Ö", "OE", name)
   name <- gsub("Ü", "U", name)
@@ -62,26 +67,26 @@ replace_letters <- function(name){
   return(name)
 }
 
-
-df_c$first_name_only <- lapply(df_c$first_name_only, replace_letters)
-df_c$last_name_only <- lapply(df_c$last_name_only, replace_letters)
-
-
 standardize <- function(name){
   name <- iconv(name, "UTF-8", "ASCII//TRANSLIT")
   return (name)
 }
 
+# Applying accent cleaning function to dataframe's name columns.
+df_c$first_name_only <- lapply(df_c$first_name_only, replace_letters)
+df_c$last_name_only <- lapply(df_c$last_name_only, replace_letters)
+
 df_c$first_name_only <- lapply(df_c$first_name_only, standardize)
 df_c$last_name_only <- lapply(df_c$last_name_only, standardize) 
 
 
+# mutate to create name variable comprising of both first and last name
 df_c <- df_c %>%
   mutate(name = paste(first_name_only, last_name_only))
 
+# Separating into two dataset of men and women's gymnastics
 df_men_c <- df_c%>%
   filter(Gender == "m")
-
 
 df_women_c <- df_c%>%
   filter(Gender == "w")
@@ -91,6 +96,7 @@ df_women_c <- df_c%>%
 
 
 ```{r}
+# Manual cleaning done on name for women's data
 df_women_c <- df_women_c %>%
   mutate(
     clean_name = case_when(
@@ -118,9 +124,8 @@ df_women_c <- df_women_c %>%
       TRUE ~ name
     )
   )
-```
 
-```{r}
+# Manual cleaning done on country specifications for women's data
 df_women_c <- df_women_c %>%
   mutate(
     clean_country = ifelse(clean_name == "Teja BELAK", "SLO", clean_country), 
@@ -133,9 +138,9 @@ df_women_c <- df_women_c %>%
 
 
 
+
 ```{r}
-
-
+# Manual cleaning done on name for men's data
 df_men_c <- df_men_c %>%
   mutate(
     clean_name = case_when(
@@ -165,14 +170,7 @@ df_men_c <- df_men_c %>%
     )
   )
 
-df_men_names <- df_men_c%>%
-  distinct(last_name_only, first_name_only, clean_country, clean_name)
-
-
-
-```
-
-```{r}
+# Manual cleaning done on country specifications for men's data
 df_men_c <- df_men_c %>%
   mutate(
     clean_country = ifelse(clean_name == "Ewan MCATEER", "IRL", clean_country), 
@@ -183,6 +181,7 @@ df_men_c <- df_men_c %>%
   )
 
 ```
+
 
 ```{r}
 df_men_names <- df_men_c %>%

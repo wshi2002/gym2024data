@@ -202,3 +202,26 @@ df_men <- df_men %>%
 ```
 
 
+Making Visualizations
+
+showing that most penalties are near 0
+```{r}
+
+quantile(as.numeric(df_women_c$Penalty), 0.99, na.rm = TRUE)
+
+ggplot(data = df_women_c, aes(x = Penalty)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ competition_scope)
+
+```
+
+Why we're using mean for bootstrapping
+```{r}
+ggplot(data = df_women_c, aes(x = Score)) +
+  geom_histogram()
+
+mean(df_women_c$Score)
+median(df_women_c$Score)
+```
+
+

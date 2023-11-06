@@ -177,6 +177,9 @@ df_men_c <- df_men_c %>%
     clean_country = ifelse(clean_name == "NIkita SIMONOV", "AZE", clean_country)
   )
 
+df_men_c <- df_men_c %>%
+  filter(!is.na(first_name_only))
+
 ```
 
 ```{r}

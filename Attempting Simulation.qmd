@@ -1,0 +1,18 @@
+---
+title: "Attempting Simulation"
+format: pdf
+editor: visual
+---
+
+```{r}
+world_elite <- df_women_c %>%
+  filter(competition_scope == "World")%>%
+  filter(Round != c("TeamFinal", "TeamQual"))%>%
+  filter(Rank <= 15)%>%
+  distinct(clean_name, clean_country)
+
+world_elite%>%
+  filter(clean_country == "USA")
+
+#hist(world_elite$Rank)
+```

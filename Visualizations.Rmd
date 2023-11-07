@@ -6,6 +6,8 @@ output:
   html_document:
     fig_caption: yes
 ---
+### FOR WOMEN
+
 ```{r lineplot-of-points-women}
 
 library(tidyverse)
@@ -16,7 +18,8 @@ US_women <- filter(df_women_c, Country == "USA")
 
 ggplot(data = US_women, aes(y= FirstName, x = Rank))+
   geom_boxplot()+
-  theme_minimal()+
+  theme_light()+
+  scale_fill_aaas()+
   labs(
     title = "Range of Rank at all competitions",
     subtitle = "For US Women",
@@ -30,36 +33,117 @@ ggplot(data = US_women, aes(y= FirstName, x = Rank))+
 #difference between difficulty in qualifying vs. final rounds
 - use to determine whether or not to include quali in final rounds
 
-```{r diff-quali-v-final-vis}
+```{r diff-quali-v-final-vis-women}
 
-ggplot(data = df_women_c, aes(y = D_Score, color = Round))+
+ggplot(data = df_women_c, aes(y = D_Score, fill = Round))+
   geom_boxplot()+
-  facet_wrap(.~Apparatus)
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+    title = "Distribution of the Difficulty Score by Round and Apparatus",
+    subtitle = "For Women",
+    fill = "Round"
+  )
 
 
 ```
 
-```{r diff-world-v-nonworld-vis}
+```{r diff-world-v-nonworld-vis-women}
 
-ggplot(data = df_women_c, aes(y = D_Score, color = competition_scope))+
+ggplot(data = df_women_c, aes(y = D_Score, fill = competition_scope))+
   geom_boxplot()+
-  facet_wrap(.~Apparatus)
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Distribution of Difficulty scores by the Scope of Competition and Apparatus",
+    subtitle = "For Women",
+    fill = "Competition Scope"
+  )
 ```
 
-```{r Score-world-v-nonworld-vis}
+```{r Score-world-v-nonworld-vis-women}
 
 ggplot(data = df_women_c, aes(y = Score, fill = competition_scope))+
   geom_boxplot()+
   facet_wrap(.~Apparatus)+
-  theme_minimal()+scale_fill_aaas()+
+  theme_light()+
+  scale_fill_aaas()+
   labs(
-    title = 
+    title = "Distribution of Scores by Scope of Competition and Apparatus",
+    subtitle = "For Women",
+    fill = "Competition Scope"
+  )
+```
+### FOR MEN
+
+
+```{r lineplot-of-points-men}
+
+library(tidyverse)
+library(ggsci)
+
+US_men <- filter(df_men_c, Country == "USA")
+
+
+ggplot(data = US_men, aes(y= FirstName, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Range of Rank at all competitions",
+    subtitle = "For US Men",
+    x = "Rank",
+    y = "Name"
+  )
+
+
+```
+
+```{r diff-quali-v-final-vis-men}
+
+ggplot(data = df_men_c, aes(y = D_Score, fill = Round))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+    title = "Distribution of the Difficulty Score by Round and Apparatus",
+    subtitle = "For Men",
+    fill = "Round"
+  )
+
+
+```
+Waiting for competition scope for men
+```{r diff-world-v-nonworld-vis-men}
+
+ggplot(data = df_men_c, aes(y = D_Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Distribution of Difficulty scores by the Scope of Competition and Apparatus",
+    subtitle = "For Men",
+    fill = "Competition Scope"
   )
 ```
 
-```{r}
-par(mar = c(1, 3.5, 1, 1))
-barplot(1:10, col = pal_aaas()(10))
-```
 
+
+```{r Score-world-v-nonworld-vis-men}
+
+ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Distribution of Scores by Scope of Competition and Apparatus",
+    subtitle = "For Men",
+    fill = "Competition Scope"
+  )
+```
 

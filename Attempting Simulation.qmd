@@ -42,8 +42,21 @@ all_elites%>%
 
 ```{r}
 athlete_data <- df_women_c%>%
-  filter(clean_name == "Simone BILES", Apparatus == "BB")
+  filter(clean_name == "Levi JUNG", Apparatus == "BB")
 
+```
+
+```{r}
+set.seed(1)
+indices <- sample(1:nrow(athlete_data), 5, replace = T)
+boot_mean <- athlete_data%>%
+  slice(indices)%>%
+  summarize(boot_mean = mean(Score))%>%
+  pull()
+boot_mean
+```
+
+```{r}
 
 ```
 
@@ -51,8 +64,11 @@ athlete_data <- df_women_c%>%
 simulate_score <- function(athlete, event) {
   athlete_data<-df_women_c%>%
     filter(clean_name == athlete, Apparatus == event)
-  s <- sample(1:nrow(athlete_data), 5, replace = T)
-  
-  return(result)
+  indices <- sample(1:nrow(athlete_data), 5, replace = T)
+  boot_mean <- athlete_data%>%
+    slice(indices)%>%
+    summarize(boot_mean = mean(Score))%>%
+    pull()
+  return(boot_mean)
 }
 ```

@@ -61,7 +61,7 @@ boot_mean
 ```
 
 ```{r}
-simulate_score <- function(athlete, event) {
+simulate_score_w <- function(athlete, event) {
   athlete_data<-df_women_c%>%
     filter(clean_name == athlete, Apparatus == event)
   indices <- sample(1:nrow(athlete_data), 5, replace = T)

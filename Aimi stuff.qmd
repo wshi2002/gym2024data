@@ -11,3 +11,40 @@ men_country = c("CHN", "JPN", "GBR", "USA", "CAN", "GER", "ITA", "SUI", "ESP", "
 ```{r}
 women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
 ```
+
+```{r}
+world_elites_male <- df_men_c %>%
+  filter(competition_scope == "World")%>%
+  filter(Round != "TeamFinal")%>%
+  filter(Round != "TeamQual")%>%
+  filter(Rank <= 10)%>%
+  distinct(clean_name, clean_country)
+```
+
+```{r}
+other_elites_male <- df_men_c %>%
+  filter(competition_scope != "World")%>%
+  filter(Round != "TeamFinal")%>%
+  filter(Round != "TeamQual")%>%
+  filter(Rank <= 3)%>%
+  distinct(clean_name, clean_country)
+
+```
+
+```{r}
+all_elites_male <- full_join(world_elites_male, other_elites_male, by = c("clean_name", "clean_country"))
+```
+
+```{r}
+all_elites_male%>%
+  group_by(clean_country)%>%
+  count()%>%
+  filter(n>=5)%>%
+  arrange(desc(n))
+```
+
+```{r}
+all_elites_male%>%
+  filter(clean_country == "USA") %>%
+  distinct(clean_name)
+```

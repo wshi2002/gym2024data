@@ -134,6 +134,7 @@ df_women_c <- df_women_c %>%
 
 df_women_c <- df_women_c %>%
   filter(!is.na(first_name_only))
+df_women_c <- replace(df_women_c, is.na(df_women_c), 0)
 ```
 
 ```{r}
@@ -179,6 +180,8 @@ df_men_c <- df_men_c %>%
 
 df_men_c <- df_men_c %>%
   filter(!is.na(first_name_only))
+
+df_men_c <- replace(df_men_c, is.na(df_men_c), 0)
 
 ```
 

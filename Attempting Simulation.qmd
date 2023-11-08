@@ -113,6 +113,7 @@ women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN",
 ```
 
 ```{r}
+set.seed(21)
 all_points = c()
 for (athlete in all_elites$clean_name){
  
@@ -142,15 +143,15 @@ winners_BB
 ```
 
 ```{r}
+set.seed(21)
 event_sim <- function(event, dataset){
   all_points = c()
   for (athlete in all_elites$clean_name){
    
     points <- simulate_score_w(athlete, event)
-    all_elites <- all_elites %>%
-      mutate()
+    all_points <- c(all_points, points)
     }
- all_elites_event <- cbind(all_elites, event_sim = all_points)
+  all_elites_event <- cbind(all_elites, event_sim = all_points)
 
   winners <- all_elites_event%>%
     arrange(desc(event_sim))%>%

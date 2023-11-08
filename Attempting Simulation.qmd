@@ -229,3 +229,47 @@ event_sim_2("FX", "None", all_elites)
 ```{r}
 event_sim_2("VT1", "VT2", all_elites)
 ```
+
+```{r}
+set.seed(21)
+event_sim_3 <- function(event_set, dataset = all_elites){
+  all_elites_event <- dataset
+  for (event in event_set){
+    all_points = c()
+    for (athlete in dataset$clean_name){
+      points <- simulate_score_w(athlete, event)
+      all_points <- c(all_points, points)
+    }
+    col_name <- paste("event_", event, sep= "")
+    all_elites_event[, col_name] <- all_points
+    
+  }
+  columns_to_exclude <- c("clean_name", "clean_country")
+  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
+  winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:3)
+  
+  all_same <- all(winners$clean_country == winners$clean_country[1])
+  all_same <- TRUE
+  if (all_same){
+    winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:2, 4)
+  }
+  
+  return(winners)
+  
+}
+   
+  
+
+```
+
+```{r}
+event_sim_3(c("VT1", "VT2", "BB"), all_elites)
+```
+
+```{r}
+
+```

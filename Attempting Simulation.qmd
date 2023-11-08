@@ -267,10 +267,12 @@ event_sim_3 <- function(event_set, dataset = all_elites){
 ```
 
 ```{r}
-event_sim_3(c("VT1", "VT2", "BB"), all_elites)
+event_sim_3(c("VT1", "VT2", "BB", "FX"), all_elites)
 ```
 
 ```{r}
 set.seed(21)
 event_sim_3(c("BB"), all_elites)
 ```
+
+Possible way to simulate for Team AA =\> simulate for apparatus and individual AA. Add these winning athletes into one dataset (maybe extend beyond just 1st - 3rd place in case we don't get enough athletes). Look at the countries that passed for qualifiers and rename clean_country as those countries and other. Pull teams from this set?

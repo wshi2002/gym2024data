@@ -271,5 +271,6 @@ event_sim_3(c("VT1", "VT2", "BB"), all_elites)
 ```
 
 ```{r}
-
+set.seed(21)
+event_sim_3(c("BB"), all_elites)
 ```

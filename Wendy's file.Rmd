@@ -246,7 +246,7 @@ event_sim <- function(event, dataset = all_elites){
 ```{r}
 
 total_scores <- data.frame(clean_country = character(), sum_score = numeric())
-print(total_scores)
+#print(total_scores)
 
 
 

@@ -41,10 +41,11 @@ all_elites%>%
 ```
 
 ```{r}
-# athlete_data <- df_women_c%>%
-#   filter(clean_name == "Arianna BELARDELLI", Apparatus == "BB")
-# 
-# nrow(athlete_data)
+
+USA_elites <- all_elites%>%
+  filter(clean_country == "USA")
+
+USA_elites_all<- left_join(USA_elites, df_women_c, by = c("clean_name", "clean_country"))
 
 
 

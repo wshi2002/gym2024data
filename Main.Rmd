@@ -2,7 +2,9 @@
 title: "Main"
 author: "Wendy"
 date: "2023-10-30"
-output: pdf_document
+output: 
+  pdf_document:
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +19,7 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r cars}
 # load in libraries
-package_list <- c("tidyverse", "vroom", "stringr", "dplyr")
+package_list <- c("tidyverse", "vroom", "stringr", "dplyr", "ggsci")
 
 # load in packages
 for (package_name in package_list) {
@@ -382,4 +384,121 @@ df_men_c <- df_men_c %>%
     TRUE ~ "Other"
   ))
 
+```
+
+### EDA
+
+##for women
+
+```{r diff-quali-v-final-vis-women, fig.cap="\\label{fig:figs}Distribution of the Difficulty Score by Round and Apparatus for Women "}
+
+ggplot(data = df_women_c, aes(y = D_Score, fill = Round))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+    #title = "Distribution of the Difficulty Score by Round and Apparatus",
+   # subtitle = "For Women",
+    fill = "Round",
+    y = "Difficulty Score"
+  )
+
+
+```
+
+```{r diff-world-v-nonworld-vis-women, fig.cap="\\label{fig:figs}Distribution of Difficulty scores by the Scope of Competition and Apparatus for Women"}
+
+ggplot(data = df_women_c, aes(y = D_Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    fill = "Competition Scope", 
+    y = "Difficulty Score"
+  )
+```
+
+```{r Score-world-v-nonworld-vis-women, fig.cap="\\label{fig:figs}Distribution of Scores by Scope of Competition and Apparatus for Women"}
+
+ggplot(data = df_women_c, aes(y = Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    fill = "Competition Scope"
+  )
+```
+
+showing that most penalties are near 0
+```{r penalty-dist-women, \\fig.cap="\\label{fig:figs}Distribution of Penalties by competition scope for Women"}
+
+quantile(as.numeric(df_women_c$Penalty), 0.99, na.rm = TRUE)
+
+ggplot(data = df_women_c, aes(x = Penalty)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ competition_scope)+
+  theme_light()+
+  scale_color_aaas()
+
+```
+Why we're using mean for bootstrapping
+```{r}
+ggplot(data = df_women_c, aes(x = Score)) +
+  geom_histogram()
+
+mean(df_women_c$Score)
+median(df_women_c$Score)
+```
+
+## For men
+
+```{r diff-quali-v-final-vis-men, fig.cap="\\label{fig:figs}Distribution of the Difficulty Score by Round and Apparatus for Men"}
+
+ggplot(data = df_men_c, aes(y = D_Score, fill = Round))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+   # title = "Distribution of the Difficulty Score by Round and Apparatus",
+   # subtitle = "For Men",
+    fill = "Round",
+    y = "Difficulty Score"
+  )
+
+
+```
+Waiting for competition scope for men
+```{r diff-world-v-nonworld-vis-men, fig.cap="\\label{fig:figs}Distribution of Difficulty scores by the Scope of Competition and Apparatus for Men"}
+
+ggplot(data = df_men_c, aes(y = D_Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    #title = "Distribution of Difficulty scores by the Scope of Competition and Apparatus",
+    #subtitle = "For Men",
+    fill = "Competition Scope",
+    y = "Difficulty Score"
+  )
+```
+
+
+
+```{r Score-world-v-nonworld-vis-men, fig.cap="\\label{fig:figs}Distribution of Scores by Scope of Competition and Apparatus for Men"}
+
+ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus)+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+   # title = "Distribution of Scores by Scope of Competition and Apparatus",
+   # subtitle = "For Men",
+    fill = "Competition Scope"
+  )
 ```

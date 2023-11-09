@@ -9,6 +9,7 @@ world_elites <- df_women_c %>%
   filter(competition_scope == "World")%>%
   filter(Round != "TeamFinal")%>%
   filter(Round != "TeamQual")%>%
+  filter(Rank != 0) %>%
   filter(Rank <= 10)%>%
   distinct(clean_name, clean_country)
 
@@ -20,6 +21,7 @@ other_elites <- df_women_c %>%
   filter(competition_scope != "World")%>%
   filter(Round != "TeamFinal")%>%
   filter(Round != "TeamQual")%>%
+  filter(Rank != 0) %>%
   filter(Rank <= 3)%>%
   distinct(clean_name, clean_country)
 
@@ -73,6 +75,41 @@ USA_elites_all<- left_join(USA_elites, df_women_c, by = c("clean_name", "clean_c
 
 ```{r}
 
+simulate_score_w <- function(athlete, event) {
+  athlete_data <- df_women_c%>%
+    filter(clean_name == athlete, Apparatus == event)
+  if(nrow(athlete_data)==0){
+    score = 0
+    return(score)
+  } else{
+    scores <- athlete_data$Score
+    all_scores = c()
+    for (s in scores) {
+      std_dev <- 0.1
+      samples <- rnorm(n = 30, mean = s, sd = std_dev)
+      all_scores = c(all_scores, samples)
+      }
+    score <- sample(all_scores, size = 1)
+    if (length(scores)==0){
+      score = 0
+      return(score)
+      }
+    dense_score = density(all_scores)
+    return(dense_score)
+  }
+}
+  
+
+
+density_k = simulate_score_w("Simone BILES", "VT")
+
+#NEED TO EDIT CODE: need to edit it so always returns a kernel density rather than just 1 score if it doesn't show up in the dataset
+
+  
+```
+
+```{r}
+plot(density_k$x, density_k$y)  
 ```
 
 ```{r}

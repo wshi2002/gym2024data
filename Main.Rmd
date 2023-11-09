@@ -291,8 +291,6 @@ df_women_c <- df_women_c %>%
 
 ```{r ordering-competitions-men}
 
-unique(df_men$Competition)
-
 df_men_c <- df_men_c %>%
   mutate(competition_number = case_when(
     Competition == "2022 Cottbus World Cup" ~ "1",

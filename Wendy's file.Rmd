@@ -18,6 +18,7 @@ world_elites <- df_women_c %>%
   filter(competition_scope == "World")%>%
   filter(Round != "TeamFinal")%>%
   filter(Round != "TeamQual")%>%
+  filter(Rank != 0) %>%
   filter(Rank <= 10)%>%
   distinct(clean_name, clean_country)
 
@@ -25,6 +26,7 @@ other_elites <- df_women_c %>%
   filter(competition_scope != "World")%>%
   filter(Round != "TeamFinal")%>%
   filter(Round != "TeamQual")%>%
+  filter(Rank != 0) %>%
   filter(Rank <= 3)%>%
   distinct(clean_name, clean_country)
 
@@ -83,22 +85,19 @@ simulate_score_w("Kim BUI", "VT2")
 
 
 
-```{r}
-women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
-
-
-```
-
-
 
 
 ```{r}
 set.seed(21)
-event_sim_3 <- function(event_set, dataset = all_elites){
+event_sim_3 <- function(event_set, dataset = all_elites, country = NA){
   all_elites_event <- dataset
+  if (is.na(country) == FALSE){
+    all_elites_event <- all_elites_event %>%
+      filter(clean_country == country)
+  }
   for (event in event_set){
     all_points = c()
-    for (athlete in dataset$clean_name){
+    for (athlete in all_elites_event$clean_name){
       points <- simulate_score_w(athlete, event)
       all_points <- c(all_points, points)
     }
@@ -120,6 +119,8 @@ event_sim_3 <- function(event_set, dataset = all_elites){
     slice(1:2, 4)
   }
   
+  medal_count <- c(3,2,1)
+  winners <- cbind(winners, medal_count)
   return(winners)
   
 }
@@ -130,7 +131,50 @@ event_sim_3(c("VT1", "VT2", "BB", "FX"), all_elites)
 ```
 
 ```{r}
-set.seed(21)
-event_sim_3(c("BB"), all_elites)
+set.seed(28)
+event_sim_3(c("BB"), all_elites, "USA")
+```
+```{r}
+women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
+
+
+```
+
+
+```{r}
+all_elites_c <- all_elites 
+
+all_elites_c$clean_country <- ifelse(all_elites_c$clean_country %in% women_country, 
+                                     all_elites_c$clean_country, 
+                                     "Other")
+
+all_elites_c%>%
+  group_by(clean_country) %>%
+  count()%>%
+  arrange(desc(n))
+```
+```{r}
+all_elites_sample <- all_elites_c %>%
+  filter(clean_country != "Other") %>%
+  group_by(clean_country) %>%
+  sample_n(5) %>%
+  ungroup()
+```
+
+```{r}
+all_elites_sample
+```
+```{r}
+apparatuses_w = c("BB", "FX", "UB", "VT")
+team_scores <- data.frame(Country = character(), Total_Score = numeric())
+```
+
+```{r}
+for (country in women_country) {
+  total_score <- 0
+  for (apparatus in apparatuses){
+    top3 <- event_sim_3(apparatus, )
+  }
+}
 ```
 

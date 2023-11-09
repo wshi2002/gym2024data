@@ -89,7 +89,7 @@ simulate_score_w("Kim BUI", "VT2")
 
 ```{r}
 set.seed(21)
-event_sim_3 <- function(event_set, dataset = all_elites, country = NA){
+event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
   all_elites_event <- dataset
   if (is.na(country) == FALSE){
     all_elites_event <- all_elites_event %>%
@@ -162,19 +162,116 @@ all_elites_sample <- all_elites_c %>%
 ```
 
 ```{r}
+event_sim_3("FX", all_elites_sample, "USA")
+```
+
+```{r}
 all_elites_sample
 ```
 ```{r}
+set.seed(21)
+event_sim_team <- function(event, dataset = all_elites, country){
+  all_elites_event <- dataset
+
+  all_elites_event <- all_elites_event %>%
+    filter(clean_country == country)
+  
+  all_points = c()
+  for (athlete in all_elites_event$clean_name){
+    points <- simulate_score_w(athlete, event)
+    all_points <- c(all_points, points)
+  }
+  col_name <- "sum_score"
+  all_elites_event[, col_name] <- all_points
+    
+
+  winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:3)
+  
+  all_same <- all(winners$clean_country == winners$clean_country[1])
+  all_same <- TRUE
+  if (all_same){
+    winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:2, 4)
+  }
+  
+  winners$apparatus <- rep(event, nrow(winners))
+  return(winners)
+  
+}
+
+```
+
+
+```{r}
 apparatuses_w = c("BB", "FX", "UB", "VT")
-team_scores <- data.frame(Country = character(), Total_Score = numeric())
+top_athletes <- data.frame(clean_country = character(),apparatus = character(), clean_name = character(), sum_score = numeric())
 ```
 
 ```{r}
 for (country in women_country) {
-  total_score <- 0
-  for (apparatus in apparatuses){
-    top3 <- event_sim_3(apparatus, )
+  for (apparatus in apparatuses_w){
+    top3 <- event_sim_team(apparatus, all_elites_sample, country)
+    top_athletes <- rbind(top_athletes, top3)
   }
+ 
 }
+
+
+```
+
+```{r}
+top_athletes
+```
+```{r}
+set.seed(21)
+event_sim <- function(event, dataset = all_elites){
+  all_elites_event <- dataset
+  
+  all_points = c()
+  for (athlete in all_elites_event$clean_name){
+    points <- simulate_score_w(athlete, event)
+    all_points <- c(all_points, points)
+  }
+  col_name <- "sum_score"
+  all_elites_event[, col_name] <- all_points
+  return(all_elites_event)
+  
+}
+```
+
+
+```{r}
+
+total_scores <- data.frame(clean_country = character(), sum_score = numeric())
+print(total_scores)
+
+
+
+for (app in apparatuses_w){
+  
+  subset <- top_athletes[top_athletes$apparatus == app,] %>%
+    select(-c(sum_score))
+  #print(subset)
+  
+  event_df <- event_sim(app, subset)
+  #print(event_df)
+  
+  total_scores <- rbind(total_scores, event_df)
+
+}
+
+total_scores %>% 
+  group_by(clean_country) %>%
+  mutate(final_scores = sum(sum_score))%>%
+  distinct(clean_country, final_scores)%>%
+  arrange(desc(final_scores))
+
+```
+
+```{r}
+total_scores
 ```
 

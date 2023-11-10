@@ -216,6 +216,7 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
   return(winners)
   
 }
+
 ```
 
 ```{r}

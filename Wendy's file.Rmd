@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+
 ```{r}
 
 # create a group of elite athletes who have done well in major competitions within the last two years.
@@ -80,6 +81,13 @@ simulate_score_w <- function(athlete, event) {
     score = sample(poss_scores, size = 1)
     return(score)
     
+  # also if athlete scores are multiple identical scores
+  }else if (all(athlete_data$Score == athlete_data$Score[1])){
+    poss_scores <- rnorm(n = 30, mean = athlete_data$Score[1], sd = 0.1)
+    score = sample(poss_scores, size = 1)
+    return(score)
+    
+      
    # else get string of scores and create a kernel density estimate of pdf   
   } else{
     scores <- athlete_data$Score
@@ -104,7 +112,16 @@ df_women_c%>%
   filter(clean_name == "Simone BILES")%>%
   filter(Apparatus == "VT")
 
+# found edge case with people with all same scores
+test <- df_women_c%>%
+  filter(clean_name == "Tong ZUO")%>%
+  filter(Apparatus == "FX")
 
+scores <- test$Score
+density_estimate = density(scores)
+plot(density_estimate$x, density_estimate$y)    
+
+simulate_score_w("Tong ZUO", "FX")
 
 ```
 
@@ -129,7 +146,10 @@ median_of_kernel <- function(athlete, event) {
   }else if (nrow(athlete_data)==1){
     median_score <- athlete_data$Score
     return(median_score)  
-    
+  }else if (all(athlete_data$Score == athlete_data$Score[1])){
+    median_score <- athlete_data$Score[1] 
+    return(median_score)  
+      
   # else get string of scores and create a kernel density estimate of pdf
   } else{
     scores <- athlete_data$Score
@@ -166,17 +186,18 @@ median_of_kernel <- function(athlete, event) {
 set.seed(21)
 
 # function takes event, a dataset of athletes, (and if necessary,  a country filter)
-# country filter is to make this a multiuse function later on to select best 3 athletes
+# country filter is to make this a multi-use function later on to select best 3 athletes
 # a country may use for a event in the all around competition
+
 event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
   
   all_elites_event <- dataset
   
   # if country filter
-  if (is.na(country) == FALSE){
-    all_elites_event <- all_elites_event %>%
-      filter(clean_country == country)
-  }
+  # if (is.na(country) == FALSE){
+  #   all_elites_event <- all_elites_event %>%
+  #     filter(clean_country == country)
+  # }
   
   # for each event, simulate athletes performances
   for (event in event_set){
@@ -216,7 +237,6 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
   return(winners)
   
 }
-
 ```
 
 ```{r}
@@ -228,155 +248,3 @@ df_women_c%>%
   filter(clean_name == "Rebeca ANDRADE")%>%
   filter(Apparatus == "VT1" | Apparatus == "VT2")
 ```
-
-```{r}
-set.seed(28)
-event_sim_indiv(c("BB"), all_elites, "USA")
-```
-
-
-
-```{r}
-# set of qualifying countries (already published on olympics website)
-women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
-
-
-```
-
-
-```{r}
-all_elites_c <- all_elites 
-
-all_elites_c$clean_country <- ifelse(all_elites_c$clean_country %in% women_country, 
-                                     all_elites_c$clean_country, 
-                                     "Other")
-
-all_elites_c%>%
-  group_by(clean_country) %>%
-  count()%>%
-  arrange(desc(n))
-```
-
-
-```{r}
-all_elites_sample <- all_elites_c %>%
-  filter(clean_country != "Other") %>%
-  group_by(clean_country) %>%
-  sample_n(5) %>%
-  ungroup()
-```
-
-```{r}
-event_sim_3("FX", all_elites_sample, "USA")
-```
-
-```{r}
-all_elites_sample
-```
-```{r}
-set.seed(21)
-event_sim_team <- function(event, dataset = all_elites, country){
-  all_elites_event <- dataset
-
-  all_elites_event <- all_elites_event %>%
-    filter(clean_country == country)
-  
-  all_points = c()
-  for (athlete in all_elites_event$clean_name){
-    points <- simulate_score_w(athlete, event)
-    all_points <- c(all_points, points)
-  }
-  col_name <- "sum_score"
-  all_elites_event[, col_name] <- all_points
-    
-
-  winners <- all_elites_event%>%
-    arrange(desc(sum_score))%>%
-    slice(1:3)
-  
-  all_same <- all(winners$clean_country == winners$clean_country[1])
-  all_same <- TRUE
-  if (all_same){
-    winners <- all_elites_event%>%
-    arrange(desc(sum_score))%>%
-    slice(1:2, 4)
-  }
-  
-  winners$apparatus <- rep(event, nrow(winners))
-  return(winners)
-  
-}
-
-```
-
-
-```{r}
-apparatuses_w = c("BB", "FX", "UB", "VT")
-top_athletes <- data.frame(clean_country = character(),apparatus = character(), clean_name = character(), sum_score = numeric())
-```
-
-```{r}
-for (country in women_country) {
-  for (apparatus in apparatuses_w){
-    top3 <- event_sim_team(apparatus, all_elites_sample, country)
-    top_athletes <- rbind(top_athletes, top3)
-  }
- 
-}
-
-
-```
-
-```{r}
-top_athletes
-```
-```{r}
-set.seed(21)
-event_sim <- function(event, dataset = all_elites){
-  all_elites_event <- dataset
-  
-  all_points = c()
-  for (athlete in all_elites_event$clean_name){
-    points <- simulate_score_w(athlete, event)
-    all_points <- c(all_points, points)
-  }
-  col_name <- "sum_score"
-  all_elites_event[, col_name] <- all_points
-  return(all_elites_event)
-  
-}
-```
-
-
-```{r}
-
-total_scores <- data.frame(clean_country = character(), sum_score = numeric())
-#print(total_scores)
-
-
-
-for (app in apparatuses_w){
-  
-  subset <- top_athletes[top_athletes$apparatus == app,] %>%
-    select(-c(sum_score))
-  #print(subset)
-  
-  event_df <- event_sim(app, subset)
-  #print(event_df)
-  
-  total_scores <- rbind(total_scores, event_df)
-
-}
-
-total_scores %>% 
-  group_by(clean_country) %>%
-  mutate(final_scores = sum(sum_score))%>%
-  distinct(clean_country, final_scores)%>%
-  arrange(desc(final_scores))
-
-```
-
-```{r}
-total_scores
-```
-

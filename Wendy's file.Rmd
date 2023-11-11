@@ -239,6 +239,62 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 }
 ```
 
+
+
+
+
+```{r}
+# for a certain athlete return the average of their median scores across events
+# we are returning average instead of sum to account for specialization of athletes
+
+set.seed(21)
+
+women_events <- c("BB", "FX", "UB", "VT1", "VT2")
+event_sim_indiv <- function(dataset = all_elites, country = NA, events = women_events){
+  
+  all_elites_event <- dataset
+
+  # for each event, simulate athletes performances
+  for (event in women_events){
+    
+    # create a vector of the athletes performances in this event
+    all_medians = c()
+    for (athlete in all_elites_event$clean_name){
+      median <- median_of_kernel(athlete, event)
+      all_medians <- c(all_medians, median)
+    }
+    
+    # attaching to the original dataset the simulated performances
+    col_name <- paste("event_", event, sep= "")
+    all_elites_event[, col_name] <- all_medians
+    
+  }
+  
+  # summing up the scores across the events to determine winners
+  columns_to_exclude <- c("clean_name", "clean_country")
+  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
+  winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:3)
+  
+  # we cannot have all three winners be from the same country as per rules of world competitions
+  # check if all winners are from same country, if yes, get the 4th highest score.
+  all_same <- all(winners$clean_country == winners$clean_country[1])
+  # all_same <- TRUE
+  if (all_same){
+    winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:2, 4)
+  }
+  
+  medal_count <- c(3,2,1)
+  winners <- cbind(winners, medal_count)
+  return(winners)
+  
+}
+```
+
+
 ```{r}
 # Sanity checks
 event_sim_indiv(c("VT1", "VT2"), all_elites)

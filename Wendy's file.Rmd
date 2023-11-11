@@ -239,6 +239,59 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 }
 ```
 
+
+
+
+
+```{r}
+# for a certain athlete return the average of their median scores across events
+# we are returning average instead of sum to account for specialization of athletes
+
+set.seed(21)
+
+women_events <- c("BB", "FX", "UB", "VT1", "VT2")
+finding_weights <- function(dataset = all_elites, events = women_events){
+  
+  all_elites_event <- dataset
+
+  # for each event, simulate athletes performances
+  for (event in women_events){
+    
+    # create a vector of the athletes performances in this event
+    all_medians = c()
+    for (athlete in all_elites_event$clean_name){
+      median <- median_of_kernel(athlete, event)
+      all_medians <- c(all_medians, median)
+    }
+    
+    # attaching to the original dataset the simulated performances
+    col_name <- paste("event_", event, sep= "")
+    all_elites_event[, col_name] <- all_medians
+  }
+  
+  # summing up the median scores across the events
+  columns_to_exclude <- c("clean_name", "clean_country")
+  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
+  
+  # counting how many median scores are non zeros 
+  specified_columns <- women_events
+  all_elites_event$non_zero_count <- rowSums(all_elites_event[, specified_columns] != 0)
+ 
+  return(all_elites_event)
+  
+}
+
+
+```
+
+```{r}
+# finding weights for all_elites
+finding_weights()
+
+```
+
+
+
 ```{r}
 # Sanity checks
 event_sim_indiv(c("VT1", "VT2"), all_elites)

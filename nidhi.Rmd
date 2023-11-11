@@ -215,13 +215,29 @@ ggplot(data = df_women_c, aes(x = Penalty)) +
 
 ```
 
-Why we're using mean for bootstrapping
+Why we're using mean for bootstrapping:
+
+The distribution of event scores for women and men are both approximately normally distributed, with the mean and median scores less than 0.5 apart within each gender. 
+The mean of women's scores is 12.207, and the median of women's scores is 12.367.
+The mean of men's scores is 13.048, and the median of men's scores is 13.233.
 ```{r}
 ggplot(data = df_women_c, aes(x = Score)) +
-  geom_histogram()
+  geom_histogram() +
+  labs(title = "Score Distribution for Women Athletes",
+       x = "Score",
+       y = "Count")
+
+ggplot(data = df_men_c, aes(x = Score)) +
+  geom_histogram() +
+  labs(title = "Score Distribution for Men Athletes",
+       x = "Score",
+       y = "Count")
 
 mean(df_women_c$Score)
 median(df_women_c$Score)
+
+mean(df_men_c$Score)
+median(df_men_c$Score)
 ```
 
 

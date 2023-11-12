@@ -342,7 +342,7 @@ finding_weights <- function(dataset = all_elites, events = women_events){
 
 ```{r}
 # finding weights for all_elites
-finding_weights()
+#finding_weights()
 
 ```
 
@@ -468,12 +468,17 @@ top_athletes <- data.frame(clean_country = character(),apparatus = character(), 
 ```
 
 ```{r}
-for (country in women_country) {
-  for (apparatus in apparatuses_w){
-    top3 <- event_sim_team(apparatus, teams, country)
-    top_athletes <- rbind(top_athletes, top3)
+
+find_3_per_country <- function(){
+  
+  for (country in women_country) {
+    for (apparatus in apparatuses_w){
+      top3 <- event_sim_team(apparatus, teams, country)
+      top_athletes <- rbind(top_athletes, top3)
+    }
+   
   }
- 
+  return(top_athletes)
 }
 
 
@@ -486,6 +491,7 @@ top_athletes
 
 ```{r}
 set.seed(21)
+#Returns the scores of the athletes per apparatus
 event_sim <- function(event, dataset = all_elites){
   all_elites_event <- dataset
   
@@ -504,33 +510,61 @@ event_sim <- function(event, dataset = all_elites){
 
 ```{r}
 
-total_scores <- data.frame(clean_country = character(), sum_score = numeric())
-#print(total_scores)
+Team_AA_sim_w <- function(){
 
-
-
-for (app in apparatuses_w){
+  total_scores <- data.frame(clean_country = character(), sum_score = numeric())
+  #print(total_scores)
   
-  subset <- top_athletes[top_athletes$apparatus == app,] %>%
-    select(-c(sum_score))
-  #print(subset)
   
-  event_df <- event_sim(app, subset)
-  #print(event_df)
   
-  total_scores <- rbind(total_scores, event_df)
+  for (app in apparatuses_w){
+    
+    subset <- top_athletes[top_athletes$apparatus == app,] %>%
+      select(-c(sum_score))
+    #print(subset)
+    
+    event_df <- event_sim(app, subset)
+    #print(event_df)
+    
+    total_scores <- rbind(total_scores, event_df)
+  
+  }
+  
+  country_scores <- total_scores %>% 
+    group_by(clean_country) %>%
+    mutate(final_scores = sum(sum_score))%>%
+    distinct(clean_country, final_scores)%>%
+    arrange(desc(final_scores))
+  
+  return(country_scores)
 
 }
-
-total_scores %>% 
-  group_by(clean_country) %>%
-  mutate(final_scores = sum(sum_score))%>%
-  distinct(clean_country, final_scores)%>%
-  arrange(desc(final_scores))
 
 ```
 
 ```{r}
-total_scores
+country_scores
+```
+
+```{r}
+teams
+```
+```{r}
+all_elites_other <- all_elites_c %>%
+  filter(clean_country == "Other") 
+
+all_elites_other
+```
+```{r}
+all_indiv <- rbind(teams, all_elites_other)
+
+all_indiv
+```
+
+```{r}
+event_sim_indiv(c("VT1", "VT2"), all_indiv)
+```
+```{r}
+
 ```
 

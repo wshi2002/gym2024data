@@ -1,0 +1,58 @@
+---
+title: "Piecing Simulation Together"
+format: pdf
+editor: visual
+---
+
+```{r}
+
+```
+
+```{r}
+# Create a function to initialize a simulation
+initializeSimulation <- function() {
+  initialize(
+    teamSummary = data.frame(),
+    teamAllAround = data.frame(),
+    individualAllAround = data.frame(),
+    metadata = character()
+  )
+}
+
+# Create a list to store multiple simulations
+simulations <- list()
+
+# Number of simulations
+numSimulations <- 2  # You can adjust this as needed
+```
+
+```{r}
+
+# Run the loop to initialize simulations
+for (i in 1:numSimulations) {
+  simulation <- initializeSimulation()
+
+  
+  # Update dataframes within the simulation object
+  simulation@teamSummary <- your_team_summary_dataframe
+  simulation@teamAllAround <- your_team_all_around_dataframe
+  simulation@individualAllAround <- your_individual_all_around_dataframe
+  # Update additional dataframes as needed
+  # ...
+
+  # Add the simulation to the list
+  simulations[[i]] <- simulation
+}
+
+# Access dataframes from the first simulation in the list
+print(simulations[[1]]@teamSummary)
+print(simulations[[1]]@teamAllAround)
+print(simulations[[1]]@individualAllAround)
+# Access additional dataframes as needed
+# ...
+
+# Access dataframes from the second simulation in the list
+print(simulations[[2]]@teamSummary)
+# ...
+
+```

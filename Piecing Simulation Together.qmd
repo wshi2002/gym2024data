@@ -5,54 +5,171 @@ editor: visual
 ---
 
 ```{r}
+#create dataframe with the list of athletes and their countries
+unique_countries <- unique(all_indiv$clean_country)
+
+summaryTeam <- tibble(clean_country = unique_countries)
+
+summaryTeam <- summaryTeam %>%
+  mutate(
+    athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
+  )
+```
+
+```{r}
+team_medal <- team_result %>%
+  select(-c("final_scores"))
+summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
 
 ```
 
 ```{r}
-# Create a function to initialize a simulation
-initializeSimulation <- function() {
-  initialize(
-    teamSummary = data.frame(),
-    teamAllAround = data.frame(),
-    individualAllAround = data.frame(),
-    metadata = character()
+vault_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
+
+vault_grouped <- vault_result %>%
+  group_by(clean_country) %>%
+  summarize(vault_medal = sum(medal_count)) 
+  
+
+summaryTeam <- left_join(summaryTeam, vault_grouped, by = "clean_country")
+
+summaryTeam[is.na(summaryTeam)] <- 0
+```
+
+```{r}
+setClass(
+  "GymnasticSimulation",
+  representation(
+    teamSummary = "data.frame",
+    teamAllAround = "data.frame",
+    indivAllAround = "data.frame",
+    BB = "data.frame",
+    VT = "data.frame",
+    FX = "data.frame", 
+    UB = "data.frame"
   )
+)
+
+# Create a constructor function
+GymnasticSimulation <- function(teamSummary = data.frame(),
+                                teamAllAround = data.frame(),
+                                indivAllAround = data.frame(),
+                                BB = data.frame(),
+                                VT = data.frame(),
+                                FX = data.frame(),
+                                UB = data.frame()
+                              
+                                 ) {
+  new("GymnasticSimulation",
+      teamSummary = teamSummary,
+      teamAllAround = teamAllAround,
+      indivAllAround = indivAllAround,
+      BB = BB,
+      VT = VT,
+      FX = FX,
+      UB = UB)
 }
 
-# Create a list to store multiple simulations
-simulations <- list()
 
-# Number of simulations
-numSimulations <- 2  # You can adjust this as needed
+
 ```
 
 ```{r}
+
+# Number of simulations
+numSimulations <- 100  # You can adjust this as needed
+
+# Create a list to store simulations
+simulations <- list()
 
 # Run the loop to initialize simulations
 for (i in 1:numSimulations) {
-  simulation <- initializeSimulation()
-
+  #set up the different groups
+  all_elites_other <- all_elites_c %>%
+    filter(clean_country == "Other") 
+  all_indiv <- rbind(teams, all_elites_other)
+  teams <- get_teams()
   
-  # Update dataframes within the simulation object
-  simulation@teamSummary <- your_team_summary_dataframe
-  simulation@teamAllAround <- your_team_all_around_dataframe
-  simulation@individualAllAround <- your_individual_all_around_dataframe
-  # Update additional dataframes as needed
-  # ...
+  #start simulating all events
+  top_athletes <- find3_country()
+  team_result <- Team_AA_sim_w(top_athletes)
+  indivAA_result <- event_sim_indiv(c("BB", "VT", "FX", "UB"), all_indiv)
+  BB_result <- event_sim_indiv(c("BB"), all_indiv)
+  VT_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
+  FX_result <- event_sim_indiv(c("FX"), all_indiv)
+  UB_result <- event_sim_indiv(c("UB"), all_indiv)
+  
+  
+  #creating dataframes
+  unique_countries <- unique(all_indiv$clean_country)
+  summaryTeam <- tibble(clean_country = unique_countries)
+  summaryTeam <- summaryTeam %>%
+    mutate(
+    athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
+  )
+  team_medal <- team_result %>%
+    select(-c("final_scores"))
+  summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
+  
+  indiv_grouped <- indivAA_result %>%
+    group_by(clean_country) %>%
+    summarize(indiv_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, indiv_grouped, by = "clean_country")
+  
+  VT_grouped <- VT_result %>%
+    group_by(clean_country) %>%
+    summarize(VT_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, VT_grouped, by = "clean_country")
+  
+  BB_grouped <- BB_result %>%
+    group_by(clean_country) %>%
+    summarize(BB_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, BB_grouped, by = "clean_country")
+  
+  FX_grouped <- FX_result %>%
+    group_by(clean_country) %>%
+    summarize(FX_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, FX_grouped, by = "clean_country")
+  
+  UB_grouped <- UB_result %>%
+    group_by(clean_country) %>%
+    summarize(UB_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, UB_grouped, by = "clean_country")
+  
+  #find the final number of medals
+  summaryTeam[is.na(summaryTeam)] <- 0
+  columns_to_exclude <- c("athletes", "clean_country")
+  summaryTeam$total_medals <- rowSums(summaryTeam[, !names(summaryTeam) %in% columns_to_exclude])
+  
+  simulation <- GymnasticSimulation()
 
-  # Add the simulation to the list
+  simulation@teamSummary <- summaryTeam
+  simulation@teamAllAround <- team_result
+  simulation@indivAllAround <- indivAA_result
+  simulation@BB <- BB_result
+  simulation@VT<- VT_result
+  simulation@FX<- FX_result
+  simulation@UB<- UB_result
   simulations[[i]] <- simulation
 }
 
-# Access dataframes from the first simulation in the list
-print(simulations[[1]]@teamSummary)
+
+```
+
+```{r}
+table_summary <- simulations[[1]]@teamSummary
 print(simulations[[1]]@teamAllAround)
-print(simulations[[1]]@individualAllAround)
-# Access additional dataframes as needed
-# ...
+```
 
-# Access dataframes from the second simulation in the list
-print(simulations[[2]]@teamSummary)
-# ...
+```{r}
+# Access the 'athletes' column and 'country' column from the first simulation in the list
+athletes_list <- simulations[[1]]@teamSummary$athletes
+countries <- simulations[[1]]@teamSummary$clean_country  # Replace 'country' with the actual column name
 
+# Print each country along with its athletes
+for (i in seq_along(countries)) {
+  cat("Country:", countries[i], "\n")
+  print(unname(athletes_list[[i]]))
+  cat("\n")
+}
 ```

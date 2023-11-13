@@ -288,8 +288,10 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
     slice(1:2, 4)
   }
   
+
   medal_count <- c(3,2,1)
-  winners <- cbind(winners, medal_count)
+  winners <- cbind(winners, medal_count = medal_count)
+  
   return(winners)
   
 }
@@ -350,6 +352,7 @@ finding_weights <- function(dataset = all_elites, events = women_events){
 
 ```{r}
 # Sanity checks
+set.seed(440)
 event_sim_indiv(c("VT1", "VT2"), all_elites)
 
 # filter for an athlete to see their vault status
@@ -469,22 +472,27 @@ top_athletes <- data.frame(clean_country = character(),apparatus = character(), 
 
 ```{r}
 
-find_3_per_country <- function(){
-  
+find3_country <- function(){
+  apparatuses_w = c("BB", "FX", "UB", "VT")
+  top_athletes <- data.frame(clean_country = character(),apparatus = character(), clean_name = character(), sum_score = numeric())
   for (country in women_country) {
-    for (apparatus in apparatuses_w){
-      top3 <- event_sim_team(apparatus, teams, country)
-      top_athletes <- rbind(top_athletes, top3)
-    }
-   
+      for (apparatus in apparatuses_w){
+        top3 <- event_sim_team(apparatus, teams, country)
+        top_athletes <- rbind(top_athletes, top3)
+      }
+     
   }
   return(top_athletes)
 }
 
 
+
+
 ```
 
 ```{r}
+top_athletes <- find3_country()
+
 top_athletes
 ```
 
@@ -510,21 +518,18 @@ event_sim <- function(event, dataset = all_elites){
 
 ```{r}
 
-Team_AA_sim_w <- function(){
+Team_AA_sim_w <- function(df = top_athletes){
 
   total_scores <- data.frame(clean_country = character(), sum_score = numeric())
-  #print(total_scores)
   
   
   
   for (app in apparatuses_w){
     
-    subset <- top_athletes[top_athletes$apparatus == app,] %>%
+    subset <- df[df$apparatus == app,] %>%
       select(-c(sum_score))
-    #print(subset)
     
     event_df <- event_sim(app, subset)
-    #print(event_df)
     
     total_scores <- rbind(total_scores, event_df)
   
@@ -534,16 +539,22 @@ Team_AA_sim_w <- function(){
     group_by(clean_country) %>%
     mutate(final_scores = sum(sum_score))%>%
     distinct(clean_country, final_scores)%>%
-    arrange(desc(final_scores))
+    arrange(desc(final_scores)) %>%
+    head(3)
   
-  return(country_scores)
+  medal_count <- c(3,2,1)
+  winners <- cbind(country_scores, Team_AA_medal = medal_count)
+  return(winners)
+  
 
 }
 
 ```
 
 ```{r}
-country_scores
+team_result <- Team_AA_sim_w(top_athletes)
+
+team_result
 ```
 
 ```{r}

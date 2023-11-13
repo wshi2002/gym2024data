@@ -174,65 +174,6 @@ median_of_kernel <- function(athlete, event) {
 ```
 
 
-```{r}
-# for a certain athlete return the average of their median scores across events
-# we are returning average instead of sum to account for specialization of athletes
-
-set.seed(21)
-
-women_events <- c("BB", "FX", "UB", "VT1", "VT2")
-finding_weights <- function(dataset = all_elites, events = women_events){
-  
-  all_elites_event <- dataset
-
-  # for each event, simulate athletes performances
-  for (event in women_events){
-    
-    # create a vector of the athletes performances in this event
-    all_medians = c()
-    for (athlete in all_elites_event$clean_name){
-      median <- median_of_kernel(athlete, event)
-      all_medians <- c(all_medians, median)
-    }
-    
-    # attaching to the original dataset the simulated performances
-    col_name <- paste("event_", event, sep= "")
-    all_elites_event[, col_name] <- all_medians
-  }
-  
-  # to not overcount the presence of vault, we aggregate the two vault scores into one
-  all_elites_event <- all_elites_event%>%
-    mutate(event_VT = (event_VT1+event_VT2)/2)%>%
-    select(-c("event_VT1", "event_VT2"))
-  
-  # summing up the median scores across the events
-  columns_to_exclude <- c("clean_name", "clean_country")
-  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
-  
-  # counting how many median scores are non zeros (how many events the athlete has scores in)
-  columns_to_exclude <- c("clean_name", "clean_country", "sum_score")
-  all_elites_event$non_zero_count <- rowSums(all_elites_event[,
-                                  !names(all_elites_event) %in% columns_to_exclude] != 0)
-  
-  # averaging the medians to create the weights but 
-  # dividing by (number of events +1) to bias towards all around gymnasts
-  all_elites_event$avg_medians <- all_elites_event$sum_score/(all_elites_event$non_zero_count+1)
-  return(all_elites_event)
-  
-}
-
-
-```
-
-```{r}
-# finding weights for all_elites
-weights_df <- finding_weights()
-hist(exp(weights_df$avg_medians))
-
-weights_df%>%
-  arrange(desc(avg_medians))
-```
-
 
 
 ```{r}
@@ -303,13 +244,6 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 
 
 
-```{r}
-# finding weights for all_elites
-#finding_weights()
-
-```
-
-
 
 ```{r}
 # Sanity checks
@@ -358,20 +292,111 @@ all_elites_c%>%
 ```
 
 
+
+
+
+```{r}
+# for a certain athlete return the average of their median scores across events
+# we are returning average instead of sum to account for specialization of athletes
+
+set.seed(21)
+
+women_events <- c("BB", "FX", "UB", "VT1", "VT2")
+finding_weights <- function(dataset = all_elites_c, events = women_events){
+  
+  all_elites_event <- dataset
+
+  # for each event, simulate athletes performances
+  for (event in women_events){
+    
+    # create a vector of the athletes performances in this event
+    all_medians = c()
+    for (athlete in all_elites_event$clean_name){
+      median <- median_of_kernel(athlete, event)
+      all_medians <- c(all_medians, median)
+    }
+    
+    # attaching to the original dataset the simulated performances
+    col_name <- paste("event_", event, sep= "")
+    all_elites_event[, col_name] <- all_medians
+  }
+  
+  # to not overcount the presence of vault, we aggregate the two vault scores into one
+  all_elites_event <- all_elites_event%>%
+    mutate(event_VT = (event_VT1+event_VT2)/2)%>%
+    select(-c("event_VT1", "event_VT2"))
+  
+  # summing up the median scores across the events
+  columns_to_exclude <- c("clean_name", "clean_country")
+  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
+  
+  # counting how many median scores are non zeros (how many events the athlete has scores in)
+  columns_to_exclude <- c("clean_name", "clean_country", "sum_score")
+  all_elites_event$non_zero_count <- rowSums(all_elites_event[,
+                                  !names(all_elites_event) %in% columns_to_exclude] != 0)
+  
+  # averaging the medians to create the weights but 
+  # dividing by (number of events +1) to bias towards all around gymnasts
+  all_elites_event$avg_medians <- all_elites_event$sum_score/(all_elites_event$non_zero_count+1)
+  return(all_elites_event)
+  
+}
+
+
+```
+
+
+
+
+
+
+
+```{r}
+# finding weights for all_elites_c
+weights_df <- finding_weights()
+hist(exp(weights_df$avg_medians))
+
+# Adjusting the weights to stretch them out 
+# (bigger difference in weights between top and mediocre athletes)
+weights_df <- weights_df%>%
+  mutate(adjusted_weights = exp(avg_medians))
+
+# look at the adjusted weights and sanity check that it makes sense for USA
+weights_df%>%
+  arrange(desc(adjusted_weights))%>%
+  filter(clean_country == "USA")
+```
+
+
 ```{r}
 # Randomly sampling five athletes per country for the teams
-
-get_teams <- function(data = all_elites_c){
-  all_elites_teams <- all_elites_c %>%
+# will take the data frame with weights assigned and spit out dataset with all 
+# athletes that are competing for a national team in one simulated olympics.
+get_teams <- function(data = weights_df){
+  all_elites_teams <- weights_df %>%
+    
+  # not including "country == other" because those countries are not good enough 
+  # to get a team at the olympics
   filter(clean_country != "Other") %>%
+    
+  # grouping by country to sample for each country
   group_by(clean_country) %>%
-  sample_n(5) %>%
+    
+  # weighting by the adjusted weights
+  slice(sample(row_number(), size = 5, prob = adjusted_weights)) %>%
   ungroup()
+  
+  # selecting for only necessary columns
+  all_elites_teams%>%
+    select(clean_name, clean_country)
+  
+  
   return(all_elites_teams)
 }
   
 teams <- get_teams()
-teams
+teams%>%
+  filter(clean_country == "USA")
 ```
 
 ```{r}
@@ -409,13 +434,18 @@ event_sim_team <- function(event, dataset = all_elites, country){
     slice(1:3)
   
   all_same <- all(winners$clean_country == winners$clean_country[1])
-  all_same <- TRUE
+  
   if (all_same){
     winners <- all_elites_event%>%
     arrange(desc(sum_score))%>%
     slice(1:2, 4)
   }
-  
+  all_same <- all(winners$clean_country == winners$clean_country[1])
+  if (all_same){
+    winners <- all_elites_event%>%
+    arrange(desc(sum_score))%>%
+    slice(1:2, 5)
+  }
   winners$apparatus <- rep(event, nrow(winners))
   return(winners)
   

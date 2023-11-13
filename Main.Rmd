@@ -398,9 +398,7 @@ The objective of this project is to select the 5 athletes for each of men’s an
 
 
 
-### EDA
-
-##for women
+### EDA - separated by type of visualization, not gender
 
 ```{r diff-quali-v-final-vis-women, fig.cap="\\label{fig:figs}Distribution of the Difficulty Score by Round and Apparatus for Women "}
 
@@ -444,28 +442,136 @@ ggplot(data = df_women_c, aes(y = Score, fill = competition_scope))+
   )
 ```
 
-showing that most penalties are near 0
+showing that most penalties are near 0:
+For both men's and women's competitions, the 95th percentile for the penalties is less than 0.5 (it is 0.5 for men and 0.4 for women). This means that 95% of penalties for both genders are not more than 0.5. The visualizations show that this does not change drastically based on the scope of the competition.
+Additionally, since the 51st percentile of penalties for both genders is 0.1, this means that the majority of entries had a penalty score of 0.1 or less.
 ```{r penalty-dist-women, \\fig.cap="\\label{fig:figs}Distribution of Penalties by competition scope for Women"}
 
-quantile(as.numeric(df_women_c$Penalty), 0.99, na.rm = TRUE)
+# for women
+#quantile(as.numeric(df_women_c$Penalty), 0.95, na.rm = TRUE)
+#quantile(as.numeric(df_women_c$Penalty), 0.51, na.rm = TRUE)
 
 ggplot(data = df_women_c, aes(x = Penalty)) +
   geom_histogram(bins = 30) +
-  facet_wrap(~ competition_scope)+
-  theme_light()+
+  facet_wrap(~ competition_scope) +
+  labs(title = "Penalty Distribution for Women Athletes",
+       x = "Penalty",
+       y = "Count") +
+  theme_light() +
   scale_color_aaas()
 
 ```
-Why we're using mean for bootstrapping
+
+```{r penalty-dist-men, \\fig.cap="\\label{fig:figs}Distribution of Penalties by competition scope for Men}
+
+# for men
+#quantile(as.numeric(df_men_c$Penalty), 0.95, na.rm = TRUE)
+#quantile(as.numeric(df_men_c$Penalty), 0.51, na.rm = TRUE)
+
+ggplot(data = df_men_c, aes(x = Penalty)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ competition_scope) +
+    labs(title = "Penalty Distribution for Men Athletes",
+       x = "Penalty",
+       y = "Count") +
+  theme_light() +
+  scale_color_aaas()
+
+```
+
+Why we're using mean for bootstrapping:
+The distribution of event scores for women and men are both approximately normally distributed, with the mean and median scores less than 0.5 apart within each gender. 
+The mean of women's scores is 12.207, and the median of women's scores is 12.367.
+The mean of men's scores is 13.048, and the median of men's scores is 13.233.
+
+```{r score-dist-women, \\fig.cap="\\label{fig:figs}Score Distribution for Women Athletes}
+ggplot(data = df_women_c, aes(x = Score)) +
+  geom_histogram() +
+  labs(title = "Score Distribution for Women Athletes",
+       x = "Score",
+       y = "Count") +
+  theme_light() +
+  scale_color_aaas()
+
+
+#mean(df_women_c$Score)
+#median(df_women_c$Score)
+
+```
+
+```{r score-dist-men, \\fig.cap="\\label{fig:figs}Score Distribution for Men Athletes}
+
+ggplot(data = df_men_c, aes(x = Score)) +
+  geom_histogram() +
+  labs(title = "Score Distribution for Men Athletes",
+       x = "Score",
+       y = "Count") +
+  theme_light() +
+  scale_color_aaas()
+
+#mean(df_men_c$Score)
+#median(df_men_c$Score)
+
+```
+
+
+Whether scores vary by type of round in competition:
+Doesn't seem to vary much; make the assumption that qualification scores are representative of an athlete's scores in the medal rounds
+
 ```{r}
 ggplot(data = df_women_c, aes(x = Score)) +
-  geom_histogram()
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Score Distribution for Women Athletes, by Round",
+       x = "Score",
+       y = "Count")
+
+ggplot(data = df_men_c, aes(x = Score)) +
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Score Distribution for Men Athletes, by Round",
+       x = "Score",
+       y = "Count")
 
 mean(df_women_c$Score)
 median(df_women_c$Score)
+
+mean(df_men_c$Score)
+median(df_men_c$Score)
 ```
 
-## For men
+Execution scores have a higher range than difficulty scores, for both men and women athletes (colored by round but doesn't seem to be much difference based on round):
+
+```{r men-execution-vs-difficulty}
+
+ggplot(data = df_men_c, aes(x = D_Score)) +
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Difficulty Score Distribution for Men Athletes",
+       x = "Score",
+       y = "Count")
+
+ggplot(data = df_men_c, aes(x = E_Score)) +
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Execution Score Distribution for Men Athletes",
+       x = "Score",
+       y = "Count")
+
+
+```
+
+```{r women-execution-vs-difficulty}
+ggplot(data = df_women_c, aes(x = D_Score)) +
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Difficulty Score Distribution for Women Athletes",
+       x = "Score",
+       y = "Count")
+
+ggplot(data = df_women_c, aes(x = E_Score)) +
+  geom_histogram(aes(fill = Round)) +
+  labs(title = "Execution Score Distribution for Women Athletes",
+       x = "Score",
+       y = "Count")
+```
+
+
 
 ```{r diff-quali-v-final-vis-men, fig.cap="\\label{fig:figs}Distribution of the Difficulty Score by Round and Apparatus for Men"}
 

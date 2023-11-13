@@ -326,5 +326,5 @@ ggplot(data = df_men_c, aes(x = Score)) +
        y = "Count")
 
 ```
-Do the above visualization later for only the "important" versus "non-important" countries once we find them out from the simulation
+Do the above visualization later for only the "important" versus "non-important" countries once we find them out from the simulation (this one isn't finalized yet)
 

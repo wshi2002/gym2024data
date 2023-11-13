@@ -77,7 +77,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 ```{r}
 
 # Number of simulations
-numSimulations <- 100  # You can adjust this as needed
+numSimulations <- 100
 
 # Create a list to store simulations
 simulations <- list()
@@ -162,14 +162,36 @@ print(simulations[[1]]@teamAllAround)
 ```
 
 ```{r}
-# Access the 'athletes' column and 'country' column from the first simulation in the list
-athletes_list <- simulations[[1]]@teamSummary$athletes
-countries <- simulations[[1]]@teamSummary$clean_country  # Replace 'country' with the actual column name
+summaryTeam <- simulations[[1]]@teamSummary
+USA_medals <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
 
-# Print each country along with its athletes
-for (i in seq_along(countries)) {
-  cat("Country:", countries[i], "\n")
-  print(unname(athletes_list[[i]]))
-  cat("\n")
+USA_medals  
+
+```
+
+```{r}
+max_medals <- -1
+max_sim_index <- -1
+
+for (i in seq_along(simulations)){
+  summaryTeam <- simulations[[i]]@teamSummary
+  USA_medals <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+  
+  if (USA_medals>max_medals){
+    max_medals <- USA_medals
+    max_sim_index <- i
+  }
 }
+```
+
+```{r}
+maxUSA_sim <- simulations[[max_sim_index]]@teamSummary
+```
+
+```{r}
+print(maxUSA_sim$athletes[maxUSA_sim$clean_country == "USA"])
+```
+
+```{r}
+print(max_medals)
 ```

@@ -61,12 +61,6 @@ all_elites_other <- all_elites_c %>%
     filter(clean_country == "Other") 
 ```
 
-
-
-
-
-
-
 ```{r}
 # Create a function to simulate a score for a given athlete and given event
 # based off of the athlete's previous scores on the event within the last two yrs. 
@@ -109,8 +103,6 @@ simulate_score_w <- function(athlete, event) {
   }
 }
 ```
-
-
 
 ```{r}
 # for a certain event (or individual AA / individual vault need to sum up events) 
@@ -169,13 +161,6 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 }
 ```
 
-
-
-
-
-
-
-
 ### Weighting stuff
 
 ```{r}
@@ -224,8 +209,6 @@ median_of_kernel <- function(athlete, event) {
 }
 
 ```
-
-
 
 ```{r}
 # for a certain athlete return the average of their median scores across events
@@ -277,8 +260,6 @@ finding_weights <- function(dataset = all_elites_c, events = women_events){
 
 ```
 
-
-
 ```{r}
 # finding weights for all_elites_c
 weights_df <- finding_weights()
@@ -294,11 +275,6 @@ weights_df%>%
   arrange(desc(adjusted_weights))%>%
   filter(clean_country == "USA")
 ```
-
-
-
-
-
 
 ```{r}
 # Randomly sampling (weighted random sample) five athletes per country for the teams
@@ -319,7 +295,7 @@ get_teams <- function(data = weights_df){
   ungroup()
   
   # selecting for only necessary columns
-  all_elites_team <- all_elites_teams%>%
+  all_elites_teams <- all_elites_teams%>%
     select(clean_name, clean_country)
   return(all_elites_teams)
 }
@@ -329,8 +305,6 @@ teams <- get_teams()
 teams%>%
   filter(clean_country == "USA")
 ```
-
-
 
 ```{r}
 # For a given event and set of athletes and country select the predicted winners 
@@ -369,13 +343,11 @@ event_sim_team <- function(event, dataset = all_elites, country){
 }
 ```
 
-
 ```{r}
 # sanity check 
 # these are the athletes that will be competing in balance beam for USA in the team all around
 event_sim_team("BB", country ="USA")
 ```
-
 
 ```{r}
 # Given a certain set of teams in the olympics
@@ -400,7 +372,6 @@ find3_country <- function(){
 
 find3_country()
 ```
-
 
 ```{r}
 #Returns the scores of the athletes per apparatus
@@ -493,7 +464,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 ```{r}
 
 # Number of simulations
-numSimulations <- 100
+numSimulations <- 1
 
 # Create a list to store simulations
 simulations <- list()

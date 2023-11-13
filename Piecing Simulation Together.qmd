@@ -141,6 +141,7 @@ for (i in 1:numSimulations) {
   columns_to_exclude <- c("athletes", "clean_country")
   summaryTeam$total_medals <- rowSums(summaryTeam[, !names(summaryTeam) %in% columns_to_exclude])
   
+  #saving it all down finally
   simulation <- GymnasticSimulation()
 
   simulation@teamSummary <- summaryTeam

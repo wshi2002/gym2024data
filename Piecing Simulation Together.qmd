@@ -196,3 +196,7 @@ print(maxUSA_sim$athletes[maxUSA_sim$clean_country == "USA"])
 ```{r}
 print(max_medals)
 ```
+
+```{r}
+saveRDS(simulations, file = "simulations.rds")
+```

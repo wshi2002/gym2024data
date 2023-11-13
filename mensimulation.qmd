@@ -1,5 +1,5 @@
 ---
-title: "Aimi stuff"
+title: "men simulation"
 format: pdf
 editor: visual
 ---
@@ -515,6 +515,9 @@ for (i in 1:numSimulations) {
 
 ```{r}
 table_summary <- simulations_m[[1]]@teamSummary
-print(simulations_m[[1]]@teamAllAround)
+```
+
+```{r}
+table_summary
 ```
 

@@ -430,7 +430,7 @@ for (i in 1:numSimulations) {
 
 ```{r}
 table_summary <- simulations[[1]]@teamSummary
-print(simulations[[1]]@teamAllAround)
+table_summary
 ```
 
 ```{r}

@@ -467,6 +467,16 @@ for (i in 1:numSimulations) {
     summarize(PH_medal = sum(medal_count)) 
   summaryTeam <- left_join(summaryTeam, PH_grouped, by = "clean_country")
   
+  PB_grouped <- PB_result %>%
+    group_by(clean_country) %>%
+    summarize(PB_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, PB_grouped, by = "clean_country")
+  
+  HB_grouped <- HB_result %>%
+    group_by(clean_country) %>%
+    summarize(HB_medal = sum(medal_count)) 
+  summaryTeam <- left_join(summaryTeam, HB_grouped, by = "clean_country")
+  
   
   #dataframe_end <- Sys.time()
   #dataframe_duration <- simulation_end - dataframe_end
@@ -487,10 +497,12 @@ for (i in 1:numSimulations) {
   simulation@teamSummary <- summaryTeam
   simulation@teamAllAround <- team_result
   simulation@indivAllAround <- indivAA_result
-  simulation@BB <- BB_result
+  simulation@PB <- PB_result
   simulation@VT<- VT_result
   simulation@FX<- FX_result
-  simulation@UB<- UB_result
+  simulation@HB<- HB_result
+  simulation@SR<- SR_result
+  simulation@PH<- PH_result
   simulations_m[[i]] <- simulation
   
   #record_end <- Sys.time()
@@ -500,3 +512,9 @@ for (i in 1:numSimulations) {
 
 
 ```
+
+```{r}
+table_summary <- simulations_m[[1]]@teamSummary
+print(simulations_m[[1]]@teamAllAround)
+```
+

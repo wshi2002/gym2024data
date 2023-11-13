@@ -321,7 +321,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 ```{r}
 
 # Number of simulations
-numSimulations <- 1
+numSimulations <- 100
 
 # Create a list to store simulations
 simulations <- list()

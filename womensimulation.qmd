@@ -572,6 +572,10 @@ for (i in 1:numSimulations) {
 ```
 
 ```{r}
+saveRDS(simulations, file = "simulations.rds")
+```
+
+```{r}
 table_summary <- simulations[[1]]@teamSummary
 table_summary %>%
   arrange(desc(total_medals))
@@ -610,10 +614,6 @@ print(maxUSA_sim$athletes[maxUSA_sim$clean_country == "USA"])
 
 ```{r}
 print(max_medals)
-```
-
-```{r}
-saveRDS(simulations, file = "simulations.rds")
 ```
 
 ```{r}

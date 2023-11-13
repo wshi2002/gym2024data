@@ -42,7 +42,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-
 ```{r}
 
 # create a group of elite athletes who have done well in major competitions within the last two years.
@@ -72,14 +71,12 @@ all_elites <- full_join(world_elites, other_elites, by = c("clean_name", "clean_
 
 ```
 
-
 ```{r}
 # set of qualifying countries (already published on olympics website)
 women_country = c("USA", "GBR", "CAN", "CHN", "BRA", "ITA", "NED", "FRA", "JPN", "AUS", "ROU", "KOR")
 
 
 ```
-
 
 ```{r}
 # if the athlete is not in one of the countries that already qualified, they are
@@ -92,8 +89,6 @@ all_elites_c$clean_country <- ifelse(all_elites_c$clean_country %in% women_count
                                      all_elites_c$clean_country, 
                                      "Other")
 ```
-
-
 
 ```{r}
 # Create a function to simulate a score for a given athlete and given event
@@ -137,7 +132,6 @@ simulate_score_w <- function(athlete, event) {
   }
 }
 ```
-
 
 ```{r}
 # for a certain event (or individual AA / individual vault need to sum up events) 
@@ -202,8 +196,6 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 }
 ```
 
-
-
 ```{r}
 get_teams <- function(data = all_elites_c){
   all_elites_teams <- all_elites_c %>%
@@ -214,7 +206,6 @@ get_teams <- function(data = all_elites_c){
   return(all_elites_teams)
 }
 ```
-
 
 ```{r}
 # For a given event and set of athletes and country select the predicted winners 
@@ -285,10 +276,9 @@ event_sim <- function(event, dataset = all_elites){
 }
 ```
 
-
 ```{r}
 Team_AA_sim_w <- function(df = top_athletes){
-
+  apparatuses_w = c("BB", "FX", "UB", "VT")
   total_scores <- data.frame(clean_country = character(), sum_score = numeric())
   
   
@@ -318,7 +308,6 @@ Team_AA_sim_w <- function(df = top_athletes){
 
 }
 ```
-
 
 ```{r}
 setClass(
@@ -361,7 +350,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 ```{r}
 
 # Number of simulations
-numSimulations <- 100
+numSimulations <- 1
 
 # Create a list to store simulations
 simulations <- list()
@@ -371,18 +360,34 @@ for (i in 1:numSimulations) {
   #set up the different groups
   all_elites_other <- all_elites_c %>%
     filter(clean_country == "Other") 
-  all_indiv <- rbind(teams, all_elites_other)
   teams <- get_teams()
+  all_indiv <- rbind(teams, all_elites_other)
+  
   
   #start simulating all events
+  simulation_start <- Sys.time()
+  
   top_athletes <- find3_country()
+  
+  team_checkpoint <- Sys.time()
+  
   team_result <- Team_AA_sim_w(top_athletes)
+  
+  check_point <- Sys.time()
+  
   indivAA_result <- event_sim_indiv(c("BB", "VT", "FX", "UB"), all_indiv)
   BB_result <- event_sim_indiv(c("BB"), all_indiv)
   VT_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
   FX_result <- event_sim_indiv(c("FX"), all_indiv)
   UB_result <- event_sim_indiv(c("UB"), all_indiv)
   
+  #simulation_end <- Sys.time()
+  #team_duration <- team_checkpoint - simulation_start
+  #individual_duration <- simulation_end - check_point
+  #simulation_duration <- simulation_end - simulation_start
+  #cat("team duration", team_duration, "\n")
+  #cat("individual duration", individual_duration, "\n")
+  #cat("simulation duration", simulation_duration, "\n")
   
   #creating dataframes
   unique_countries <- unique(all_indiv$clean_country)
@@ -420,10 +425,19 @@ for (i in 1:numSimulations) {
     summarize(UB_medal = sum(medal_count)) 
   summaryTeam <- left_join(summaryTeam, UB_grouped, by = "clean_country")
   
+  
+  #dataframe_end <- Sys.time()
+  #dataframe_duration <- simulation_end - dataframe_end
+  #cat("dataframe duration", dataframe_duration, "\n")
+  
   #find the final number of medals
   summaryTeam[is.na(summaryTeam)] <- 0
   columns_to_exclude <- c("athletes", "clean_country")
   summaryTeam$total_medals <- rowSums(summaryTeam[, !names(summaryTeam) %in% columns_to_exclude])
+  
+  #calculation_end <- Sys.time()
+  #calculation_duration <- dataframe_end - calculation_end
+  #cat("calculation duration", calculation_duration, "\n")
   
   #saving it all down finally
   simulation <- GymnasticSimulation()
@@ -436,6 +450,10 @@ for (i in 1:numSimulations) {
   simulation@FX<- FX_result
   simulation@UB<- UB_result
   simulations[[i]] <- simulation
+  
+  #record_end <- Sys.time()
+  #record_duration <- calculation_end - record_end
+  #cat("record duration", record_duration, "\n")
 }
 
 

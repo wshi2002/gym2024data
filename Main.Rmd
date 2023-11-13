@@ -8,16 +8,11 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
+```{r}
 # load in libraries
 package_list <- c("tidyverse", "vroom", "stringr", "dplyr", "ggsci")
 
@@ -386,6 +381,23 @@ df_men_c <- df_men_c %>%
 
 ```
 
+
+## Introduction (WORK IN PROGRESS - Nidhi)
+
+### Background Information
+
+The Olympic Games are an international multi-sport event held every four years, and are largely considered to be the most prestigious sporting competition in the world. These Games are therefore a popular spectator event across the world, with an average viewership of more than 15 million people in past years [1].
+The 2024 Olympic Games will be held in Paris, France, and will include both a Men’s and Women’s Artistic Gymnastics event. Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. The USA is known for its men and women gymnastics teams, which have consistently earned medals in past Olympic games. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women that will represent our country as Team USA.
+
+The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men’s opportunities for medals are: 1) team all-around, 2) individual all-around, 3) floor exercise, 4) pommel horse, 5) still rings, 6) vault, 7) parallel bars, and 8) high bar. Women’s opportunities for medals are: 1) team all-around, 2) individual all-around, 3) vault, 4) uneven bars, 5) balance beam, and 6) floor exercise. The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
+
+The objective of this project is to select the 5 athletes for each of men’s and women’s events that will optimize performance for Team USA across the 8 medal events for men and the 6 medal events for women.
+
+
+### Data Description
+
+
+
 ### EDA
 
 ##for women
@@ -502,3 +514,9 @@ ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
     fill = "Competition Scope"
   )
 ```
+
+
+
+
+### Citations
+[1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html

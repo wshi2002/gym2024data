@@ -463,8 +463,9 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 
 ```{r}
 
+set.seed(5)
 # Number of simulations
-numSimulations <- 1
+numSimulations <- 5000
 
 # Create a list to store simulations
 simulations <- list()
@@ -572,6 +573,7 @@ for (i in 1:numSimulations) {
 ```
 
 ```{r}
+#CHANGE FILE NAME WHEN RUNNING EACH TIME
 saveRDS(simulations, file = "simulations.rds")
 ```
 

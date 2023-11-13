@@ -573,7 +573,8 @@ for (i in 1:numSimulations) {
 
 ```{r}
 table_summary <- simulations[[1]]@teamSummary
-table_summary
+table_summary %>%
+  arrange(desc(total_medals))
 ```
 
 ```{r}

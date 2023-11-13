@@ -4,38 +4,6 @@ format: pdf
 editor: visual
 ---
 
-```{r}
-#create dataframe with the list of athletes and their countries
-unique_countries <- unique(all_indiv$clean_country)
-
-summaryTeam <- tibble(clean_country = unique_countries)
-
-summaryTeam <- summaryTeam %>%
-  mutate(
-    athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
-  )
-```
-
-```{r}
-team_medal <- team_result %>%
-  select(-c("final_scores"))
-summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
-
-```
-
-```{r}
-vault_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
-
-vault_grouped <- vault_result %>%
-  group_by(clean_country) %>%
-  summarize(vault_medal = sum(medal_count)) 
-  
-
-summaryTeam <- left_join(summaryTeam, vault_grouped, by = "clean_country")
-
-summaryTeam[is.na(summaryTeam)] <- 0
-```
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -88,6 +56,9 @@ all_elites_c <- all_elites
 all_elites_c$clean_country <- ifelse(all_elites_c$clean_country %in% women_country, 
                                      all_elites_c$clean_country, 
                                      "Other")
+
+all_elites_other <- all_elites_c %>%
+    filter(clean_country == "Other") 
 ```
 
 ```{r}
@@ -358,22 +329,20 @@ simulations <- list()
 # Run the loop to initialize simulations
 for (i in 1:numSimulations) {
   #set up the different groups
-  all_elites_other <- all_elites_c %>%
-    filter(clean_country == "Other") 
   teams <- get_teams()
   all_indiv <- rbind(teams, all_elites_other)
   
   
   #start simulating all events
-  simulation_start <- Sys.time()
+  #simulation_start <- Sys.time()
   
   top_athletes <- find3_country()
   
-  team_checkpoint <- Sys.time()
+  #team_checkpoint <- Sys.time()
   
   team_result <- Team_AA_sim_w(top_athletes)
   
-  check_point <- Sys.time()
+  #check_point <- Sys.time()
   
   indivAA_result <- event_sim_indiv(c("BB", "VT", "FX", "UB"), all_indiv)
   BB_result <- event_sim_indiv(c("BB"), all_indiv)

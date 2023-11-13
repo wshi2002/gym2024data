@@ -200,3 +200,7 @@ print(max_medals)
 ```{r}
 saveRDS(simulations, file = "simulations.rds")
 ```
+
+```{r}
+loaded_simulations <- readRDS("simulations.rds")
+```

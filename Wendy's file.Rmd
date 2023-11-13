@@ -369,7 +369,7 @@ weights_df%>%
 
 
 ```{r}
-# Randomly sampling five athletes per country for the teams
+# Randomly sampling (weighted random sample) five athletes per country for the teams
 # will take the data frame with weights assigned and spit out dataset with all 
 # athletes that are competing for a national team in one simulated olympics.
 get_teams <- function(data = weights_df){

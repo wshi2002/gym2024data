@@ -616,8 +616,6 @@ print(maxUSA_sim$athletes[maxUSA_sim$clean_country == "USA"])
 print(max_medals)
 ```
 
-
-
 ```{r}
 loaded_simulations <- readRDS("simulations.rds")
 ```

@@ -4,38 +4,6 @@ format: pdf
 editor: visual
 ---
 
-```{r}
-#create dataframe with the list of athletes and their countries
-unique_countries <- unique(all_indiv$clean_country)
-
-summaryTeam <- tibble(clean_country = unique_countries)
-
-summaryTeam <- summaryTeam %>%
-  mutate(
-    athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
-  )
-```
-
-```{r}
-team_medal <- team_result %>%
-  select(-c("final_scores"))
-summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
-
-```
-
-```{r}
-vault_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
-
-vault_grouped <- vault_result %>%
-  group_by(clean_country) %>%
-  summarize(vault_medal = sum(medal_count)) 
-  
-
-summaryTeam <- left_join(summaryTeam, vault_grouped, by = "clean_country")
-
-summaryTeam[is.na(summaryTeam)] <- 0
-```
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -88,6 +56,9 @@ all_elites_c <- all_elites
 all_elites_c$clean_country <- ifelse(all_elites_c$clean_country %in% women_country, 
                                      all_elites_c$clean_country, 
                                      "Other")
+
+all_elites_other <- all_elites_c %>%
+    filter(clean_country == "Other") 
 ```
 
 ```{r}
@@ -148,12 +119,6 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
   
   all_elites_event <- dataset
   
-  # if country filter
-  # if (is.na(country) == FALSE){
-  #   all_elites_event <- all_elites_event %>%
-  #     filter(clean_country == country)
-  # }
-  
   # for each event, simulate athletes performances
   for (event in event_set){
     
@@ -196,15 +161,149 @@ event_sim_indiv <- function(event_set, dataset = all_elites, country = NA){
 }
 ```
 
+### Weighting stuff
+
 ```{r}
-get_teams <- function(data = all_elites_c){
-  all_elites_teams <- all_elites_c %>%
+# Create a function to find the median score of the kernel pdf created for a 
+# given athlete and given event
+
+
+median_of_kernel <- function(athlete, event) {
+  
+  # filter to get all past data of athlete on this event
+  athlete_data <- df_women_c%>%
+    filter(clean_name == athlete, Apparatus == event)
+  
+  # if the athlete has no past data, the median score is 0
+  if(nrow(athlete_data)==0){
+    median_score = 0
+    return(median_score)
+    
+  # if athlete only has one datapoint to reference, that is used as median
+  }else if (nrow(athlete_data)==1){
+    median_score <- athlete_data$Score
+    return(median_score)  
+  }else if (all(athlete_data$Score == athlete_data$Score[1])){
+    median_score <- athlete_data$Score[1] 
+    return(median_score)  
+      
+  # else get string of scores and create a kernel density estimate of pdf
+  } else{
+    scores <- athlete_data$Score
+    
+    # density function takes on default of gaussian kernel and default bandwidth
+    density_estimate = density(scores)
+    
+    # we want to get the median of the pdf
+    # first create the cdf
+    cdf <- cumsum(density_estimate$y) * diff(density_estimate$x[1:2])
+
+    # Find the index where the CDF is closest to 0.5
+    median_index <- which.min(abs(cumsum(cdf) - 0.5))
+    
+    # Extract the median value from the x-values
+    median_score <- density_estimate$x[median_index]
+
+    return(median_score)
+  }
+}
+
+```
+
+```{r}
+# for a certain athlete return the average of their median scores across events
+# we are returning average instead of sum to account for specialization of athletes
+
+set.seed(21)
+
+women_events <- c("BB", "FX", "UB", "VT1", "VT2")
+finding_weights <- function(dataset = all_elites_c, events = women_events){
+  
+  all_elites_event <- dataset
+
+  # for each event, simulate athletes performances
+  for (event in women_events){
+    
+    # create a vector of the athletes performances in this event
+    all_medians = c()
+    for (athlete in all_elites_event$clean_name){
+      median <- median_of_kernel(athlete, event)
+      all_medians <- c(all_medians, median)
+    }
+    
+    # attaching to the original dataset the simulated performances
+    col_name <- paste("event_", event, sep= "")
+    all_elites_event[, col_name] <- all_medians
+  }
+  
+  # to not overcount the presence of vault, we aggregate the two vault scores into one
+  all_elites_event <- all_elites_event%>%
+    mutate(event_VT = (event_VT1+event_VT2)/2)%>%
+    select(-c("event_VT1", "event_VT2"))
+  
+  # summing up the median scores across the events
+  columns_to_exclude <- c("clean_name", "clean_country")
+  all_elites_event$sum_score <- rowSums(all_elites_event[, !names(all_elites_event) %in% columns_to_exclude])
+  
+  # counting how many median scores are non zeros (how many events the athlete has scores in)
+  columns_to_exclude <- c("clean_name", "clean_country", "sum_score")
+  all_elites_event$non_zero_count <- rowSums(all_elites_event[,
+                                  !names(all_elites_event) %in% columns_to_exclude] != 0)
+  
+  # averaging the medians to create the weights but 
+  # dividing by (number of events +1) to bias towards all around gymnasts
+  all_elites_event$avg_medians <- all_elites_event$sum_score/(all_elites_event$non_zero_count+1)
+  return(all_elites_event)
+  
+}
+
+
+```
+
+```{r}
+# finding weights for all_elites_c
+weights_df <- finding_weights()
+hist(exp(weights_df$avg_medians))
+
+# Adjusting the weights to stretch them out 
+# (bigger difference in weights between top and mediocre athletes)
+weights_df <- weights_df%>%
+  mutate(adjusted_weights = exp(avg_medians))
+
+# look at the adjusted weights and sanity check that it makes sense for USA
+weights_df%>%
+  arrange(desc(adjusted_weights))%>%
+  filter(clean_country == "USA")
+```
+
+```{r}
+# Randomly sampling (weighted random sample) five athletes per country for the teams
+# will take the data frame with weights assigned and spit out dataset with all 
+# athletes that are competing for a national team in one simulated olympics.
+get_teams <- function(data = weights_df){
+  all_elites_teams <- weights_df %>%
+    
+  # not including "country == other" because those countries are not good enough 
+  # to get a team at the olympics
   filter(clean_country != "Other") %>%
+    
+  # grouping by country to sample for each country
   group_by(clean_country) %>%
-  sample_n(5) %>%
+    
+  # weighting by the adjusted weights
+  slice(sample(row_number(), size = 5, prob = adjusted_weights)) %>%
   ungroup()
+  
+  # selecting for only necessary columns
+  all_elites_teams <- all_elites_teams%>%
+    select(clean_name, clean_country)
   return(all_elites_teams)
 }
+
+# sanity check
+teams <- get_teams()
+teams%>%
+  filter(clean_country == "USA")
 ```
 
 ```{r}
@@ -245,6 +344,15 @@ event_sim_team <- function(event, dataset = all_elites, country){
 ```
 
 ```{r}
+# sanity check 
+# these are the athletes that will be competing in balance beam for USA in the team all around
+event_sim_team("BB", country ="USA")
+```
+
+```{r}
+# Given a certain set of teams in the olympics
+# return all the athletes who will be competing for the team all around (specifying which event they are competing in as well)
+
 find3_country <- function(){
   apparatuses_w = c("BB", "FX", "UB", "VT")
   top_athletes <- data.frame(clean_country = character(),apparatus = character(), clean_name = character(), sum_score = numeric())
@@ -257,6 +365,12 @@ find3_country <- function(){
   }
   return(top_athletes)
 }
+```
+
+```{r}
+# sanity check of results from a certain team
+
+find3_country()
 ```
 
 ```{r}
@@ -349,8 +463,9 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 
 ```{r}
 
+set.seed(5)
 # Number of simulations
-numSimulations <- 1
+numSimulations <- 5000
 
 # Create a list to store simulations
 simulations <- list()
@@ -358,22 +473,20 @@ simulations <- list()
 # Run the loop to initialize simulations
 for (i in 1:numSimulations) {
   #set up the different groups
-  all_elites_other <- all_elites_c %>%
-    filter(clean_country == "Other") 
   teams <- get_teams()
   all_indiv <- rbind(teams, all_elites_other)
   
   
   #start simulating all events
-  simulation_start <- Sys.time()
+  #simulation_start <- Sys.time()
   
   top_athletes <- find3_country()
   
-  team_checkpoint <- Sys.time()
+  #team_checkpoint <- Sys.time()
   
   team_result <- Team_AA_sim_w(top_athletes)
   
-  check_point <- Sys.time()
+  #check_point <- Sys.time()
   
   indivAA_result <- event_sim_indiv(c("BB", "VT", "FX", "UB"), all_indiv)
   BB_result <- event_sim_indiv(c("BB"), all_indiv)
@@ -460,8 +573,14 @@ for (i in 1:numSimulations) {
 ```
 
 ```{r}
+#CHANGE FILE NAME WHEN RUNNING EACH TIME
+saveRDS(simulations, file = "simulations.rds")
+```
+
+```{r}
 table_summary <- simulations[[1]]@teamSummary
-print(simulations[[1]]@teamAllAround)
+table_summary %>%
+  arrange(desc(total_medals))
 ```
 
 ```{r}
@@ -497,10 +616,6 @@ print(maxUSA_sim$athletes[maxUSA_sim$clean_country == "USA"])
 
 ```{r}
 print(max_medals)
-```
-
-```{r}
-saveRDS(simulations, file = "simulations.rds")
 ```
 
 ```{r}

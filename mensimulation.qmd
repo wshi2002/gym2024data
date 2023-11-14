@@ -211,11 +211,6 @@ event_sim_indiv_m <- function(event_set, dataset = all_elites_m, country = NA){
 }
 ```
 
-
-
-
-
-
 ### Weighting stuff
 
 ```{r}
@@ -335,8 +330,8 @@ weights_df_m%>%
 # Randomly sampling (weighted random sample) five athletes per country for the teams
 # will take the data frame with weights assigned and spit out dataset with all 
 # athletes that are competing for a national team in one simulated olympics.
-get_teams <- function(data = weights_df){
-  all_elites_teams <- weights_df %>%
+get_teams <- function(data = weights_df_m){
+  all_elites_teams <- weights_df_m %>%
     
   # not including "country == other" because those countries are not good enough 
   # to get a team at the olympics
@@ -360,12 +355,6 @@ teams <- get_teams()
 teams%>%
   filter(clean_country == "USA")
 ```
-
-
-
-
-
-
 
 ```{r}
 # Randomly sampling five athletes per country for the teams
@@ -421,7 +410,7 @@ event_sim_team_m <- function(event, dataset = all_elites, country){
 }
 
 # sanity check
-event_sim_team("PH", teams, "USA")
+#event_sim_team("PH", teams, "USA")
 ```
 
 ```{r}
@@ -434,7 +423,7 @@ find3_country <- function(){
   top_athletes <- data.frame(clean_country = character(),apparatus = character(), clean_name = character(), sum_score = numeric())
   for (country in men_country) {
       for (apparatus in apparatuses_m){
-        top3 <- event_sim_team(apparatus, teams, country)
+        top3 <- event_sim_team_m(apparatus, teams, country)
         top_athletes <- rbind(top_athletes, top3)
       }
      
@@ -564,13 +553,13 @@ for (i in 1:numSimulations) {
   
   #check_point <- Sys.time()
   
-  indivAA_result <- event_sim_indiv(c("VT", "SR", "PH", "PB", "HB", "FX"), all_indiv)
-  SR_result <- event_sim_indiv(c("SR"), all_indiv)
-  VT_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
-  PH_result <- event_sim_indiv(c("PH"), all_indiv)
-  PB_result <- event_sim_indiv(c("PB"), all_indiv)
-  HB_result <- event_sim_indiv(c("HB"), all_indiv)
-  FX_result <- event_sim_indiv(c("FX"), all_indiv)
+  indivAA_result <- event_sim_indiv_m(c("VT", "SR", "PH", "PB", "HB", "FX"), all_indiv)
+  SR_result <- event_sim_indiv_m(c("SR"), all_indiv)
+  VT_result <- event_sim_indiv_m(c("VT1", "VT2"), all_indiv)
+  PH_result <- event_sim_indiv_m(c("PH"), all_indiv)
+  PB_result <- event_sim_indiv_m(c("PB"), all_indiv)
+  HB_result <- event_sim_indiv_m(c("HB"), all_indiv)
+  FX_result <- event_sim_indiv_m(c("FX"), all_indiv)
   
   #simulation_end <- Sys.time()
   #team_duration <- team_checkpoint - simulation_start
@@ -664,9 +653,8 @@ for (i in 1:numSimulations) {
 
 ```{r}
 #CHANGE FILE NAME WHEN RUNNING EACH TIME
-saveRDS(simulations_m, file = "simulations_m.rds")
+saveRDS(simulations_m, file = "simulations_m_katie.rds")
 ```
-
 
 ```{r}
 table_summary <- simulations_m[[1]]@teamSummary

@@ -653,7 +653,7 @@ for (i in 1:numSimulations) {
 
 ```{r}
 #CHANGE FILE NAME WHEN RUNNING EACH TIME
-saveRDS(simulations_m, file = "simulations_m_nidhi.rds")
+saveRDS(simulations_m, file = "simulations_m_katie.rds")
 ```
 
 ```{r}

@@ -530,7 +530,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 
 set.seed(5)
 # Number of simulations
-numSimulations <- 5000
+numSimulations <- 1000
 
 # Create a list to store simulations
 simulations_m <- list()
@@ -642,6 +642,8 @@ for (i in 1:numSimulations) {
   simulation@SR<- SR_result
   simulation@PH<- PH_result
   simulations_m[[i]] <- simulation
+  
+  print(i)
   
   #record_end <- Sys.time()
   #record_duration <- calculation_end - record_end

@@ -570,13 +570,17 @@ ggplot(data = df_women_c, aes(x = D_Score)) +
   geom_histogram(aes(fill = Round)) +
   labs(title = "Difficulty Score Distribution for Women Athletes",
        x = "Score",
-       y = "Count")
+       y = "Count")+
+  theme_light()+
+  scale_fill_aaas()
 
 ggplot(data = df_women_c, aes(x = E_Score)) +
   geom_histogram(aes(fill = Round)) +
   labs(title = "Execution Score Distribution for Women Athletes",
        x = "Score",
-       y = "Count")
+       y = "Count")+
+  theme_light()+
+  scale_fill_aaas()
 ```
 
 

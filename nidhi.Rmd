@@ -385,5 +385,15 @@ first_medals$athletes[first_medals$clean_country == "USA"]
 second_medals <- men_sims[[1160]]@teamSummary
 second_medals$athletes[second_medals$clean_country == "USA"]
 ```
+```{r}
+top_medalists <- data.frame(
+  "Top US Performance" = c("Brody Malone", "Javier Alfonso", "Curran Phillips", "Frederick Richard", "Joshua Karnes"),
+  "Second Top US Performance" = c("Blake Sun", "Brody Malone", "Frederick Richard", "Shane Wiskus", "Paul Juda")
+)
+
+kable(top_medalists, format = "latex", booktabs = TRUE, caption = "Sample Table")
+
+
+```
 
 

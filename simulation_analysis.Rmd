@@ -1,0 +1,75 @@
+---
+title: "simulation_analysis"
+output: pdf_document
+date: "2023-11-01"
+---
+
+```{r}
+library(knitr)
+```
+
+```{r}
+
+women_sims <- readRDS("~/gym2024data/simulations_Aimi.rds")
+men_sims <- readRDS("~/gym2024data/simulations_m_katie.rds")
+
+```
+
+```{r}
+
+men_sims_for_second = men_sims[-1]
+
+max_medals = -1
+max_sim_index = -1
+
+for (i in seq_along(men_sims_for_second)){
+  summaryTeam <- men_sims_for_second[[i]]@teamSummary
+  USA_medals <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+  
+  if (USA_medals>max_medals){
+    max_medals <- USA_medals
+    max_sim_index <- i
+  }
+}
+
+second_USA_sim <- men_sims_for_second[[max_sim_index]]@teamSummary
+print(second_USA_sim$athletes[second_USA_sim$clean_country == "USA"])
+
+```
+```{r}
+
+USA_medals <- vector("list", length = 5000)
+
+for (i in seq_along(USA_medals)) {
+  summaryTeam <- men_sims[[i]]@teamSummary
+  USA_medals[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+USA_medals = unlist(USA_medals)
+
+top_indices <- order(USA_medals, decreasing = TRUE)[1:10]
+top_indices
+
+```
+
+```{r}
+
+first_medals <- men_sims[[779]]@teamSummary
+first_medals$athletes[first_medals$clean_country == "USA"]
+
+```
+```{r}
+second_medals <- men_sims[[1160]]@teamSummary
+second_medals$athletes[second_medals$clean_country == "USA"]
+```
+```{r}
+top_medalists <- data.frame(
+  "Top US Performance" = c("Brody Malone", "Javier Alfonso", "Curran Phillips", "Frederick Richard", "Joshua Karnes"),
+  "Second Top US Performance" = c("Blake Sun", "Brody Malone", "Frederick Richard", "Shane Wiskus", "Paul Juda")
+)
+
+kable(top_medalists, format = "latex")
+
+
+```
+

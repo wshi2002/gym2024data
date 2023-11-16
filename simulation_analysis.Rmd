@@ -13,6 +13,10 @@ library(knitr)
 women_sims <- readRDS("~/gym2024data/simulations_Aimi.rds")
 men_sims <- readRDS("~/gym2024data/simulations_m_katie.rds")
 
+women_sims2 <- readRDS("~/gym2024data/simulations_seed7.rds")
+
+women_sims3 <- readRDS("~/gym2024data/simulations_Aimi_seed5.rds")
+
 ```
 
 ```{r}
@@ -38,76 +42,63 @@ print(second_USA_sim$athletes[second_USA_sim$clean_country == "USA"])
 ```
 
 ```{r}
+# top US simulations for men
 
-USA_medals <- vector("list", length = 5000)
+USA_medals_m <- vector("list", length = 5000)
 
-for (i in seq_along(USA_medals)) {
+for (i in seq_along(USA_medals_m)) {
   summaryTeam <- men_sims[[i]]@teamSummary
-  USA_medals[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+  USA_medals_m[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
 }
 
-USA_medals = unlist(USA_medals)
+USA_medals_m = unlist(USA_medals_m)
 
-top_indices <- order(USA_medals, decreasing = TRUE)[1:10]
+top_indices <- order(USA_medals_m, decreasing = TRUE)[1:10]
 top_indices
 
 ```
 
 ```{r}
 
-first_medals <- men_sims[[779]]@teamSummary
-first_team_usa <- first_medals$athletes[first_medals$clean_country == "USA"]
-first_medals
+first_medals_m <- men_sims[[779]]@teamSummary
+first_team_usa_m <- first_medals_m$athletes[first_medals_m$clean_country == "USA"]
+first_medals_m
 ```
 
 ```{r}
-second_medals <- men_sims[[1160]]@teamSummary
-second_medals$athletes[second_medals$clean_country == "USA"]
+
+# top US simulations for women
+
+USA_medals_w <- vector("list", length = 5000)
+
+for (i in seq_along(USA_medals_w)) {
+  summaryTeam <- women_sims[[i]]@teamSummary
+  USA_medals_w[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+USA_medals_w = unlist(USA_medals_w)
+
+top_indices <- order(USA_medals_w, decreasing = TRUE)[1:10]
+top_indices
+
 ```
 
 ```{r}
-top_medalists <- data.frame(
-  "Top US Performance" = c("Brody Malone", "Javier Alfonso", "Curran Phillips", "Frederick Richard", "Joshua Karnes"),
-  "Second Top US Performance" = c("Blake Sun", "Brody Malone", "Frederick Richard", "Shane Wiskus", "Paul Juda")
-)
 
-#kable(top_medalists, format = "latex")
-
-
+first_medals_w <- women_sims[[3864]]@teamSummary
+first_team_usa_w <- first_medals_w$athletes[first_medals_w$clean_country == "USA"]
+first_medals_w
 ```
 
-```{=latex}
-\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
-  \hline
-  \multicolumn{8}{|c|}{\textbf{Best Simulated Outcome for Team USA}} \\
-  \hline
-  Team All-Around & Individual All-Around & Vault & Still Rings & Pommel Horse & Parallel Bars & High Bar & Floor Exercise \\
-  \hline
-  USA & USA (Brody Malone) & Armenia (Artur Davtyan) & USA (Javier Alfonso) & Chinese Taipei (Chih Lee) & China (Jingyuan Zou) & USA (Frederick Richard) & USA (Brody Malone) \\
-  China & China (Boheng Zhang) & Philippines (Carlos Yulo) & USA (Brody Malone) & Kazakhstan (Nariman Kurbanov) & USA (Curran Phillips) & Kazakhstan (Ilyas Azizov) & Israel (Artem Dolgopyat)  \\
-  Switzerland & China (Wei Sun) & Great Britain (Luke Whitehouse) & Italy (Salvatore Maresca) & Uzbekistan (Abdulla Azimov) & Switzerland (Noe Seifert) & USA (Brody Malone) & India (Satyajit Mondal) \\
-  \hline
-\end{tabular}
-```
-```{=latex}
 
-\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{First Row}} & \multicolumn{3}{c|}{\textbf{Second Row}} \\
-  \hline
-  Col 1 & Col 2 & Col 3 & Col 4 & Col 5 & Col 6 \\
-  \hline
-  R1C1 & R1C2 & R1C3 & R2C1 & R2C2 & R2C3 \\
-  R1C4 & R1C5 & R1C6 & R2C4 & R2C5 & R2C6 \\
-  \hline
-\end{tabular}
-  
-```
+
 ```{=latex}
 
 \newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
 
 \begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
   \small
   \begin{tabular}{l|l|l|l}
     \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
@@ -130,7 +121,6 @@ top_medalists <- data.frame(
 
   \end{tabular}
   
-  \caption{Best Simulated Outcome for Team USA in Men's Artistic Gymnastics}
   \label{tab:gymnastics_medals}
 \end{table}
 
@@ -140,3 +130,39 @@ top_medalists <- data.frame(
   \textbf{Team USA Weighted Medal Count:} 20 (where Gold = 3, Silver = 2, Bronze = 1) \\
   \textbf{Team USA Medal Breakdown:} 5 Gold, 2 Silver, 1 Bronze
 ```
+
+
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & Brazil & China \\
+    \hline
+    Individual All-Around & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Konnor McClain)} \\
+    \hline
+    Balance Beam & \highlight{USA (Konnor McClain)} & \highlight{USA (Simone Biles)} & China (Qingying Zhang) \\
+    \hline
+    Vault & \highlight{USA (Jade Carey)} & \highlight{USA (Simone Biles)} & South Korea (Seojeong Yeo) \\
+    \hline
+    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Jade Carey)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Uneven Bars & Algeria (Kaylia Nemour) & Russia (Viktoria Listunova) & \highlight{USA (Shilese Jones)} \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Simone Biles, Shilese Jones, Karis German, Konnor McClain, Jade Carey} \\
+  \textbf{Team USA Medal Count:} 10 \\
+  \textbf{Team USA Weighted Medal Count:} 23 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 5 Gold, 3 Silver, 2 Bronze
+```
+
+

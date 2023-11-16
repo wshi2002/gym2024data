@@ -36,6 +36,7 @@ second_USA_sim <- men_sims_for_second[[max_sim_index]]@teamSummary
 print(second_USA_sim$athletes[second_USA_sim$clean_country == "USA"])
 
 ```
+
 ```{r}
 
 USA_medals <- vector("list", length = 5000)
@@ -75,7 +76,6 @@ top_medalists <- data.frame(
 
 ```
 
-
 ```{=latex}
 \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
   \hline
@@ -89,7 +89,6 @@ top_medalists <- data.frame(
   \hline
 \end{tabular}
 ```
-
 ```{=latex}
 
 \begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
@@ -104,7 +103,6 @@ top_medalists <- data.frame(
 \end{tabular}
   
 ```
-
 ```{=latex}
 
 \newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
@@ -137,9 +135,8 @@ top_medalists <- data.frame(
 \end{table}
 
   \small
-  \textbf{Team USA Medal Count: 8} \\
-  \textbf{Team USA Weighted Medal Count: 20} (where Gold = 3, Silver = 2, Bronze = 1) \\
-  Team USA Medal Breakdown: 5 Gold, 2 Silver, 1 Bronze
-
+  \textbf{Team USA Athletes: Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, Joshua Karnes} \\
+  \textbf{Team USA Medal Count:} 8 \\
+  \textbf{Team USA Weighted Medal Count:} 20 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 5 Gold, 2 Silver, 1 Bronze
 ```
-

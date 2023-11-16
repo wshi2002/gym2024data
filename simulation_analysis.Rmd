@@ -55,21 +55,91 @@ top_indices
 ```{r}
 
 first_medals <- men_sims[[779]]@teamSummary
-first_medals$athletes[first_medals$clean_country == "USA"]
-
+first_team_usa <- first_medals$athletes[first_medals$clean_country == "USA"]
+first_medals
 ```
+
 ```{r}
 second_medals <- men_sims[[1160]]@teamSummary
 second_medals$athletes[second_medals$clean_country == "USA"]
 ```
+
 ```{r}
 top_medalists <- data.frame(
   "Top US Performance" = c("Brody Malone", "Javier Alfonso", "Curran Phillips", "Frederick Richard", "Joshua Karnes"),
   "Second Top US Performance" = c("Blake Sun", "Brody Malone", "Frederick Richard", "Shane Wiskus", "Paul Juda")
 )
 
-kable(top_medalists, format = "latex")
+#kable(top_medalists, format = "latex")
 
+
+```
+
+
+```{=latex}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+  \hline
+  \multicolumn{8}{|c|}{\textbf{Best Simulated Outcome for Team USA}} \\
+  \hline
+  Team All-Around & Individual All-Around & Vault & Still Rings & Pommel Horse & Parallel Bars & High Bar & Floor Exercise \\
+  \hline
+  USA & USA (Brody Malone) & Armenia (Artur Davtyan) & USA (Javier Alfonso) & Chinese Taipei (Chih Lee) & China (Jingyuan Zou) & USA (Frederick Richard) & USA (Brody Malone) \\
+  China & China (Boheng Zhang) & Philippines (Carlos Yulo) & USA (Brody Malone) & Kazakhstan (Nariman Kurbanov) & USA (Curran Phillips) & Kazakhstan (Ilyas Azizov) & Israel (Artem Dolgopyat)  \\
+  Switzerland & China (Wei Sun) & Great Britain (Luke Whitehouse) & Italy (Salvatore Maresca) & Uzbekistan (Abdulla Azimov) & Switzerland (Noe Seifert) & USA (Brody Malone) & India (Satyajit Mondal) \\
+  \hline
+\end{tabular}
+```
+
+```{=latex}
+
+\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{First Row}} & \multicolumn{3}{c|}{\textbf{Second Row}} \\
+  \hline
+  Col 1 & Col 2 & Col 3 & Col 4 & Col 5 & Col 6 \\
+  \hline
+  R1C1 & R1C2 & R1C3 & R2C1 & R2C2 & R2C3 \\
+  R1C4 & R1C5 & R1C6 & R2C4 & R2C5 & R2C6 \\
+  \hline
+\end{tabular}
+  
+```
+
+```{=latex}
+
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
+
+\begin{table}[htbp]
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & China & Switzerland \\
+    \hline
+    Individual All-Around & \highlight{USA (Brody Malone)} & China (Boheng Zhang) & China (Wei Sun) \\
+    \hline
+    Vault & Armenia (Artur Davtyan) & Philippines (Carlos Yulo) & Great Britain (Luke Whitehouse) \\
+    \hline
+    Still Rings & \highlight{USA (Javier Alfonso)} & \highlight{USA (Brody Malone)} & Italy (Salvatore Maresca) \\
+    \hline
+    Pommel Horse & Chinese Taipei (Chih Lee) & Kazakhstan (Nariman Kurbanov) & Uzbekistan (Abdulla Azimov) \\
+    \hline
+    Parallel Bars & China (Jingyuan Zou) & \highlight{USA (Curran Phillips)} & Switzerland (Noe Seifert) \\
+     \hline
+    High Bar & \highlight{USA (Frederick Richard)} & Kazakhstan (Ilyas Azizov) & \highlight{USA (Brody Malone)} \\
+    \hline
+    Floor Exercise & \highlight{USA (Brody Malone)} & Israel (Artem Dolgopyat) & India (Satyajit Mondal) \\
+
+  \end{tabular}
+  
+  \caption{Best Simulated Outcome for Team USA in Men's Artistic Gymnastics}
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Medal Count: 8} \\
+  \textbf{Team USA Weighted Medal Count: 20} (where Gold = 3, Silver = 2, Bronze = 1) \\
+  Team USA Medal Breakdown: 5 Gold, 2 Silver, 1 Bronze
 
 ```
 

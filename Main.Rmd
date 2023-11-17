@@ -641,8 +641,54 @@ ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
 ```
 
 
+# Analysis
+
+```{r}
+w_team_usa <- filter(df_women_c, 
+                     clean_name == "Simone BILES" |
+                     clean_name == "Shilese JONES"|
+                     clean_name == "Karis GERMAN"|
+                     clean_name == "Konnor MCCLAIN"|
+                     clean_name == "Jade Carey")
+
+m_team_usa <- filter(df_men_c,
+                     clean_name == "Brody MALONE"|
+                       clean_name == "Javier ALFONSO"|
+                       clean_name == "Curran PHILLIPS"|
+                       clean_name == "Frederick RICHARD"|
+                       clean_name == "Joshua KARNES")
+```
+
+```{r}
+
+ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Range of Rank at all competitions",
+    subtitle = "For US Women",
+    x = "Rank",
+    y = "Name"
+  )
 
 
+```
+```{r}
+
+ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Range of Rank at all competitions",
+    subtitle = "For US Men",
+    x = "Rank",
+    y = "Name"
+  )
+
+
+```
 ### Citations
 [1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
 [2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/

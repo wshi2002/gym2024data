@@ -1,7 +1,6 @@
 ---
-title: "Main"
-author: "Wendy"
-date: "2023-10-30"
+title: "**Case Study 2: Paris 2024 Team USA Olympics Gymnastics Team**"
+author: "Aimi Wen, Katie Nash, Nidhi Dhupati, Wendy Shi"
 output: 
   pdf_document:
     fig_caption: yes
@@ -12,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r}
+```{r, include = FALSE}
 # load in libraries
 package_list <- c("tidyverse", "vroom", "stringr", "dplyr", "ggsci")
 
@@ -30,7 +29,7 @@ df <- vroom("cleandata/data_2022_2023.csv")
 
 ```
 
-```{r}
+```{r, include = FALSE}
 # Clean up names to make sure there is unique name for each athlete.
 # taking the first 'word' of the names to simplify
 df <- df%>%
@@ -91,7 +90,7 @@ df_women_c <- df_c%>%
   
 ```
 
-```{r}
+```{r, include = FALSE}
 # Manual cleaning done on name for women's data
 df_women_c <- df_women_c %>%
   mutate(
@@ -136,7 +135,7 @@ numeric_columns <- sapply(df_women_c, is.numeric)
 df_women_c[numeric_columns][is.na(df_women_c[numeric_columns])] <- 0
 ```
 
-```{r}
+```{r , include = FALSE}
 # Manual cleaning done on name for men's data
 df_men_c <- df_men_c %>%
   mutate(
@@ -185,13 +184,13 @@ df_men_c[numeric_columns][is.na(df_men_c[numeric_columns])] <- 0
 
 ```
 
-```{r}
+```{r, include = FALSE}
 df_men_names <- df_men_c %>%
   distinct(last_name_only, first_name_only, clean_country, name)
 
 ```
 
-```{r ordering-competitions-women}
+```{r ordering-competitions-women, include = FALSE}
 
 unique(df_women_c$Competition)
 
@@ -241,7 +240,7 @@ df_women_c = df_women_c %>%
 
 ```
 
-```{r categorizing-competitions-women}
+```{r categorizing-competitions-women, include = FALSE}
 
 df_women_c <- df_women_c %>%
   mutate(competition_scope = case_when(
@@ -286,7 +285,7 @@ df_women_c <- df_women_c %>%
 
 ```
 
-```{r ordering-competitions-men}
+```{r ordering-competitions-men, include = FALSE}
 
 df_men_c <- df_men_c %>%
   mutate(competition_number = case_when(
@@ -335,7 +334,7 @@ df_men_c = df_men_c %>%
 
 ```
 
-```{r categorizing-competitions-men}
+```{r categorizing-competitions-men, include = FALSE}
 
 df_men_c <- df_men_c %>%
   mutate(competition_scope = case_when(
@@ -382,20 +381,27 @@ df_men_c <- df_men_c %>%
 ```
 
 
-## Introduction (WORK IN PROGRESS - Nidhi)
+# Introduction
+
 
 ### Background Information
 
 The Olympic Games are an international multi-sport event held every four years, and are largely considered to be the most prestigious sporting competition in the world. These Games are therefore a popular spectator event across the world, with an average viewership of more than 15 million people in past years [1].
-The 2024 Olympic Games will be held in Paris, France, and will include both a Men’s and Women’s Artistic Gymnastics event. Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. The USA is known for its men and women gymnastics teams, which have consistently earned medals in past Olympic games. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women that will represent our country as Team USA.
+The 2024 Olympic Games will be held in Paris, France, and will include both a Men’s and Women’s Artistic Gymnastics event. Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. The USA is known for its men and women gymnastics teams, which have consistently earned medals in past Olympic games. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women that will represent our country as Team USA. The importance of and interest surrounding the Olympics provides a rich foundation for analytics and statistical interpretations of the athletes in the competitions, as well as predictions about who will represent Team USA in the many Olympic sports. There have already been analyses, published in major news outlets, about who Team USA will consist of for non-gymnastics sports in 2024 [2]. The objective of this project is to extend this analysis to the Artistic Gymnastics events, and to select the 5 athletes for each of the men’s and women’s events that will optimize performance for Team USA.
 
 The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men’s opportunities for medals are: 1) team all-around, 2) individual all-around, 3) floor exercise, 4) pommel horse, 5) still rings, 6) vault, 7) parallel bars, and 8) high bar. Women’s opportunities for medals are: 1) team all-around, 2) individual all-around, 3) vault, 4) uneven bars, 5) balance beam, and 6) floor exercise. The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
 
-The objective of this project is to select the 5 athletes for each of men’s and women’s events that will optimize performance for Team USA across the 8 medal events for men and the 6 medal events for women.
+Our hypothesis is:
+
+* Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
 
 
 ### Data Description
 
+Gymnastics competitions from 2017-2023 were included in the dataset. These competitions were split into two separate datasets by the seasons leading up to the 2021 Tokyo Games and the seasons leading up to the 2024 Paris Games (the 2022 and 2023 seasons). Competitions were included from around the globe, including world competitions, non-world competitions that included the United States as a competitor, and non-world competitions that did not include the United States as a competitor.
+The competition data included scoring information, athlete names, athlete demographic information, and athlete scores. Each entry in the dataset is one event from one athlete, which includes the country affiliation of the athlete, the competition and competition location, the difficulty, execution, penalty, and overall scores, the apparatus that the athlete competed on, and their ranking.
+Additionally, the countries who qualified as a team, which are the countries that will be allowed to compete in the Team All-Around event for the men’s and women’s Olympic events, were provided. 
+The dataset we used for analysis was last synced with the central repository on November 2nd.
 
 
 ### EDA - separated by type of visualization, not gender
@@ -639,3 +645,4 @@ ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
 
 ### Citations
 [1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
+[2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/

@@ -568,7 +568,13 @@ w_team_usa <- filter(df_women_c,
                      clean_name == "Konnor MCCLAIN"|
                      clean_name == "Jade CAREY")
 
-w_team_usa
+w_team_usa <- w_team_usa %>% mutate(clean_name = case_when (
+  clean_name == 'Simone BILES' ~ 'Simone Biles',
+  clean_name == 'Shilese JONES' ~ 'Shilese Jones',
+  clean_name == 'Karis GERMAN' ~ 'Karis German',
+  clean_name == 'Konnor MCCLAIN' ~ 'Konnor McClain',
+  clean_name == 'Jade CAREY' ~ 'Jade Carey'
+))
 
 m_team_usa <- filter(df_men_c,
                      clean_name == "Brody MALONE"|
@@ -576,17 +582,25 @@ m_team_usa <- filter(df_men_c,
                        clean_name == "Curran PHILLIPS"|
                        clean_name == "Frederick RICHARD"|
                        clean_name == "Joshua KARNES")
+
+m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
+  clean_name == 'Brody MALONE' ~ 'Brody Malone',
+  clean_name == 'Javier ALFONSO' ~ 'Javier Alfonso',
+  clean_name == 'Curran PHILLIPS' ~ 'Curran Phillips',
+  clean_name == 'Frederick RICHARD' ~ 'Frederick Richard',
+  clean_name == 'Joshua KARNES' ~ 'Joshua Karnes'
+))
 ```
 
 ```{r}
 
 ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
-  geom_boxplot()+
+  geom_point()+
   theme_light()+
   scale_fill_aaas()+
   labs(
-    title = "Range of Rank at all competitions",
-    subtitle = "For US Women",
+    title = "Range of Rank at All Competitions",
+    subtitle = "Women Selected for Team USA",
     x = "Rank",
     y = "Name"
   )
@@ -596,12 +610,12 @@ ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
 ```{r}
 
 ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
-  geom_boxplot()+
+  geom_point()+
   theme_light()+
   scale_fill_aaas()+
   labs(
-    title = "Range of Rank at all competitions",
-    subtitle = "For US Men",
+    title = "Range of Rank at All Competitions",
+    subtitle = "Men Selected for Team USA",
     x = "Rank",
     y = "Name"
   )
@@ -612,7 +626,9 @@ ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
 
 ### Citations
 [1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
+
 [2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/
+
 [3] https://usagym.org/
 
 

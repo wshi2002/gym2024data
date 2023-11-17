@@ -404,7 +404,219 @@ Additionally, the countries who qualified as a team, which are the countries tha
 The dataset we used for analysis was last synced with the central repository on November 2nd.
 
 
-### EDA - separated by type of visualization, not gender
+# Results
+
+```{r}
+women_sims <- readRDS("~/gym2024data/simulations_Aimi.rds")
+men_sims <- readRDS("~/gym2024data/simulations_m_katie.rds")
+```
+
+
+
+```{r, include = FALSE}
+# top US simulations for men
+
+USA_medals_m <- vector("list", length = 5000)
+
+for (i in seq_along(USA_medals_m)) {
+  summaryTeam <- men_sims[[i]]@teamSummary
+  USA_medals_m[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+USA_medals_m = unlist(USA_medals_m)
+
+top_indices <- order(USA_medals_m, decreasing = TRUE)[1:10]
+top_indices
+
+```
+
+```{r, include = FALSE}
+
+first_medals_m <- men_sims[[779]]@teamSummary
+first_team_usa_m <- first_medals_m$athletes[first_medals_m$clean_country == "USA"]
+```
+
+```{r, include = FALSE}
+
+# top US simulations for women
+
+USA_medals_w <- vector("list", length = 5000)
+
+for (i in seq_along(USA_medals_w)) {
+  summaryTeam <- women_sims[[i]]@teamSummary
+  USA_medals_w[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+USA_medals_w = unlist(USA_medals_w)
+
+top_indices <- order(USA_medals_w, decreasing = TRUE)[1:10]
+top_indices
+
+```
+
+```{r, include = FALSE}
+
+first_medals_w <- women_sims[[3864]]@teamSummary
+first_team_usa_w <- first_medals_w$athletes[first_medals_w$clean_country == "USA"]
+first_medals_w
+```
+
+Of the 5000 simulations for both men and women, the simulation with the highest weighted medal score for the United States was taken as Team USA. The results of the simulated Olympics competitions, for both the Men’s and Women’s Artistic Gymnastics events, are included below.
+
+
+```{=latex}
+
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
+
+\begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & China & Switzerland \\
+    \hline
+    Individual All-Around & \highlight{USA (Brody Malone)} & China (Boheng Zhang) & China (Wei Sun) \\
+    \hline
+    Vault & Armenia (Artur Davtyan) & Philippines (Carlos Yulo) & Great Britain (Luke Whitehouse) \\
+    \hline
+    Still Rings & \highlight{USA (Javier Alfonso)} & \highlight{USA (Brody Malone)} & Italy (Salvatore Maresca) \\
+    \hline
+    Pommel Horse & Chinese Taipei (Chih Lee) & Kazakhstan (Nariman Kurbanov) & Uzbekistan (Abdulla Azimov) \\
+    \hline
+    Parallel Bars & China (Jingyuan Zou) & \highlight{USA (Curran Phillips)} & Switzerland (Noe Seifert) \\
+     \hline
+    High Bar & \highlight{USA (Frederick Richard)} & Kazakhstan (Ilyas Azizov) & \highlight{USA (Brody Malone)} \\
+    \hline
+    Floor Exercise & \highlight{USA (Brody Malone)} & Israel (Artem Dolgopyat) & India (Satyajit Mondal) \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, Joshua Karnes} \\
+  \textbf{Team USA Medal Count:} 8 \\
+  \textbf{Team USA Weighted Medal Count:} 20 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 5 Gold, 2 Silver, 1 Bronze
+```
+
+
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & Brazil & China \\
+    \hline
+    Individual All-Around & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Konnor McClain)} \\
+    \hline
+    Balance Beam & \highlight{USA (Konnor McClain)} & \highlight{USA (Simone Biles)} & China (Qingying Zhang) \\
+    \hline
+    Vault & \highlight{USA (Jade Carey)} & \highlight{USA (Simone Biles)} & South Korea (Seojeong Yeo) \\
+    \hline
+    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Jade Carey)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Uneven Bars & Algeria (Kaylia Nemour) & Russia (Viktoria Listunova) & \highlight{USA (Shilese Jones)} \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Simone Biles, Shilese Jones, Karis German, Konnor McClain, Jade Carey} \\
+  \textbf{Team USA Medal Count:} 10 \\
+  \textbf{Team USA Weighted Medal Count:} 23 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 5 Gold, 3 Silver, 2 Bronze
+```
+
+
+These tables show that, for both men’s and women’s events, the United States earns more medals than any other country.
+
+Simone Biles, Shilese Jones, Karis German, Konnor McClain, and Jade Carey were selected as the women’s Team USA. All five of these athletes are proven to be highly accomplished [3]:
+
+* Simone Biles is the most decorated gymnast in history
+* Shilese Jones was part of the gold-winning team at the 2022 World Championships
+* Karis German medaled in a floor exercise event at a qualifying event for the 2024 Olympics
+* Konnor McClain is the 2022 U.S. National Champion
+* Jade Carey represented Team USA in the Tokyo Olympic Games
+
+Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, and Joshua Karnes were selected as the men’s Team USA in the simulation where the USA has the highest weighted medal score. All five of these athletes are also proven to be highly accomplished [3]:
+
+* Brody Malone is the 2021 and 2022 U.S. National All-Around Champion
+* Javier Alfonso was part of the silver-winning team at the 2023 NCAA competition
+* Curran Phillips is the 2023 Pan American Games team champion
+* Frederick Richard is the 2023 World all-around bronze medalist
+* Joshua Karnes is the 2023 Winter Cup bronze medalist in parallel bars
+
+# Discussion
+
+## Analysis
+
+```{r}
+w_team_usa <- filter(df_women_c, 
+                     clean_name == "Simone BILES" |
+                     clean_name == "Shilese JONES"|
+                     clean_name == "Karis GERMAN"|
+                     clean_name == "Konnor MCCLAIN"|
+                     clean_name == "Jade CAREY")
+
+w_team_usa
+
+m_team_usa <- filter(df_men_c,
+                     clean_name == "Brody MALONE"|
+                       clean_name == "Javier ALFONSO"|
+                       clean_name == "Curran PHILLIPS"|
+                       clean_name == "Frederick RICHARD"|
+                       clean_name == "Joshua KARNES")
+```
+
+```{r}
+
+ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Range of Rank at all competitions",
+    subtitle = "For US Women",
+    x = "Rank",
+    y = "Name"
+  )
+
+
+```
+```{r}
+
+ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  scale_fill_aaas()+
+  labs(
+    title = "Range of Rank at all competitions",
+    subtitle = "For US Men",
+    x = "Rank",
+    y = "Name"
+  )
+
+
+```
+
+
+### Citations
+[1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
+[2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/
+[3] https://usagym.org/
+
+
+### EDA - separated by type of visualization, not gender, figure out where to put (probably appendix, referenced in methodology)
 
 ```{r diff-quali-v-final-vis-women, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
 
@@ -641,54 +853,3 @@ ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
 ```
 
 
-# Analysis
-
-```{r}
-w_team_usa <- filter(df_women_c, 
-                     clean_name == "Simone BILES" |
-                     clean_name == "Shilese JONES"|
-                     clean_name == "Karis GERMAN"|
-                     clean_name == "Konnor MCCLAIN"|
-                     clean_name == "Jade Carey")
-
-m_team_usa <- filter(df_men_c,
-                     clean_name == "Brody MALONE"|
-                       clean_name == "Javier ALFONSO"|
-                       clean_name == "Curran PHILLIPS"|
-                       clean_name == "Frederick RICHARD"|
-                       clean_name == "Joshua KARNES")
-```
-
-```{r}
-
-ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
-  geom_boxplot()+
-  theme_light()+
-  scale_fill_aaas()+
-  labs(
-    title = "Range of Rank at all competitions",
-    subtitle = "For US Women",
-    x = "Rank",
-    y = "Name"
-  )
-
-
-```
-```{r}
-
-ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
-  geom_boxplot()+
-  theme_light()+
-  scale_fill_aaas()+
-  labs(
-    title = "Range of Rank at all competitions",
-    subtitle = "For US Men",
-    x = "Rank",
-    y = "Name"
-  )
-
-
-```
-### Citations
-[1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
-[2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/

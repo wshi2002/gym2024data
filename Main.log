@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  17 NOV 2023 09:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  17 NOV 2023 19:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -510,17 +510,17 @@ Overfull \hbox (47.3388pt too wide) in paragraph at lines 167--187
  []
 
 [2]
-<Main_files/figure-latex/unnamed-chunk-12-1.pdf, id=31, 469.755pt x 325.215pt>
-File: Main_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-12-1.pdf  used o
-n input line 276.
+<Main_files/figure-latex/range-of-rank-w-1.pdf, id=31, 469.755pt x 325.215pt>
+File: Main_files/figure-latex/range-of-rank-w-1.pdf Graphic file (type pdf)
+<use Main_files/figure-latex/range-of-rank-w-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/range-of-rank-w-1.pdf  used on
+ input line 276.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/unnamed-chunk-13-1.pdf, id=32, 469.755pt x 325.215pt>
-File: Main_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-13-1.pdf  used o
-n input line 277.
+<Main_files/figure-latex/range-of-rank-m-1.pdf, id=32, 469.755pt x 325.215pt>
+File: Main_files/figure-latex/range-of-rank-m-1.pdf Graphic file (type pdf)
+<use Main_files/figure-latex/range-of-rank-m-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/range-of-rank-m-1.pdf  used on
+ input line 277.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 276--278
@@ -530,8 +530,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 276--278
 [3]
 Overfull \vbox (43.05666pt too high) has occurred while \output is active []
 
-[4 <./Main_files/figure-latex/unnamed-chunk-12-1.pdf> <./Main_files/figure-late
-x/unnamed-chunk-13-1.pdf>]
+[4 <./Main_files/figure-latex/range-of-rank-w-1.pdf> <./Main_files/figure-latex
+/range-of-rank-m-1.pdf>]
 <Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf, id=59, 469.755pt x
  325.215pt>
 File: Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf Graphic file (
@@ -607,24 +607,24 @@ File: Main_files/figure-latex/score-dist-men-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Main_files/figure-latex/score-dist-men-1.pdf  used on 
 input line 355.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/unnamed-chunk-14-1.pdf, id=102, 469.755pt x 325.215pt>
+<Main_files/figure-latex/unnamed-chunk-12-1.pdf, id=102, 469.755pt x 325.215pt>
 
-File: Main_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/unnamed-chunk-14-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-14-1.pdf  used o
+File: Main_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use Main_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-12-1.pdf  used o
 n input line 367.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [8 <./Main_files/figure-latex/penalty-dist-women-1.pdf>] [9 <./Main_files/figur
 e-latex/penalty-dist-men-1.pdf>] [10 <./Main_files/figure-latex/score-dist-wome
 n-1.pdf>] [11 <./Main_files/figure-latex/score-dist-men-1.pdf>]
-<Main_files/figure-latex/unnamed-chunk-14-2.pdf, id=144, 469.755pt x 325.215pt>
+<Main_files/figure-latex/unnamed-chunk-12-2.pdf, id=144, 469.755pt x 325.215pt>
 
-File: Main_files/figure-latex/unnamed-chunk-14-2.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/unnamed-chunk-14-2.pdf>
-Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-14-2.pdf  used o
+File: Main_files/figure-latex/unnamed-chunk-12-2.pdf Graphic file (type pdf)
+<use Main_files/figure-latex/unnamed-chunk-12-2.pdf>
+Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-12-2.pdf  used o
 n input line 373.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[12 <./Main_files/figure-latex/unnamed-chunk-14-1.pdf>]
+[12 <./Main_files/figure-latex/unnamed-chunk-12-1.pdf>]
 <Main_files/figure-latex/men-difficulty-dist-1.pdf, id=155, 469.755pt x 325.215
 pt>
 File: Main_files/figure-latex/men-difficulty-dist-1.pdf Graphic file (type pdf)
@@ -649,7 +649,7 @@ File: Main_files/figure-latex/women-execution-vs-difficulty-1.pdf Graphic file
 Package pdftex.def Info: Main_files/figure-latex/women-execution-vs-difficulty-
 1.pdf  used on input line 419.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[13 <./Main_files/figure-latex/unnamed-chunk-14-2.pdf>] [14 <./Main_files/figur
+[13 <./Main_files/figure-latex/unnamed-chunk-12-2.pdf>] [14 <./Main_files/figur
 e-latex/men-difficulty-dist-1.pdf>] [15 <./Main_files/figure-latex/male-executi
 on-dist-1.pdf>]
 <Main_files/figure-latex/women-execution-vs-difficulty-2.pdf, id=188, 469.755pt
@@ -709,7 +709,7 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  13577 strings out of 474934
- 217272 string characters out of 5759818
+ 217258 string characters out of 5759818
  1936807 words of memory out of 5000000
  34758 multiletter control sequences out of 15000+600000
  615156 words of font info for 132 fonts, out of 8000000 for 9000
@@ -722,7 +722,7 @@ f-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/font
 s/type1/public/lm/lmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
 lic/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt9
 .pfb>
-Output written on Main.pdf (20 pages, 378879 bytes).
+Output written on Main.pdf (20 pages, 378871 bytes).
 PDF statistics:
  316 PDF objects out of 1000 (max. 8388607)
  238 compressed objects within 3 object streams

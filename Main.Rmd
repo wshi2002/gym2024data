@@ -592,12 +592,12 @@ m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
 ))
 ```
 
-```{r}
+```{r range-of-rank-w, fig.cap = "Range of Rank at all Competitions for US Womens Team"}
 
-ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
+ggplot(data = w_team_usa, aes(y= clean_name, x = Rank, color = competition_scope))+
   geom_point()+
   theme_light()+
-  scale_fill_aaas()+
+  scale_color_aaas()+
   labs(
     title = "Range of Rank at All Competitions",
     subtitle = "Women Selected for Team USA",
@@ -607,22 +607,45 @@ ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
 
 
 ```
-```{r}
+```{r range-of-rank-m, fig.cap = "Range of Rank at all Competitions for US Mens Team"}
 
-ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
+ggplot(data = m_team_usa, aes(y= clean_name, x = Rank, color = competition_scope))+
   geom_point()+
   theme_light()+
-  scale_fill_aaas()+
+  scale_color_aaas()+
   labs(
-    title = "Range of Rank at All Competitions",
-    subtitle = "Men Selected for Team USA",
     x = "Rank",
     y = "Name"
   )
 
 
 ```
+```{r dif-vs-ex-score-usa-women, fig.cap = "Difference between Difficulty and Exectution Scores for team USA women"}
+#pivot longer for team USA women
+usa_women_pivot_longer <- pivot_longer(w_team_usa, cols = c(D_Score, E_Score), names_to = "D_E_labs", values_to = "D_E_Score")
 
+
+ggplot(data = usa_women_pivot_longer, aes( x = clean_name, y = D_E_Score, fill = D_E_labs))+
+  geom_bar(stat = "identity",
+           position = position_dodge(width = 0.8))+
+  theme_light()+
+  scale_fill_aaas()
+         
+
+```
+
+```{r dif-vs-ex-score-usa-men, fig.cap = "Difference between Difficulty and Exectution Scores for team USA Men"}
+usa_men_pivot_longer <- pivot_longer(m_team_usa, cols = c(D_Score, E_Score), names_to = "D_E_labs", values_to = "D_E_Score")
+
+ggplot(data = usa_men_pivot_longer, aes(x = clean_name, y = D_E_Score, fill = D_E_labs))+
+  geom_bar(stat = "identity",
+           position = position_dodge(width = 0.8))+
+  theme_light()+
+  scale_fill_aaas()
+
+
+
+```
 
 ### Citations
 [1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
@@ -867,5 +890,6 @@ ggplot(data = df_men_c, aes(y = Score, fill = competition_scope))+
   )
 
 ```
+
 
 

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r, include = FALSE}
 # load in libraries
-package_list <- c("tidyverse", "vroom", "stringr", "dplyr", "ggsci")
+package_list <- c("tidyverse", "vroom", "stringr", "dplyr", "ggsci", "gridExtra")
 
 # load in packages
 for (package_name in package_list) {
@@ -421,6 +421,32 @@ The next step is to simulate the score that each athlete receives on each appara
 Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs.
 Figure X confirms that the distribution of scores for qualification and final rounds are similar.
 Additionally, we only created the KDEs based on total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Figure X additionally demonstrates that most penalty scores are near 0.
+
+```{r}
+
+women_rounddist <- ggplot(data = df_women_c, aes(x = Score)) +
+  geom_histogram(aes(fill = Round), alpha = 0.8) +
+  labs(title = "Score Distribution for Women Athletes, by Round",
+       x = "Score",
+       y = "Count") +
+  theme_light() +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"))
+  
+  
+
+men_rounddist <- ggplot(data = df_men_c, aes(x = Score)) +
+  geom_histogram(aes(fill = Round), alpha = 0.8) +
+  labs(title = "Score Distribution for Men Athletes, by Round",
+       x = "Score",
+       y = "Count") +
+  theme_light() +
+      scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"),
+                        labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
+
+grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
+
+```
 
 ### Team Selection
 In order to simulate Olympics outcomes, we had to select a team of five gymnasts for each qualifying country in the Olympics, for each simulation round. Because the Olympics has already released which countries have qualified, we used those countries to filter out athletes who did not belong to a qualifying country. For each qualifying country, we used weighted random sampling to select 5 gymnasts. Weighted random sampling was chosen rather than simple random sampling in order for the highest performing athletes to be sampled more often. The weights also biased selection toward “well-rounded” gymnasts, who have a high score on multiple apparatuses, rather than “specialized” gymnasts. We made the assumption that all-around athletes have the potential to compete in multiple medal events, and that medaling the individual all-around event can bring more media coverage and prestige to the winning country than winning an individual apparatus event.

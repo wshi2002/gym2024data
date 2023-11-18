@@ -166,3 +166,29 @@ first_medals_w
 ```
 
 
+```{r}
+set.seed(42)
+data <- data.frame(
+  x = rep(1:5, each = 2),
+  y = rnorm(10),
+  group = rep(c("Group A", "Group B"), times = 5)
+)
+
+# Plot before changing legend labels
+library(ggplot2)
+p_before <- ggplot(data, aes(x = x, y = y, color = group)) +
+  geom_point() +
+  labs(title = "Scatter Plot (Before)", x = "X-axis", y = "Y-axis") +
+  theme_minimal()
+
+# Show plot before changing legend labels
+print(p_before)
+
+# Change legend labels
+p_after <- p_before + scale_color_manual(values = c("Group A" = "red", "Group B" = "blue"),
+                        labels = c("New Label A", "New Label B"))
+
+# Show plot after changing legend labels
+print(p_after)
+```
+

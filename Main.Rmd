@@ -422,7 +422,7 @@ Although we are only simulating scores for the final rounds, since those are the
 Figure X confirms that the distribution of scores for qualification and final rounds are similar.
 Additionally, we only created the KDEs based on total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Figure X additionally demonstrates that most penalty scores are near 0.
 
-```{r}
+```{r score-dist-women-hist, fig.cap = "Score Distribution for Women"}
 
 women_rounddist <- ggplot(data = df_women_c, aes(x = Score)) +
   geom_histogram(aes(fill = Round), alpha = 0.8) +
@@ -433,7 +433,8 @@ women_rounddist <- ggplot(data = df_women_c, aes(x = Score)) +
   theme(legend.position = "none") +
   scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"))
   
-  
+```
+```{r score-dist-men-hist, fig.cap = "Score Distribution for Men"}
 
 men_rounddist <- ggplot(data = df_men_c, aes(x = Score)) +
   geom_histogram(aes(fill = Round), alpha = 0.8) +
@@ -444,7 +445,7 @@ men_rounddist <- ggplot(data = df_men_c, aes(x = Score)) +
       scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"),
                         labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
 
-grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
+#grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
 
 ```
 
@@ -663,10 +664,9 @@ ggplot(data = w_team_usa, aes(y= clean_name, x = Rank, color = competition_scope
   theme_light()+
   scale_color_aaas()+
   labs(
-    title = "Range of Rank at All Competitions",
-    subtitle = "Women Selected for Team USA",
     x = "Rank",
-    y = "Name"
+    y = "Team USA Athletes",
+    color = "Competition Scope"
   )
 
 
@@ -679,7 +679,8 @@ ggplot(data = m_team_usa, aes(y= clean_name, x = Rank, color = competition_scope
   scale_color_aaas()+
   labs(
     x = "Rank",
-    y = "Name"
+    y = "Team USA Athletes", 
+    color = "Competition Scope"
   )
 
 
@@ -693,7 +694,12 @@ ggplot(data = usa_women_pivot_longer, aes( x = clean_name, y = D_E_Score, fill =
   geom_bar(stat = "identity",
            position = position_dodge(width = 0.8))+
   theme_light()+
-  scale_fill_aaas()
+  scale_fill_aaas(labels = c("Difficulty Score", "Execution Score"))+
+  labs(
+    x = "Team USA Athletes",
+    y = "Score",
+    fill = NULL
+  )
          
 
 ```
@@ -705,9 +711,12 @@ ggplot(data = usa_men_pivot_longer, aes(x = clean_name, y = D_E_Score, fill = D_
   geom_bar(stat = "identity",
            position = position_dodge(width = 0.8))+
   theme_light()+
-  scale_fill_aaas()
-
-
+  scale_fill_aaas(labels = c("Difficulty Score", "Execution Score"))+  
+  labs(
+    x = "Team USA Athletes",
+    y = "Score",
+    fill = NULL
+  )
 
 ```
 

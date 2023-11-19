@@ -228,9 +228,15 @@ winning_countries <- c()
 for (i in seq_along(check_m_simulations)){
   team_summary <- check_m_simulations[[i]]@teamSummary
   
-  total_medals <- team_summary$total_medals
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
   
-  winning_country <- team_summary$clean_country[which.max(total_medals)]
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
   
   winning_countries <- c(winning_countries, winning_country)
 }
@@ -241,7 +247,12 @@ winning_countries
 ```
 
 ```{r}
-sanity_check <- check_m_simulations[[1]]@teamSummary
+country_counts <- table(winning_countries)
+country_counts
+```
+
+```{r}
+#sanity_check <- check_m_simulations[[1]]@teamSummary
 ```
 
 ```{r}

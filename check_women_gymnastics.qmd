@@ -1,0 +1,196 @@
+---
+title: "check_women_gymnastics"
+format: pdf
+editor: visual
+---
+
+```{r}
+women_indices <- readRDS("women_indices.rds")
+women_sims <- readRDS("~/gym2024data/simulations_Aimi.rds")
+```
+
+```{r}
+# Randomly sampling (weighted random sample) five athletes per country for the teams
+# will take the data frame with weights assigned and spit out dataset with all 
+# athletes that are competing for a national team in one simulated olympics.
+get_teams_otherw <- function(data = weights_df){
+  all_elites_teams <- weights_df %>%
+    
+  # not including "country == other" because those countries are not good enough 
+  # to get a team at the olympics
+  filter(clean_country != "Other") %>%
+  filter(clean_country != "USA") %>%
+    
+  # grouping by country to sample for each country
+  group_by(clean_country) %>%
+    
+  # weighting by the adjusted weights
+  slice(sample(row_number(), size = 5, prob = adjusted_weights)) %>%
+  ungroup()
+  
+  # selecting for only necessary columns
+  all_elites_teams <- all_elites_teams%>%
+    select(clean_name, clean_country)
+  return(all_elites_teams)
+}
+```
+
+```{r}
+setClass(
+  "GymnasticSimulation",
+  representation(
+    teamSummary = "data.frame",
+    teamAllAround = "data.frame",
+    indivAllAround = "data.frame",
+    BB = "data.frame",
+    VT = "data.frame",
+    FX = "data.frame", 
+    UB = "data.frame"
+  )
+)
+
+# Create a constructor function
+GymnasticSimulation <- function(teamSummary = data.frame(),
+                                teamAllAround = data.frame(),
+                                indivAllAround = data.frame(),
+                                BB = data.frame(),
+                                VT = data.frame(),
+                                FX = data.frame(),
+                                UB = data.frame()
+                              
+                                 ) {
+  new("GymnasticSimulation",
+      teamSummary = teamSummary,
+      teamAllAround = teamAllAround,
+      indivAllAround = indivAllAround,
+      BB = BB,
+      VT = VT,
+      FX = FX,
+      UB = UB)
+}
+```
+
+```{r}
+team_count = 1
+for (m in women_indices){
+  team_summary <- women_sims[[m]]@teamSummary
+  usa_athletes<- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
+  women_usa <- df_women_c[df_women_c$clean_name %in% usa_athletes, c("clean_name", "clean_country")] %>%
+  distinct(clean_name, clean_country)
+  set.seed(5)
+  # Number of simulations
+  numSimulations <- 2
+  
+  # Create a list to store simulations
+  simulations <- list()
+  
+  # Run the loop to initialize simulations
+  for (i in 1:numSimulations) {
+    #set up the different groups
+    teams <- get_teams_otherw()
+    teams <- rbind(teams, women_usa)
+    all_indiv <- rbind(teams, all_elites_other)
+    
+    
+    #start simulating all events
+    #simulation_start <- Sys.time()
+    
+    top_athletes <- find3_country()
+    
+    #team_checkpoint <- Sys.time()
+    
+    team_result <- Team_AA_sim_w(top_athletes)
+    
+    #check_point <- Sys.time()
+    
+    indivAA_result <- event_sim_indiv(c("BB", "VT", "FX", "UB"), all_indiv)
+    BB_result <- event_sim_indiv(c("BB"), all_indiv)
+    VT_result <- event_sim_indiv(c("VT1", "VT2"), all_indiv)
+    FX_result <- event_sim_indiv(c("FX"), all_indiv)
+    UB_result <- event_sim_indiv(c("UB"), all_indiv)
+    
+    #simulation_end <- Sys.time()
+    #team_duration <- team_checkpoint - simulation_start
+    #individual_duration <- simulation_end - check_point
+    #simulation_duration <- simulation_end - simulation_start
+    #cat("team duration", team_duration, "\n")
+    #cat("individual duration", individual_duration, "\n")
+    #cat("simulation duration", simulation_duration, "\n")
+    
+    #creating dataframes
+    unique_countries <- unique(all_indiv$clean_country)
+    summaryTeam <- tibble(clean_country = unique_countries)
+    summaryTeam <- summaryTeam %>%
+      mutate(
+      athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
+    )
+    team_medal <- team_result %>%
+      select(-c("final_scores"))
+    summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
+    
+    indiv_grouped <- indivAA_result %>%
+      group_by(clean_country) %>%
+      summarize(indiv_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, indiv_grouped, by = "clean_country")
+    
+    VT_grouped <- VT_result %>%
+      group_by(clean_country) %>%
+      summarize(VT_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, VT_grouped, by = "clean_country")
+    
+    BB_grouped <- BB_result %>%
+      group_by(clean_country) %>%
+      summarize(BB_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, BB_grouped, by = "clean_country")
+    
+    FX_grouped <- FX_result %>%
+      group_by(clean_country) %>%
+      summarize(FX_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, FX_grouped, by = "clean_country")
+    
+    UB_grouped <- UB_result %>%
+      group_by(clean_country) %>%
+      summarize(UB_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, UB_grouped, by = "clean_country")
+    
+    
+    #dataframe_end <- Sys.time()
+    #dataframe_duration <- simulation_end - dataframe_end
+    #cat("dataframe duration", dataframe_duration, "\n")
+    
+    #find the final number of medals
+    summaryTeam[is.na(summaryTeam)] <- 0
+    columns_to_exclude <- c("athletes", "clean_country")
+    summaryTeam$total_medals <- rowSums(summaryTeam[, !names(summaryTeam) %in% columns_to_exclude])
+    
+    #calculation_end <- Sys.time()
+    #calculation_duration <- dataframe_end - calculation_end
+    #cat("calculation duration", calculation_duration, "\n")
+    
+    #saving it all down finally
+    simulation <- GymnasticSimulation()
+  
+    simulation@teamSummary <- summaryTeam
+    simulation@teamAllAround <- team_result
+    simulation@indivAllAround <- indivAA_result
+    simulation@BB <- BB_result
+    simulation@VT<- VT_result
+    simulation@FX<- FX_result
+    simulation@UB<- UB_result
+    simulations[[i]] <- simulation
+    
+    #record_end <- Sys.time()
+    #record_duration <- calculation_end - record_end
+    #cat("record duration", record_duration, "\n")
+  }
+  
+  file_name <- paste0("women_team_sim", team_count, ".rds")
+  saveRDS(simulations, file = file_name)
+  team_count = team_count+1
+  
+}
+```
+
+```{r}
+
+```

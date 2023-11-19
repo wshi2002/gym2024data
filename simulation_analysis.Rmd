@@ -56,14 +56,25 @@ USA_medals_m = unlist(USA_medals_m)
 top_indices <- order(USA_medals_m, decreasing = TRUE)[1:10]
 top_indices
 
+write_rds(top_indices, file = "men_indices.rds")
+
 ```
 
 ```{r}
-
 first_medals_m <- men_sims[[779]]@teamSummary
 first_team_usa_m <- first_medals_m$athletes[first_medals_m$clean_country == "USA"]
-first_medals_m
+first_team_usa_m <- unlist(first_team_usa_m)
 ```
+
+
+```{r}
+first_team_usa_m
+```
+```{r}
+men_usa <- df_men_c[df_men_c$clean_name %in% first_team_usa_m, c("clean_name", "clean_country")] %>%
+  distinct(clean_name, clean_country)
+```
+
 
 ```{r}
 
@@ -80,6 +91,8 @@ USA_medals_w = unlist(USA_medals_w)
 
 top_indices <- order(USA_medals_w, decreasing = TRUE)[1:10]
 top_indices
+
+write_rds(top_indices, file = "women_indices.rds")
 
 ```
 

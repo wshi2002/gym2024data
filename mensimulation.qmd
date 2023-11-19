@@ -418,7 +418,7 @@ find3_country <- function(){
 ```
 
 ```{r}
-set.seed(21)
+#set.seed(21)
 event_sim_m <- function(event, dataset = all_elites){
   all_elites_event <- dataset
   
@@ -692,8 +692,6 @@ get_teams_otherm <- function(data = weights_df_m){
 teams_check <- get_teams_otherm()
 ```
 
-
-
 ```{r}
 team_count = 1
 for (m in men_indices){
@@ -830,9 +828,6 @@ for (m in men_indices){
 }
 ```
 
-
 ```{r}
 print("Done with men's simulation")
 ```
-
-

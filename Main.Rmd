@@ -422,38 +422,7 @@ Although we are only simulating scores for the final rounds, since those are the
 Figure X confirms that the distribution of scores for qualification and final rounds are similar.
 Additionally, we only created the KDEs based on total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Figure X additionally demonstrates that most penalty scores are near 0.
 
-```{r score-dist-women-hist}
 
-women_rounddist <- ggplot(data = df_women_c, aes(x = Score)) +
-  geom_histogram(aes(fill = Round), alpha = 0.8) +
-  labs(title = "Women",
-       x = "Score",
-       y = "Count") +
-  theme_light() +
-  theme(legend.position = "none") +
-  #scale_fill_aaas()
-  scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"))
-
-```
-```{r score-dist-men-hist}
-
-men_rounddist <- ggplot(data = df_men_c, aes(x = Score)) +
-  geom_histogram(aes(fill = Round), alpha = 0.8) +
-  labs(title = "Men",
-       x = "Score",
-       y = "Count") +
-  theme_light() +
-     # scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"),
-      #                  labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
-  scale_fill_aaas(labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
-#grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
-
-
-```
-
-```{r full-medal-dist, fig.cap = "Score Distribution by Round"}
-grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
-```
 
 ### Team Selection
 In order to simulate Olympics outcomes, we had to select a team of five gymnasts for each qualifying country in the Olympics, for each simulation round. Because the Olympics has already released which countries have qualified, we used those countries to filter out athletes who did not belong to a qualifying country. For each qualifying country, we used weighted random sampling to select 5 gymnasts. Weighted random sampling was chosen rather than simple random sampling in order for the highest performing athletes to be sampled more often. The weights also biased selection toward “well-rounded” gymnasts, who have a high score on multiple apparatuses, rather than “specialized” gymnasts. We made the assumption that all-around athletes have the potential to compete in multiple medal events, and that medaling the individual all-around event can bring more media coverage and prestige to the winning country than winning an individual apparatus event.
@@ -629,6 +598,12 @@ Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, and Joshua Kar
 
 # Discussion
 
+Plots to add, once we get final team:
+average Score by apperatous per team USA athlete
+performance over time
+
+justify: use all scores not just quali and final
+
 ## Analysis
 
 ```{r}
@@ -665,80 +640,51 @@ m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
 
 ```{r range-of-rank-w, fig.cap = "Range of Rank at all Competitions for US Womens Team"}
 
-ggplot(data = w_team_usa, aes(y= clean_name, x = Rank, color = competition_scope))+
-  geom_point()+
+range_of_rank_w <- ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
+  geom_point( alpha = .5, color = "#3b4992ff")+
   theme_light()+
   scale_color_aaas()+
   labs(
     x = "Rank",
     y = "Team USA Athletes",
-    color = "Competition Scope"
-  )
-
+    color = "Competition Scope",
+    subtitle = "Women"
+  )+
+  facet_wrap(.~Apparatus)
 
 ```
-```{r range-of-rank-m, fig.cap = "Range of Rank at all Competitions for US Mens Team"}
 
-ggplot(data = m_team_usa, aes(y= clean_name, x = Rank, color = competition_scope))+
-  geom_point()+
+```{r range-of-rank-m}
+
+range_of_rank_m <- ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
+  geom_point( alpha = .5, color = "#3b4992ff")+
   theme_light()+
   scale_color_aaas()+
   labs(
     x = "Rank",
     y = "Team USA Athletes", 
-    color = "Competition Scope"
-  )
-
+    color = "Competition Scope",
+    subtitle = "Men"
+  )+
+  facet_wrap(.~Apparatus)
 
 ```
-```{r dif-vs-ex-score-usa-women, fig.cap = "Difference between Difficulty and Exectution Scores for team USA women"}
-#pivot longer for team USA women
-usa_women_pivot_longer <- pivot_longer(w_team_usa, cols = c(D_Score, E_Score), names_to = "D_E_labs", values_to = "D_E_Score")
+```{r range_of_rank_together, fig.cap = "Every Competition Rank for each team USA Athlete by Apparatus", fig.fullwidth = TRUE}
 
-
-ggplot(data = usa_women_pivot_longer, aes( x = clean_name, y = D_E_Score, fill = D_E_labs))+
-  geom_bar(stat = "identity",
-           position = position_dodge(width = 0.8))+
-  theme_light()+
-  scale_fill_aaas(labels = c("Difficulty Score", "Execution Score"))+
-  labs(
-    x = "Team USA Athletes",
-    y = "Score",
-    fill = NULL
-  )
-         
+grid.arrange(range_of_rank_w, range_of_rank_m, nrow = 2)
 
 ```
 
-```{r dif-vs-ex-score-usa-men, fig.cap = "Difference between Difficulty and Exectution Scores for team USA Men"}
-usa_men_pivot_longer <- pivot_longer(m_team_usa, cols = c(D_Score, E_Score), names_to = "D_E_labs", values_to = "D_E_Score")
-
-ggplot(data = usa_men_pivot_longer, aes(x = clean_name, y = D_E_Score, fill = D_E_labs))+
-  geom_bar(stat = "identity",
-           position = position_dodge(width = 0.8))+
-  theme_light()+
-  scale_fill_aaas(labels = c("Difficulty Score", "Execution Score"))+  
-  labs(
-    x = "Team USA Athletes",
-    y = "Score",
-    fill = NULL
-  )
-
-```
-
-### Citations
-[1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
-
-[2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/
-
-[3] https://usagym.org/
 
 
 ### EDA - separated by type of visualization, not gender, figure out where to put (probably appendix, referenced in methodology)
 
+
 ```{r diff-quali-v-final-vis-women, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
 
-ggplot(data = df_women_c, aes(y = D_Score, fill = Round))+
+women_boxplot_temp <- filter(df_women_c, Round == "final" | Round == "qual")
+
+ggplot(data = women_boxplot_temp, aes(y = Score, fill = Round))+
   geom_boxplot()+
   facet_wrap(.~Apparatus) +
   theme_light()+
@@ -747,11 +693,146 @@ ggplot(data = df_women_c, aes(y = D_Score, fill = Round))+
     #title = "Distribution of the Difficulty Score by Round and Apparatus",
    # subtitle = "For Women",
     fill = "Round",
-    y = "Difficulty Score"
+    y = "Score"
   )
 
 
 ```
+
+```{r diff-quali-v-final-vis-men, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Men"}
+
+men_boxplot_temp <- filter(df_men_c, Round == "final" | Round == "qual")
+
+ggplot(data = men_boxplot_temp, aes(y = Score, fill = Round))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+    #title = "Distribution of the Difficulty Score by Round and Apparatus",
+   # subtitle = "For men",
+    fill = "Round",
+    y = "Score"
+  )
+
+
+```
+
+winningmost countries
+
+```{r winningmost-countr-women}
+
+top_countries_women <- filter(df_women_c, 
+                              clean_country == "USA"|
+                                clean_country == "GBR"|
+                                clean_country == "CAN"|
+                                clean_country == "CHN"|
+                                clean_country == "BRA"|
+                                clean_country == "ITA"|
+                                clean_country == "NED"|
+                                clean_country == "FRA"|
+                                clean_country == "JPN"|
+                                clean_country == "AUS"|
+                                clean_country == "ROU"|
+                                clean_country == "KOR"|
+                                Round == "TeamFinal")
+
+ggplot(data = top_countries_women, aes(y = clean_country, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  labs(
+    x = "Rank",
+    y = "Country"
+  )
+```
+```{r}
+top_countries_men <- filter(df_men_c, 
+                              clean_country == "CHN"|
+                                clean_country == "JPN"|
+                                clean_country == "GBR"|
+                                clean_country == "USA"|
+                                clean_country == "CAN"|
+                                clean_country == "GER"|
+                                clean_country == "ITA"|
+                                clean_country == "SUI"|
+                                clean_country == "ESP"|
+                                clean_country == "TUR"|
+                                clean_country == "NED"|
+                                clean_country == "UKR"|
+                              Round == "TeamFinal")
+
+ggplot(data = top_countries_men, aes(y = clean_country, x = Rank))+
+  geom_boxplot()+
+  theme_light()+
+  labs(
+    x = "Rank",
+    y = "Country"
+  ) 
+```
+showing that most penalties are near 0:
+For both men's and women's competitions, the 95th percentile for the penalties is less than 0.5 (it is 0.5 for men and 0.4 for women). This means that 95% of penalties for both genders are not more than 0.5. The visualizations show that this does not change drastically based on the scope of the competition.
+Additionally, since the 51st percentile of penalties for both genders is 0.1, this means that the majority of entries had a penalty score of 0.1 or less.
+```{r penalty-dist-women, fig.cap="Distribution of Penalties by competition scope for Women"}
+
+# for women
+#quantile(as.numeric(df_women_c$Penalty), 0.95, na.rm = TRUE)
+#quantile(as.numeric(df_women_c$Penalty), 0.51, na.rm = TRUE)
+
+ggplot(data = df_women_c, aes(x = Penalty)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ competition_scope) +
+  labs(title = "Penalty Distribution for Women Athletes",
+       x = "Penalty",
+       y = "Count") +
+  theme_light() +
+  scale_color_aaas()
+
+```
+
+```{r penalty-dist-men, fig.cap="Distribution of Penalties by competition scope for Men"}
+
+# for men
+#quantile(as.numeric(df_men_c$Penalty), 0.95, na.rm = TRUE)
+#quantile(as.numeric(df_men_c$Penalty), 0.51, na.rm = TRUE)
+
+ggplot(data = df_men_c, aes(x = Penalty)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ competition_scope) +
+    labs(title = "Penalty Distribution for Men Athletes",
+       x = "Penalty",
+       y = "Count") +
+  theme_light() +
+  scale_color_aaas()
+
+```
+### Citations
+[1] https://www.cnbc.com/2021/08/04/simone-biles-return-helped-olympics-viewership-average-16point8-million.html
+
+[2] https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/
+
+[3] https://usagym.org/
+
+
+
+```{r diff-quali-v-final-vis-women, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
+
+women_boxplot_temp <- filter(df_women_c, Round == "final" | Round == "qual")
+
+ggplot(data = women_boxplot_temp, aes(y = Score, fill = Round))+
+  geom_boxplot()+
+  facet_wrap(.~Apparatus) +
+  theme_light()+
+  scale_fill_aaas()+  
+  labs(
+    #title = "Distribution of the Difficulty Score by Round and Apparatus",
+   # subtitle = "For Women",
+    fill = "Round",
+    y = "Score"
+  )
+
+
+```
+
 
 ```{r diff-world-v-nonworld-vis-women, fig.cap="Distribution of Difficulty scores by the Scope of Competition and Apparatus for Women"}
 
@@ -876,48 +957,7 @@ median(df_men_c$Score)
 
 Execution scores have a higher range than difficulty scores, for both men and women athletes (colored by round but doesn't seem to be much difference based on round):
 
-```{r men-difficulty-dist, fig.cap="Difficulty Score Distribution for Male Athletes"}
 
-ggplot(data = df_men_c, aes(x = D_Score)) +
-  geom_histogram(aes(fill = Round)) +
-  labs(title = "Difficulty Score Distribution for Male Athletes",
-       x = "Score",
-       y = "Count")+
-  theme_light()+
-  scale_fill_aaas()
-
-```
-
-```{r male-execution-dist, fig.cap="Execution Score Distribution for Male Athletes"}
-
-ggplot(data = df_men_c, aes(x = E_Score)) +
-  geom_histogram(aes(fill = Round)) +
-  labs(title = "Execution Score Distribution for Male Athletes",
-       x = "Score",
-       y = "Count")+
-  theme_light()+
-  scale_fill_aaas()
-
-
-```
-
-```{r women-execution-vs-difficulty}
-ggplot(data = df_women_c, aes(x = D_Score)) +
-  geom_histogram(aes(fill = Round)) +
-  labs(title = "Difficulty Score Distribution for Women Athletes",
-       x = "Score",
-       y = "Count")+
-  theme_light()+
-  scale_fill_aaas()
-
-ggplot(data = df_women_c, aes(x = E_Score)) +
-  geom_histogram(aes(fill = Round)) +
-  labs(title = "Execution Score Distribution for Women Athletes",
-       x = "Score",
-       y = "Count")+
-  theme_light()+
-  scale_fill_aaas()
-```
 
 
 

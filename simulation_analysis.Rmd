@@ -6,6 +6,7 @@ date: "2023-11-01"
 
 ```{r}
 library(knitr)
+library(tidyverse)
 ```
 
 ```{r}
@@ -56,8 +57,6 @@ USA_medals_m = unlist(USA_medals_m)
 top_indices <- order(USA_medals_m, decreasing = TRUE)[1:10]
 top_indices
 
-write_rds(top_indices, file = "men_indices.rds")
-
 ```
 
 ```{r}
@@ -91,8 +90,6 @@ USA_medals_w = unlist(USA_medals_w)
 
 top_indices <- order(USA_medals_w, decreasing = TRUE)[1:10]
 top_indices
-
-write_rds(top_indices, file = "women_indices.rds")
 
 ```
 
@@ -342,4 +339,130 @@ avg_total_medals_team3
 ```
 
 Team 3 had the highest average weighted medal count for all 300 simulations. We will choose them as our Team USA.
+
+```{r}
+
+# finding the best performance of Team 3 USA
+
+top_team_USA_medals_w <- vector("list", length = 300)
+
+for (i in seq_along(top_team_USA_medals_w)) {
+  summaryTeam <- top_women_team_sim3[[i]]@teamSummary
+  top_team_USA_medals_w[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+top_team_USA_medals_w = unlist(top_team_USA_medals_w)
+
+topteam_and_indices_w <- order(top_team_USA_medals_w, decreasing = TRUE)[1]
+topteam_and_indices_w
+
+
+```
+
+
+MEN'S RESULTS: TOP SIMULATION OF TOP TEAM
+
+```{=latex}
+
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
+
+\begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & China & USA & Italy \\
+    \hline
+    Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
+    \hline
+    Vault & Great Britain (Jake Jarman) & Philippines (Carlos Yulo) & Ukraine (Nazar Chepurnyi) \\
+    \hline
+    Still Rings & \highlight{USA (Asher Hong)} & Greece (Eleftherios Petrounias) & China (Xingyu Lan) \\
+    \hline
+    Pommel Horse & \highlight{USA (Patrick Hoopes)} & Kazakhstan (Nariman Kurbanov) & Canada (Zachary Clay) \\
+    \hline
+    Parallel Bars & Philippines (Carlos Yulo) & Germany (Lukas Dauser) & Japan (Shinnosuke Oka) \\
+     \hline
+    High Bar & China (Hao Tian) & Cyprus (Marios Georgiou) & Japan (Shinnosuke Oka) \\
+    \hline
+    Floor Exercise & \highlight{USA (Brody Malone)} & Cuba (Alejandro De) & Philippines (Carlos Yulo) \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
+  \textbf{Team USA Medal Count:} 6 \\
+  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
+
+```
+
+
+
+MEN'S RESULTS: TOP 10 TEAMS --> NUMBER OF TIMES THEY WON THE MOST
+
+```{r}
+# getting the teams
+
+men_team_sim1[[1]]@teamSummary$athletes[[12]]
+men_team_sim2[[1]]@teamSummary$athletes[[12]]
+men_team_sim3[[1]]@teamSummary$athletes[[12]]
+men_team_sim4[[1]]@teamSummary$athletes[[12]]
+men_team_sim5[[1]]@teamSummary$athletes[[12]]
+men_team_sim6[[1]]@teamSummary$athletes[[12]]
+men_team_sim7[[1]]@teamSummary$athletes[[12]]
+men_team_sim8[[1]]@teamSummary$athletes[[12]]
+men_team_sim9[[1]]@teamSummary$athletes[[12]]
+men_team_sim10[[1]]@teamSummary$athletes[[12]]
+
+```
+
+
+
+
+
+
+
+WOMEN'S RESULTS: TOP SIMULATION OF TOP TEAM
+
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & Brazil & China \\
+    \hline
+    Individual All-Around & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Balance Beam & \highlight{USA (Simone Biles)} & \highlight{USA (Konnor McClain)} & China (Ran Wu) \\
+    \hline
+    Vault & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Jade Carey)} \\
+    \hline
+    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain} \\
+  \textbf{Team USA Medal Count:} 10 \\
+  \textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze
+```
+
+
+WOMEN'S RESULTS: TOP 10 TEAMS --> NUMBER OF TIMES THEY WON THE MOST --> TOP 3 TEAMS --> WEIGHTED AVERAGE OF ALL
 

@@ -583,6 +583,9 @@ Plots to add, once we get final team: average Score by apperatous per team USA a
 
 justify: use all scores not just quali and final
 
+
+
+
 ## Analysis
 
 ```{r}
@@ -602,22 +605,22 @@ w_team_usa <- w_team_usa %>% mutate(clean_name = case_when (
 ))
 
 m_team_usa <- filter(df_men_c,
-                     clean_name == "Brody MALONE"|
-                       clean_name == "Javier ALFONSO"|
-                       clean_name == "Curran PHILLIPS"|
-                       clean_name == "Frederick RICHARD"|
-                       clean_name == "Joshua KARNES")
+                     clean_name == "Asher HONG"|
+                       clean_name == "Patrick HOOPES"|
+                       clean_name == "Paul JUDA"|
+                       clean_name == "Brody MALONE"|
+                       clean_name == "Colt WALKER")
 
 m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
+  clean_name == 'Asher HONG' ~ 'Asher Hong',
+  clean_name == 'Patrick HOOPES' ~ 'Patrick Hoopes',
+  clean_name == 'Paul JUDA' ~ 'Paul Juda',
   clean_name == 'Brody MALONE' ~ 'Brody Malone',
-  clean_name == 'Javier ALFONSO' ~ 'Javier Alfonso',
-  clean_name == 'Curran PHILLIPS' ~ 'Curran Phillips',
-  clean_name == 'Frederick RICHARD' ~ 'Frederick Richard',
-  clean_name == 'Joshua KARNES' ~ 'Joshua Karnes'
+  clean_name == 'Colt WALKER' ~ 'Colt Walker'
 ))
 ```
 
-```{r range-of-rank-w, fig.cap = "Range of Rank at all Competitions for US Womens Team"}
+```{r range-of-score-w, fig.cap = "Range of Rank at all Competitions for US Womens Team"}
 
 range_of_rank_w <- ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
   geom_point( alpha = .5, color = "#3b4992ff")+
@@ -633,19 +636,21 @@ range_of_rank_w <- ggplot(data = w_team_usa, aes(y= clean_name, x = Rank))+
 
 ```
 
-```{r range-of-rank-m}
+```{r range-of-score-m}
 
-range_of_rank_m <- ggplot(data = m_team_usa, aes(y= clean_name, x = Rank))+
+range_of_score_m <- ggplot(data = m_team_usa, aes(y= clean_name, x = Score))+
   geom_point( alpha = .5, color = "#3b4992ff")+
   theme_light()+
   scale_color_aaas()+
   labs(
-    x = "Rank",
+    x = "Score",
     y = "Team USA Athletes", 
     color = "Competition Scope",
     subtitle = "Men"
   )+
   facet_wrap(.~Apparatus)
+
+range_of_score_m
 
 ```
 
@@ -655,9 +660,45 @@ grid.arrange(range_of_rank_w, range_of_rank_m, nrow = 2)
 
 ```
 
+<<<<<<< HEAD
+```{r}
+
+df_women_c_brazil <- filter(df_women_c, Country == "BRA")
+
+df_women_c_brazil <- filter(df_women_c_brazil, Rank != 0)
+
+ggplot(data = df_women_c_brazil, aes(y= clean_name, x = Rank))+
+  geom_point( alpha = .5, color = "#008B45FF")+
+  theme_light()+
+  scale_color_aaas()+
+  labs(
+    x = "Rank",
+    y = "Team BRA Athletes", 
+    color = "Competition Scope",
+    subtitle = "women"
+  )+
+  facet_wrap(.~Apparatus)
+
+```
+
+
+Performance over time
+
+```{r team-usa-over-time-men}
+ggplot(m_team_usa, aes(x = competition_number, y = mean(Score)))+
+  geom_point()+
+  facet_wrap(.~clean_name)
+
+```
+### EDA - separated by type of visualization, not gender, figure out where to put (probably appendix, referenced in methodology)
+
+
+```{r diff-quali-v-final-vis-women1, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
+=======
 ### EDA - separated by type of visualization, not gender, figure out where to put (probably appendix, referenced in methodology)
 
 ```{r diff-quali-v-final-vis-women, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
+>>>>>>> 629134ab7161a9b631cc302428a6d8700e8859c9
 
 women_boxplot_temp <- filter(df_women_c, Round == "final" | Round == "qual")
 
@@ -676,7 +717,7 @@ ggplot(data = women_boxplot_temp, aes(y = Score, fill = Round))+
 
 ```
 
-```{r diff-quali-v-final-vis-men, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Men"}
+```{r diff-quali-v-final-vis-men1, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Men"}
 
 men_boxplot_temp <- filter(df_men_c, Round == "final" | Round == "qual")
 
@@ -697,7 +738,7 @@ ggplot(data = men_boxplot_temp, aes(y = Score, fill = Round))+
 
 winningmost countries
 
-```{r winningmost-countr-women}
+```{r winningmost-country-women }
 
 top_countries_women <- filter(df_women_c, 
                               clean_country == "USA"|
@@ -711,19 +752,25 @@ top_countries_women <- filter(df_women_c,
                                 clean_country == "JPN"|
                                 clean_country == "AUS"|
                                 clean_country == "ROU"|
-                                clean_country == "KOR"|
-                                Round == "TeamFinal")
+                                clean_country == "KOR")
+top_countries_women <- filter(top_countries_women, Rank != 0)
 
-ggplot(data = top_countries_women, aes(y = clean_country, x = Rank))+
+winningmost_country_women <- ggplot(data = top_countries_women, aes(y = clean_country, x = Rank))+
   geom_boxplot()+
   theme_light()+
   labs(
     x = "Rank",
-    y = "Country"
+    y = "Country",
+    title = "",
+    subtitle = "Women"
   )
 ```
+<<<<<<< HEAD
+```{r winningmost-country-men}
+=======
 
 ```{r}
+>>>>>>> 629134ab7161a9b631cc302428a6d8700e8859c9
 top_countries_men <- filter(df_men_c, 
                               clean_country == "CHN"|
                                 clean_country == "JPN"|
@@ -736,21 +783,35 @@ top_countries_men <- filter(df_men_c,
                                 clean_country == "ESP"|
                                 clean_country == "TUR"|
                                 clean_country == "NED"|
-                                clean_country == "UKR"|
-                              Round == "TeamFinal")
+                                clean_country == "UKR")
 
-ggplot(data = top_countries_men, aes(y = clean_country, x = Rank))+
+top_countries_men <- filter(top_countries_men, Rank != 0)
+winningmost_country_men <- ggplot(data = top_countries_men, aes(y = clean_country, x = Rank))+
   geom_boxplot()+
   theme_light()+
   labs(
     x = "Rank",
-    y = "Country"
+    y = "Country",
+    title = "",
+    subtitle = "Men"
   ) 
 ```
+<<<<<<< HEAD
+```{r adding-winningmost-countries-graphs, fig.cap = "Each Athletes Rank for Olympic Qualified Countries across all Competitions"}
+grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
+```
+
+
+showing that most penalties are near 0:
+For both men's and women's competitions, the 95th percentile for the penalties is less than 0.5 (it is 0.5 for men and 0.4 for women). This means that 95% of penalties for both genders are not more than 0.5. The visualizations show that this does not change drastically based on the scope of the competition.
+Additionally, since the 51st percentile of penalties for both genders is 0.1, this means that the majority of entries had a penalty score of 0.1 or less.
+```{r penalty-dist-women1, fig.cap="Distribution of Penalties by competition scope for Women"}
+=======
 
 showing that most penalties are near 0: For both men's and women's competitions, the 95th percentile for the penalties is less than 0.5 (it is 0.5 for men and 0.4 for women). This means that 95% of penalties for both genders are not more than 0.5. The visualizations show that this does not change drastically based on the scope of the competition. Additionally, since the 51st percentile of penalties for both genders is 0.1, this means that the majority of entries had a penalty score of 0.1 or less.
 
 ```{r penalty-dist-women, fig.cap="Distribution of Penalties by competition scope for Women"}
+>>>>>>> 629134ab7161a9b631cc302428a6d8700e8859c9
 
 # for women
 #quantile(as.numeric(df_women_c$Penalty), 0.95, na.rm = TRUE)
@@ -767,7 +828,7 @@ ggplot(data = df_women_c, aes(x = Penalty)) +
 
 ```
 
-```{r penalty-dist-men, fig.cap="Distribution of Penalties by competition scope for Men"}
+```{r penalty-dist-men1, fig.cap="Distribution of Penalties by competition scope for Men"}
 
 # for men
 #quantile(as.numeric(df_men_c$Penalty), 0.95, na.rm = TRUE)
@@ -791,6 +852,8 @@ ggplot(data = df_men_c, aes(x = Penalty)) +
 [2] <https://www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/>
 
 [3] <https://usagym.org/>
+
+### Appendix
 
 ```{r diff-quali-v-final-vis-women, fig.cap="Distribution of the Difficulty Score by Round and Apparatus for Women"}
 
@@ -872,37 +935,11 @@ ggplot(data = df_men_c, aes(x = Penalty)) +
 
 ```
 
+<<<<<<< HEAD
+=======
 Why we're using mean for bootstrapping: The distribution of event scores for women and men are both approximately normally distributed, with the mean and median scores less than 0.5 apart within each gender. The mean of women's scores is 12.207, and the median of women's scores is 12.367. The mean of men's scores is 13.048, and the median of men's scores is 13.233.
+>>>>>>> 629134ab7161a9b631cc302428a6d8700e8859c9
 
-```{r score-dist-women, fig.cap="Score Distribution for Women Athletes"}
-ggplot(data = df_women_c, aes(x = Score)) +
-  geom_histogram() +
-  labs(title = "Score Distribution for Women Athletes",
-       x = "Score",
-       y = "Count") +
-  theme_light() +
-  scale_color_aaas()
-
-
-#mean(df_women_c$Score)
-#median(df_women_c$Score)
-
-```
-
-```{r score-dist-men, fig.cap="Score Distribution for Male Athletes"}
-
-ggplot(data = df_men_c, aes(x = Score)) +
-  geom_histogram() +
-  labs(title = "Score Distribution for Men Athletes",
-       x = "Score",
-       y = "Count") +
-  theme_light() +
-  scale_color_aaas()
-
-#mean(df_men_c$Score)
-#median(df_men_c$Score)
-
-```
 
 Whether scores vary by type of round in competition: Doesn't seem to vary much; make the assumption that qualification scores are representative of an athlete's scores in the medal rounds
 

@@ -368,6 +368,27 @@ winning_men_team
 ```
 
 ```{r}
+# finding top performance within men_team_sim7
+
+top_team_USA_medals_m <- vector("list", length = 300)
+
+for (i in seq_along(top_team_USA_medals_m)) {
+  summaryTeam <- men_team_sim7[[i]]@teamSummary
+  top_team_USA_medals_m[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+top_team_USA_medals_m = unlist(top_team_USA_medals_m)
+
+topteam_and_indices_m <- order(top_team_USA_medals_m, decreasing = TRUE)[1]
+topteam_and_indices_m
+
+```
+
+```{r}
+first_medal_m <- men_team_sim7[[252]]@teamSummary
+```
+
+```{r}
 aggregated_heatmap_data_men <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
 
 # Loop through simulations
@@ -401,4 +422,48 @@ ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
        y = "Event",
        fill = "Medals") +
   theme_minimal()
+```
+
+MEN'S RESULTS TABLE:
+
+Best Simulated Outcome for Chosen Team:
+
+```{=latex}
+
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
+
+\begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & China & USA & Italy \\
+    \hline
+    Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
+    \hline
+    Vault & Great Britain (Jake Jarman) & Philippines (Carlos Yulo) & Ukraine (Nazar Chepurnyi) \\
+    \hline
+    Still Rings & \highlight{USA (Asher Hong)} & Greece (Eleftherios Petrounias) & China (Xingyu Lan) \\
+    \hline
+    Pommel Horse & \highlight{USA (Patrick Hoopes)} & Kazakhstan (Nariman Kurbanov) & Canada (Zachary Clay) \\
+    \hline
+    Parallel Bars & Philippines (Carlos Yulo) & Germany (Lukas Dauser) & Japan (Shinnosuke Oka) \\
+     \hline
+    High Bar & China (Hao Tian) & Cyprus (Marios Georgiou) & Japan (Shinnosuke Oka) \\
+    \hline
+    Floor Exercise & \highlight{USA (Brody Malone)} & Cuba (Alejandro De) & Philippines (Carlos Yulo) \\
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
+  \textbf{Team USA Medal Count:} 6 \\
+  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
+
 ```

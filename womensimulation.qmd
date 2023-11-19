@@ -465,7 +465,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 
 set.seed(5)
 # Number of simulations
-numSimulations <- 3
+numSimulations <- 3000
 
 # Create a list to store simulations
 simulations <- list()
@@ -594,7 +594,7 @@ for (i in seq_along(USA_medals_w)) {
 
 USA_medals_w = unlist(USA_medals_w)
 
-top_indices <- order(USA_medals_w, decreasing = TRUE)[1:2]
+top_indices <- order(USA_medals_w, decreasing = TRUE)[1:10]
 top_indices
 
 write_rds(top_indices, file = "women_indices.rds")
@@ -640,7 +640,7 @@ for (m in women_indices){
   distinct(clean_name, clean_country)
   set.seed(5)
   # Number of simulations
-  numSimulations <- 2
+  numSimulations <- 300
   
   # Create a list to store simulations
   simulations <- list()

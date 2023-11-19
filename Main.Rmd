@@ -633,35 +633,35 @@ m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
 
 
 w_team_usa_no_zero <- filter(w_team_usa, Rank != 0)
-range_of_rank_w <- ggplot(data = w_team_usa_no_zero, aes(y= clean_name, x = Rank))+
+range_of_rank_w <- ggplot(data = w_team_usa_no_zero, aes(y= Apparatus, x = Score))+
   geom_point( alpha = .5, color = "#3b4992ff")+
   theme_light()+
   scale_color_aaas()+
   theme(
     plot.title = element_text(size = 10)
   )+
-  labs(
-    x = NULL,
-    y = "Team USA Athletes- Women"
-  )+
-  facet_wrap(.~Apparatus)
+ # labs(
+ #   x = NULL,
+ #   y = "Team USA Athletes- Women"
+ # )+
+  facet_wrap(.~clean_name)
 ```
 
 ```{r range-of-score-m, fig.cap = "Every Competition Rank for each Male team USA Athlete by Apparatus", fig.margin = TRUE, fig.height = 4, fig.width = 4}
 
 m_team_usa_no_zero <- filter(m_team_usa, Rank != 0)
-range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= clean_name, x = Rank))+
+range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= Apparatus, x = Score))+
   geom_point( alpha = .5, color = "#3b4992ff")+
   theme_light()+
   scale_color_aaas()+
   theme(
     plot.title = element_text(size = 10)
   )+
-  labs(
-    x = "Rank",
-    y = "Team USA Athletes - Men"
-  )+
-  facet_wrap(.~Apparatus)
+  #labs(
+ #   x = "Rank",
+ #   y = "Team USA Athletes - Men"
+ # )+
+  facet_wrap(.~clean_name)
 
 
 ```
@@ -679,6 +679,8 @@ team_usa_over_time_women <- ggplot(w_team_usa, aes(x = competition_number, y = S
   geom_line(stat = "summary", fun = "mean")+
   theme_light()+
   facet_wrap(.~clean_name)
+
+team_usa_over_time_women
 ```
 
 ```{r team-usa-over-time-men}

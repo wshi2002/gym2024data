@@ -1,0 +1,404 @@
+---
+title: "check_men_gymnastics"
+format: pdf
+editor: visual
+---
+
+## Setting up the Environment
+
+```{r}
+setClass(
+  "GymnasticSimulation",
+  representation(
+    teamSummary = "data.frame",
+    teamAllAround = "data.frame",
+    indivAllAround = "data.frame",
+    VT = "data.frame",
+    SR = "data.frame",
+    PH = "data.frame", 
+    PB = "data.frame", 
+    HB = "data.frame",
+    FX = "data.frame"
+  )
+)
+
+# Create a constructor function
+GymnasticSimulation <- function(teamSummary = data.frame(),
+                                teamAllAround = data.frame(),
+                                indivAllAround = data.frame(),
+                                VT = data.frame(),
+                                SR = data.frame(),
+                                PH = data.frame(), 
+                                PB = data.frame(), 
+                                HB = data.frame(),
+                                FX = data.frame()
+                              
+                                 ) {
+  new("GymnasticSimulation",
+      teamSummary = teamSummary,
+      teamAllAround = teamAllAround,
+      indivAllAround = indivAllAround,
+      VT = VT,
+      SR = SR,
+      PH = PH,
+      PB = PB, 
+      HB = HB, 
+      FX = FX)
+}
+```
+
+## Team 1
+
+```{r}
+men_team_sim1 <- readRDS("men_team_sim1.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim1)){
+  team_summary <- men_team_sim1[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+## Men 2
+
+```{r}
+men_team_sim2 <- readRDS("men_team_sim2.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim2)){
+  team_summary <- men_team_sim2[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+## Team 3
+
+```{r}
+men_team_sim3 <- readRDS("men_team_sim3.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim3)){
+  team_summary <- men_team_sim3[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 4
+
+```{r}
+men_team_sim4 <- readRDS("men_team_sim4.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim4)){
+  team_summary <- men_team_sim4[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 5
+
+```{r}
+men_team_sim5 <- readRDS("men_team_sim5.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim5)){
+  team_summary <- men_team_sim5[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 6
+
+```{r}
+men_team_sim6 <- readRDS("men_team_sim6.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim6)){
+  team_summary <- men_team_sim6[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 7
+
+```{r}
+men_team_sim7 <- readRDS("men_team_sim7.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim7)){
+  team_summary <- men_team_sim7[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 8
+
+```{r}
+men_team_sim8 <- readRDS("men_team_sim8.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim8)){
+  team_summary <- men_team_sim8[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team 9
+
+```{r}
+men_team_sim9 <- readRDS("men_team_sim9.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim9)){
+  team_summary <- men_team_sim9[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+##Team10
+
+```{r}
+men_team_sim10 <- readRDS("men_team_sim10.rds")
+```
+
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(men_team_sim10)){
+  team_summary <- men_team_sim10[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+## Analyzing the winning team: Team 7
+
+```{r}
+team_summary <- men_team_sim7[[1]]@teamSummary
+
+winning_men_team <- team_summary$athletes[team_summary$clean_country == "USA"]
+
+winning_men_team
+```
+
+```{r}
+aggregated_heatmap_data_men <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
+
+# Loop through simulations
+for (i in seq_along(men_team_sim7)) {
+  # Access the team_summary_dataframe from the current simulation
+  team_summary <- men_team_sim7[[i]]@teamSummary
+  
+  # Identify individual event columns (assuming they have the "_Medal" suffix)
+  event_columns <- grep("_medal$", names(team_summary), value = TRUE)
+  
+  # Aggregate medals across events for each country in the current simulation
+  aggregated_data <- aggregate(team_summary[, c(event_columns, "total_medals")], by = list(Country = team_summary$clean_country), sum)
+  
+  # Append the aggregated data to the overall data frame
+  aggregated_heatmap_data_men <- rbind(aggregated_heatmap_data, aggregated_data)
+}
+```
+
+```{r}
+long_format_data_men <- aggregated_heatmap_data_men %>%
+  select(-c("total_medals")) %>%
+  gather(key = "Event", value = "Medals", -Country)
+```
+
+```{r}
+ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
+  geom_tile() +
+   scale_fill_gradient(low = "darkblue", high = "gold", limits = c(0, max(long_format_data_men$Medals))) +
+  labs(title = "Aggregated Country Performance Across Events",
+       x = "Country",
+       y = "Event",
+       fill = "Medals") +
+  theme_minimal()
+```

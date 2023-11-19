@@ -357,21 +357,6 @@ teams%>%
 ```
 
 ```{r}
-# Randomly sampling five athletes per country for the teams
-
-get_teams <- function(data = all_elites_mc){
-  all_elites_teams <- data %>%
-  filter(clean_country != "Other") %>%
-  group_by(clean_country) %>%
-  sample_n(5) %>%
-  ungroup()
-  return(all_elites_teams)
-}
-  
-#teams <- get_teams(all_elites_mc)
-```
-
-```{r}
 set.seed(21)
 
 # For a given event and set of athletes and country select the predicted winners 
@@ -396,13 +381,13 @@ event_sim_team_m <- function(event, dataset = all_elites, country){
     arrange(desc(sum_score))%>%
     slice(1:3)
   
-  all_same <- all(winners$clean_country == winners$clean_country[1])
-  all_same <- TRUE
-  if (all_same){
-    winners <- all_elites_event%>%
-    arrange(desc(sum_score))%>%
-    slice(1:2, 4)
-  }
+  #all_same <- all(winners$clean_country == winners$clean_country[1])
+  #all_same <- TRUE
+  #if (all_same){
+    #winners <- all_elites_event%>%
+    #arrange(desc(sum_score))%>%
+    #slice(1:2, 4)
+  #}
   
   winners$apparatus <- rep(event, nrow(winners))
   return(winners)
@@ -433,7 +418,7 @@ find3_country <- function(){
 ```
 
 ```{r}
-set.seed(21)
+#set.seed(21)
 event_sim_m <- function(event, dataset = all_elites){
   all_elites_event <- dataset
   
@@ -530,7 +515,7 @@ GymnasticSimulation <- function(teamSummary = data.frame(),
 
 set.seed(5)
 # Number of simulations
-numSimulations <- 1000
+numSimulations <- 3000
 
 # Create a list to store simulations
 simulations_m <- list()
@@ -643,7 +628,6 @@ for (i in 1:numSimulations) {
   simulation@PH<- PH_result
   simulations_m[[i]] <- simulation
   
-  print(i)
   
   #record_end <- Sys.time()
   #record_duration <- calculation_end - record_end
@@ -655,13 +639,195 @@ for (i in 1:numSimulations) {
 
 ```{r}
 #CHANGE FILE NAME WHEN RUNNING EACH TIME
-saveRDS(simulations_m, file = "simulations_m_katie.rds")
+saveRDS(simulations_m, file = "simulations_men.rds")
 ```
 
 ```{r}
-table_summary <- simulations_m[[1]]@teamSummary
+men_sims <- readRDS("simulations_men.rds")
 ```
 
 ```{r}
-table_summary
+USA_medals_m <- vector("list", length = numSimulations)
+
+for (i in seq_along(USA_medals_m)) {
+  summaryTeam <- men_sims[[i]]@teamSummary
+  USA_medals_m[i] <- summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+USA_medals_m = unlist(USA_medals_m)
+
+top_indices <- order(USA_medals_m, decreasing = TRUE)[1:10]
+top_indices
+
+write_rds(top_indices, file = "men_indices.rds")
+```
+
+```{r}
+men_indices <- readRDS("men_indices.rds")
+```
+
+```{r}
+get_teams_otherm <- function(data = weights_df_m){
+  all_elites_teams <- weights_df_m %>%
+    
+  # not including "country == other" because those countries are not good enough 
+  # to get a team at the olympics
+  filter(clean_country != "Other") %>%
+  filter(clean_country != "USA") %>%
+    
+  # grouping by country to sample for each country
+  group_by(clean_country) %>%
+    
+  # weighting by the adjusted weights
+  slice(sample(row_number(), size = 5, prob = adjusted_weights)) %>%
+  ungroup()
+  
+  # selecting for only necessary columns
+  all_elites_teams <- all_elites_teams%>%
+    select(clean_name, clean_country)
+  return(all_elites_teams)
+}
+
+# sanity check
+teams_check <- get_teams_otherm()
+```
+
+```{r}
+team_count = 1
+for (m in men_indices){
+  team_summary <- men_sims[[m]]@teamSummary
+  usa_athletes<- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
+  men_usa <- df_men_c[df_men_c$clean_name %in% usa_athletes, c("clean_name", "clean_country")] %>%
+  distinct(clean_name, clean_country)
+  set.seed(5)
+  # Number of simulations
+  numSimulations <- 300
+  
+  # Create a list to store simulations
+  simulations_m <- list()
+  
+  # Run the loop to initialize simulations
+  for (i in 1:numSimulations) {
+    #set up the different groups
+    teams <- get_teams_otherm()
+    teams <- rbind(teams, men_usa)
+    all_indiv <- rbind(teams, all_elites_other_m)
+    
+    
+    #start simulating all events
+    #simulation_start <- Sys.time()
+    
+    top_athletes <- find3_country()
+    
+    #team_checkpoint <- Sys.time()
+    
+    team_result <- Team_AA_sim_m(top_athletes)
+    
+    #check_point <- Sys.time()
+    
+    indivAA_result <- event_sim_indiv_m(c("VT", "SR", "PH", "PB", "HB", "FX"), all_indiv)
+    SR_result <- event_sim_indiv_m(c("SR"), all_indiv)
+    VT_result <- event_sim_indiv_m(c("VT1", "VT2"), all_indiv)
+    PH_result <- event_sim_indiv_m(c("PH"), all_indiv)
+    PB_result <- event_sim_indiv_m(c("PB"), all_indiv)
+    HB_result <- event_sim_indiv_m(c("HB"), all_indiv)
+    FX_result <- event_sim_indiv_m(c("FX"), all_indiv)
+    
+    #simulation_end <- Sys.time()
+    #team_duration <- team_checkpoint - simulation_start
+    #individual_duration <- simulation_end - check_point
+    #simulation_duration <- simulation_end - simulation_start
+    #cat("team duration", team_duration, "\n")
+    #cat("individual duration", individual_duration, "\n")
+    #cat("simulation duration", simulation_duration, "\n")
+    
+    #creating dataframes
+    unique_countries <- unique(all_indiv$clean_country)
+    summaryTeam <- tibble(clean_country = unique_countries)
+    summaryTeam <- summaryTeam %>%
+      mutate(
+      athletes = map(clean_country, ~all_indiv$clean_name[all_indiv$clean_country == .x])
+    )
+    team_medal <- team_result %>%
+      select(-c("final_scores"))
+    summaryTeam <- left_join(summaryTeam, team_medal, by = "clean_country")
+    
+    indiv_grouped <- indivAA_result %>%
+      group_by(clean_country) %>%
+      summarize(indiv_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, indiv_grouped, by = "clean_country")
+    
+    VT_grouped <- VT_result %>%
+      group_by(clean_country) %>%
+      summarize(VT_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, VT_grouped, by = "clean_country")
+    
+    SR_grouped <- SR_result %>%
+      group_by(clean_country) %>%
+      summarize(SR_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, SR_grouped, by = "clean_country")
+    
+    FX_grouped <- FX_result %>%
+      group_by(clean_country) %>%
+      summarize(FX_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, FX_grouped, by = "clean_country")
+    
+    PH_grouped <- PH_result %>%
+      group_by(clean_country) %>%
+      summarize(PH_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, PH_grouped, by = "clean_country")
+    
+    PB_grouped <- PB_result %>%
+      group_by(clean_country) %>%
+      summarize(PB_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, PB_grouped, by = "clean_country")
+    
+    HB_grouped <- HB_result %>%
+      group_by(clean_country) %>%
+      summarize(HB_medal = sum(medal_count)) 
+    summaryTeam <- left_join(summaryTeam, HB_grouped, by = "clean_country")
+    
+    
+    #dataframe_end <- Sys.time()
+    #dataframe_duration <- simulation_end - dataframe_end
+    #cat("dataframe duration", dataframe_duration, "\n")
+    
+    #find the final number of medals
+    summaryTeam[is.na(summaryTeam)] <- 0
+    columns_to_exclude <- c("athletes", "clean_country")
+    summaryTeam$total_medals <- rowSums(summaryTeam[, !names(summaryTeam) %in% columns_to_exclude])
+    
+    #calculation_end <- Sys.time()
+    #calculation_duration <- dataframe_end - calculation_end
+    #cat("calculation duration", calculation_duration, "\n")
+    
+    #saving it all down finally
+    simulation <- GymnasticSimulation()
+  
+    simulation@teamSummary <- summaryTeam
+    simulation@teamAllAround <- team_result
+    simulation@indivAllAround <- indivAA_result
+    simulation@PB <- PB_result
+    simulation@VT<- VT_result
+    simulation@FX<- FX_result
+    simulation@HB<- HB_result
+    simulation@SR<- SR_result
+    simulation@PH<- PH_result
+    simulations_m[[i]] <- simulation
+    
+    
+    #record_end <- Sys.time()
+    #record_duration <- calculation_end - record_end
+    #cat("record duration", record_duration, "\n")
+  }
+  
+  file_name <- paste0("men_team_sim", team_count, ".rds")
+  saveRDS(simulations_m, file = file_name)
+  team_count = team_count+1
+  
+}
+```
+
+```{r}
+print("Done with men's simulation")
 ```

@@ -4,7 +4,6 @@ format: pdf
 editor: visual
 ---
 
-
 ## Setting up the Environment
 
 ```{r}
@@ -353,7 +352,7 @@ country_counts <- table(winning_countries)
 country_counts
 ```
 
-## Analyzing the winning team: Team 7
+## Analyzing the winning team(s) for women:
 
 ```{r}
 team_summary <- women_team_sim7[[1]]@teamSummary
@@ -362,7 +361,6 @@ women_7 <- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
 
 women_7
 ```
-
 
 ```{r}
 team_summary <- women_team_sim6[[1]]@teamSummary
@@ -380,7 +378,6 @@ women_5 <- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
 women_5
 ```
 
-
 ```{r}
 team_summary <- women_team_sim9[[1]]@teamSummary
 
@@ -388,6 +385,7 @@ women_9 <- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
 
 women_9
 ```
+
 ```{r}
 team_summary <- women_team_sim10[[1]]@teamSummary
 
@@ -395,11 +393,13 @@ women_10 <- unlist(team_summary$athletes[team_summary$clean_country == "USA"])
 
 women_10
 ```
+
 ```{r}
 overlap <- Reduce(intersect, list(women_5, women_6, women_7, women_9, women_10))
 
 overlap
 ```
+
 ```{r}
 all_women <- c(women_5, women_6, women_7, women_9, women_10)
 
@@ -407,7 +407,6 @@ athlete_freq <- table(all_women)
 
 sort(athlete_freq, decreasing = TRUE)
 ```
-
 
 ```{r}
 #women_indices <- readRDS("women_indices.rds")
@@ -571,11 +570,6 @@ for (m in women_sims){
 }
 ```
 
-
-
-
-
-
 ```{r}
 aggregated_heatmap_data_men <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
 
@@ -611,4 +605,3 @@ ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
        fill = "Medals") +
   theme_minimal()
 ```
-

@@ -583,8 +583,21 @@ Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, and Joshua Kar
 long_format_data_men = read_rds("Heatmap_data_men")
 ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
   geom_tile() +
-   scale_fill_gradient(low = "darkblue", high = "gold", limits = c(0, max(long_format_data_men$Medals))) +
-  labs(title = "Aggregated Country Performance Across Events",
+   scale_fill_gradient(low = "darkblue", high = "gold") +
+  labs(title = "Average Country Performance Across Events",
+       x = "Country",
+       y = "Event",
+       fill = "Medals") +
+  theme_minimal()
+```
+
+
+```{r}
+long_format_data_women = read_rds("Heatmap_data_women")
+ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
+  geom_tile() +
+   scale_fill_gradient(low = "darkblue", high = "gold") +
+  labs(title = "Average Country Performance Across Simulations",
        x = "Country",
        y = "Event",
        fill = "Medals") +

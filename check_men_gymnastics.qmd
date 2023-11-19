@@ -403,7 +403,7 @@ for (i in seq_along(men_team_sim7)) {
   aggregated_data <- aggregate(team_summary[, c(event_columns, "total_medals")], by = list(Country = team_summary$clean_country), sum)
   
   # Append the aggregated data to the overall data frame
-  aggregated_heatmap_data_men <- rbind(aggregated_heatmap_data, aggregated_data)
+  aggregated_heatmap_data_men <- rbind(aggregated_heatmap_data_men, aggregated_data)
 }
 ```
 
@@ -411,13 +411,21 @@ for (i in seq_along(men_team_sim7)) {
 long_format_data_men <- aggregated_heatmap_data_men %>%
   select(-c("total_medals")) %>%
   gather(key = "Event", value = "Medals", -Country)
+
+long_format_data_men <- long_format_data_men %>%
+  group_by(Country, Event) %>%
+  summarise(Medals = mean(Medals, na.rm = TRUE)) %>%
+  ungroup()
+
+write_rds(long_format_data_men, "Heatmap_data_men")
 ```
 
 ```{r}
+long_format_data_men = read_rds("Heatmap_data_men")
 ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
   geom_tile() +
    scale_fill_gradient(low = "darkblue", high = "gold", limits = c(0, max(long_format_data_men$Medals))) +
-  labs(title = "Aggregated Country Performance Across Events",
+  labs(title = "Average Country Performance Across Events",
        x = "Country",
        y = "Event",
        fill = "Medals") +

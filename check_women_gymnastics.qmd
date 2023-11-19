@@ -570,13 +570,155 @@ for (m in women_sims){
 }
 ```
 
+
+
+Looking at the second iteration of Women's Teams:
+
 ```{r}
-aggregated_heatmap_data_men <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
+
+top_women_team_sim1 <- readRDS("part2_women_team_sim1.rds")
+top_women_team_sim2 <- readRDS("part2_women_team_sim2.rds")
+top_women_team_sim3 <- readRDS("part2_women_team_sim3.rds")
+```
+
+
+
+For Team 1:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim1)){
+  team_summary <- top_women_team_sim1[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+
+For Team 2:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim2)){
+  team_summary <- top_women_team_sim2[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+
+For Team 3:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim3)){
+  team_summary <- top_women_team_sim3[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+```{r}
+# avg total medals for team combination 1
+top_team_1_totals = 0
+
+for (i in seq_along(top_women_team_sim1)) {
+  summaryTeam <- top_women_team_sim1[[i]]@teamSummary
+  top_team_1_totals = top_team_1_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team1 = top_team_1_totals / 300
+avg_total_medals_team1
+
+```
+
+```{r}
+# avg total medals for team combination 2
+top_team_2_totals = 0
+
+for (i in seq_along(top_women_team_sim2)) {
+  summaryTeam <- top_women_team_sim2[[i]]@teamSummary
+  top_team_2_totals = top_team_2_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team2 = top_team_2_totals / 300
+avg_total_medals_team2
+
+```
+
+```{r}
+# avg total medals for team combination 3
+top_team_3_totals = 0
+
+for (i in seq_along(top_women_team_sim3)) {
+  summaryTeam <- top_women_team_sim3[[i]]@teamSummary
+  top_team_3_totals = top_team_3_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team3 = top_team_3_totals / 300
+avg_total_medals_team3
+
+```
+
+
+
+
+
+
+
+```{r}
+aggregated_heatmap_data <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
 
 # Loop through simulations
-for (i in seq_along(men_team_sim7)) {
+for (i in seq_along(top_women_team_sim3)) {
   # Access the team_summary_dataframe from the current simulation
-  team_summary <- men_team_sim7[[i]]@teamSummary
+  team_summary <- top_women_team_sim3[[i]]@teamSummary
   
   # Identify individual event columns (assuming they have the "_Medal" suffix)
   event_columns <- grep("_medal$", names(team_summary), value = TRUE)
@@ -585,23 +727,37 @@ for (i in seq_along(men_team_sim7)) {
   aggregated_data <- aggregate(team_summary[, c(event_columns, "total_medals")], by = list(Country = team_summary$clean_country), sum)
   
   # Append the aggregated data to the overall data frame
-  aggregated_heatmap_data_men <- rbind(aggregated_heatmap_data, aggregated_data)
+  aggregated_heatmap_data <- rbind(aggregated_heatmap_data, aggregated_data)
 }
 ```
 
 ```{r}
-long_format_data_men <- aggregated_heatmap_data_men %>%
+long_format_data_women <- aggregated_heatmap_data %>%
   select(-c("total_medals")) %>%
   gather(key = "Event", value = "Medals", -Country)
+
+long_format_data_women <- long_format_data_women %>%
+  group_by(Country, Event) %>%
+  summarise(Medals = mean(Medals, na.rm = TRUE)) %>%
+  ungroup()
+
+write_rds(long_format_data_women, "Heatmap_data_women")
 ```
 
 ```{r}
-ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
+long_format_data_women = read_rds("Heatmap_data_women")
+ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
   geom_tile() +
-   scale_fill_gradient(low = "darkblue", high = "gold", limits = c(0, max(long_format_data_men$Medals))) +
-  labs(title = "Aggregated Country Performance Across Events",
+   scale_fill_gradient(low = "darkblue", high = "gold") +
+  labs(title = "Average Country Performance Across Simulations",
        x = "Country",
        y = "Event",
        fill = "Medals") +
   theme_minimal()
 ```
+```{r}
+long_format_data_women %>%
+  group_by(Country, Event) %>%
+  sum(Medals)
+```
+

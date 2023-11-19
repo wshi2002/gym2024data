@@ -422,31 +422,37 @@ Although we are only simulating scores for the final rounds, since those are the
 Figure X confirms that the distribution of scores for qualification and final rounds are similar.
 Additionally, we only created the KDEs based on total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Figure X additionally demonstrates that most penalty scores are near 0.
 
-```{r score-dist-women-hist, fig.cap = "Score Distribution for Women"}
+```{r score-dist-women-hist}
 
 women_rounddist <- ggplot(data = df_women_c, aes(x = Score)) +
   geom_histogram(aes(fill = Round), alpha = 0.8) +
-  labs(title = "Score Distribution for Women Athletes, by Round",
+  labs(title = "Women",
        x = "Score",
        y = "Count") +
   theme_light() +
   theme(legend.position = "none") +
+  #scale_fill_aaas()
   scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"))
-  
+
 ```
-```{r score-dist-men-hist, fig.cap = "Score Distribution for Men"}
+```{r score-dist-men-hist}
 
 men_rounddist <- ggplot(data = df_men_c, aes(x = Score)) +
   geom_histogram(aes(fill = Round), alpha = 0.8) +
-  labs(title = "Score Distribution for Men Athletes, by Round",
+  labs(title = "Men",
        x = "Score",
        y = "Count") +
   theme_light() +
-      scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"),
-                        labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
-
+     # scale_fill_manual(values = c("AAFinal" = "#3e4a91", "final" = "#eb0608", "qual" = "#048b48", "TeamFinal" = "#611a75", "TeamQual" = "#0b8280"),
+      #                  labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
+  scale_fill_aaas(labels = c("Individual All-Around Final", "Individual Apparatus Final", "Individual Apparatus Qualification", "Team Final", "Team Qualification"))
 #grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
 
+
+```
+
+```{r full-medal-dist, fig.cap = "Score Distribution by Round"}
+grid.arrange(women_rounddist, men_rounddist, ncol = 2, widths = c(2, 4))
 ```
 
 ### Team Selection

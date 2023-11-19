@@ -205,3 +205,141 @@ p_after <- p_before + scale_color_manual(values = c("Group A" = "red", "Group B"
 print(p_after)
 ```
 
+
+
+Looking at the second iteration of Women's Teams:
+
+```{r}
+
+top_women_team_sim1 <- readRDS("part2_women_team_sim1.rds")
+top_women_team_sim2 <- readRDS("part2_women_team_sim2.rds")
+top_women_team_sim3 <- readRDS("part2_women_team_sim3.rds")
+```
+
+
+
+For Team 1:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim1)){
+  team_summary <- top_women_team_sim1[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+
+For Team 2:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim2)){
+  team_summary <- top_women_team_sim2[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+
+For Team 3:
+```{r}
+winning_countries <- c()
+
+for (i in seq_along(top_women_team_sim3)){
+  team_summary <- top_women_team_sim3[[i]]@teamSummary
+  
+  top_countries <- team_summary %>%
+    arrange(desc(total_medals))
+  
+  winning_country = top_countries$clean_country[1]
+  
+  if(winning_country == "Other"){
+    winning_country = top_countries$clean_country[2]
+  }
+  
+  
+  winning_countries <- c(winning_countries, winning_country)
+}
+```
+
+```{r}
+country_counts <- table(winning_countries)
+country_counts
+```
+
+```{r}
+# avg total medals for team combination 1
+top_team_1_totals = 0
+
+for (i in seq_along(top_women_team_sim1)) {
+  summaryTeam <- top_women_team_sim1[[i]]@teamSummary
+  top_team_1_totals = top_team_1_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team1 = top_team_1_totals / 300
+avg_total_medals_team1
+
+```
+
+```{r}
+# avg total medals for team combination 2
+top_team_2_totals = 0
+
+for (i in seq_along(top_women_team_sim2)) {
+  summaryTeam <- top_women_team_sim2[[i]]@teamSummary
+  top_team_2_totals = top_team_2_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team2 = top_team_2_totals / 300
+avg_total_medals_team2
+
+```
+
+```{r}
+# avg total medals for team combination 3
+top_team_3_totals = 0
+
+for (i in seq_along(top_women_team_sim3)) {
+  summaryTeam <- top_women_team_sim3[[i]]@teamSummary
+  top_team_3_totals = top_team_3_totals + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team3 = top_team_3_totals / 300
+avg_total_medals_team3
+
+```
+
+Team 3 had the highest average weighted medal count for all 300 simulations. We will choose them as our Team USA.
+

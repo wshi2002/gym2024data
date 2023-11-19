@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  19 NOV 2023 13:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  19 NOV 2023 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -510,208 +510,160 @@ Overfull \hbox (47.3388pt too wide) in paragraph at lines 311--331
  []
 
 [3] [4]
-<Main_files/figure-latex/range_of_rank_together-1.pdf, id=58, 469.755pt x 325.2
-15pt>
+<Main_files/figure-latex/range_of_rank_together-1.pdf, id=58, 505.89pt x 505.89
+pt>
 File: Main_files/figure-latex/range_of_rank_together-1.pdf Graphic file (type p
 df)
 <use Main_files/figure-latex/range_of_rank_together-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/range_of_rank_together-1.pdf  
 used on input line 427.
+(pdftex.def)             Requested size: 469.76265pt x 469.76265pt.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
+33.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+435.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<Main_files/figure-latex/team-usa-over-time-women-1.pdf, id=59, 469.755pt x 325
+.215pt>
+File: Main_files/figure-latex/team-usa-over-time-women-1.pdf Graphic file (type
+ pdf)
+<use Main_files/figure-latex/team-usa-over-time-women-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/team-usa-over-time-women-1.pdf
+  used on input line 437.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/diff-quali-v-final-vis-women1-1.pdf, id=59, 469.755pt 
-x 325.215pt>
-File: Main_files/figure-latex/diff-quali-v-final-vis-women1-1.pdf Graphic file 
-(type pdf)
-<use Main_files/figure-latex/diff-quali-v-final-vis-women1-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/diff-quali-v-final-vis-women1-
-1.pdf  used on input line 438.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/diff-quali-v-final-vis-men1-1.pdf, id=60, 469.755pt x 
-325.215pt>
-File: Main_files/figure-latex/diff-quali-v-final-vis-men1-1.pdf Graphic file (t
-ype pdf)
-<use Main_files/figure-latex/diff-quali-v-final-vis-men1-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/diff-quali-v-final-vis-men1-1.
-pdf  used on input line 445.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf, id=61, 469.
-755pt x 325.215pt>
+<Main_files/figure-latex/diff_qual_v_final_output-1.pdf, id=60, 505.89pt x 361.
+35pt>
+File: Main_files/figure-latex/diff_qual_v_final_output-1.pdf Graphic file (type
+ pdf)
+<use Main_files/figure-latex/diff_qual_v_final_output-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/diff_qual_v_final_output-1.pdf
+  used on input line 441.
+(pdftex.def)             Requested size: 469.76265pt x 335.54477pt.
+[5 <./Main_files/figure-latex/range_of_rank_together-1.pdf>]
+<Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf, id=80, 469.
+755pt x 289.08pt>
 File: Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf Graphic
  file (type pdf)
 <use Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/adding-winningmost-countries-g
-raphs-1.pdf  used on input line 454.
+raphs-1.pdf  used on input line 449.
+(pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
+<Main_files/figure-latex/brazilian-women-1.pdf, id=84, 469.755pt x 325.215pt>
+File: Main_files/figure-latex/brazilian-women-1.pdf Graphic file (type pdf)
+<use Main_files/figure-latex/brazilian-women-1.pdf>
+Package pdftex.def Info: Main_files/figure-latex/brazilian-women-1.pdf  used on
+ input line 470.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/penalty-dist-women1-1.pdf, id=62, 469.755pt x 325.215p
+<Main_files/figure-latex/penalty-dist-women1-1.pdf, id=85, 469.755pt x 325.215p
 t>
 File: Main_files/figure-latex/penalty-dist-women1-1.pdf Graphic file (type pdf)
 
 <use Main_files/figure-latex/penalty-dist-women1-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/penalty-dist-women1-1.pdf  use
-d on input line 467.
+d on input line 485.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Main_files/figure-latex/penalty-dist-men1-1.pdf, id=86, 469.755pt x 325.215pt>
 
-Underfull \hbox (badness 1210) in paragraph at lines 459--468
-\T1/lmr/m/n/9 (+20) for the penal-ties is less than 0.5 (it is 0.5 for men and 
-0.4 for women). This means that 95% of
- []
-
-
-Underfull \hbox (badness 1968) in paragraph at lines 459--468
-\T1/lmr/m/n/9 (+20) dras-ti-cally based on the scope of the com-pe-ti-tion. Ad-
-di-tion-ally, since the 51st per-centile of penal-
- []
-
-[5 <./Main_files/figure-latex/range_of_rank_together-1.pdf>] [6 <./Main_files/f
-igure-latex/diff-quali-v-final-vis-women1-1.pdf>] [7 <./Main_files/figure-latex
-/diff-quali-v-final-vis-men1-1.pdf>] [8 <./Main_files/figure-latex/adding-winni
-ngmost-countries-graphs-1.pdf>]
-<Main_files/figure-latex/penalty-dist-men1-1.pdf, id=113, 469.755pt x 325.215pt
->
 File: Main_files/figure-latex/penalty-dist-men1-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/penalty-dist-men1-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/penalty-dist-men1-1.pdf  used 
-on input line 469.
+on input line 491.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 469--472
-[][]
- []
-
-[9 <./Main_files/figure-latex/penalty-dist-women1-1.pdf>]
-<Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf, id=126, 469.755pt 
-x 325.215pt>
+<Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf, id=87, 469.755pt x
+ 325.215pt>
 File: Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf Graphic file (
 type pdf)
 <use Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/diff-quali-v-final-vis-women-1
-.pdf  used on input line 480.
+.pdf  used on input line 500.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/diff-world-v-nonworld-vis-women-1.pdf, id=127, 469.755
-pt x 325.215pt>
+<Main_files/figure-latex/diff-world-v-nonworld-vis-women-1.pdf, id=88, 469.755p
+t x 325.215pt>
 File: Main_files/figure-latex/diff-world-v-nonworld-vis-women-1.pdf Graphic fil
 e (type pdf)
 <use Main_files/figure-latex/diff-world-v-nonworld-vis-women-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/diff-world-v-nonworld-vis-wome
-n-1.pdf  used on input line 487.
+n-1.pdf  used on input line 507.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/Score-world-v-nonworld-vis-women-1.pdf, id=128, 469.75
-5pt x 325.215pt>
+<Main_files/figure-latex/Score-world-v-nonworld-vis-women-1.pdf, id=89, 469.755
+pt x 325.215pt>
 File: Main_files/figure-latex/Score-world-v-nonworld-vis-women-1.pdf Graphic fi
 le (type pdf)
 <use Main_files/figure-latex/Score-world-v-nonworld-vis-women-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/Score-world-v-nonworld-vis-wom
-en-1.pdf  used on input line 494.
+en-1.pdf  used on input line 514.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/penalty-dist-women-1.pdf, id=129, 469.755pt x 325.215p
-t>
+<Main_files/figure-latex/penalty-dist-women-1.pdf, id=90, 469.755pt x 325.215pt
+>
 File: Main_files/figure-latex/penalty-dist-women-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/penalty-dist-women-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/penalty-dist-women-1.pdf  used
- on input line 507.
+ on input line 530.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 1210) in paragraph at lines 499--508
-\T1/lmr/m/n/9 (+20) for the penal-ties is less than 0.5 (it is 0.5 for men and 
-0.4 for women). This means that 95% of
- []
-
-
-Underfull \hbox (badness 1968) in paragraph at lines 499--508
-\T1/lmr/m/n/9 (+20) dras-ti-cally based on the scope of the com-pe-ti-tion. Ad-
-di-tion-ally, since the 51st per-centile of penal-
- []
-
-<Main_files/figure-latex/penalty-dist-men-1.pdf, id=130, 469.755pt x 325.215pt>
-
+<Main_files/figure-latex/penalty-dist-men-1.pdf, id=91, 469.755pt x 325.215pt>
 File: Main_files/figure-latex/penalty-dist-men-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/penalty-dist-men-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/penalty-dist-men-1.pdf  used o
-n input line 511.
+n input line 536.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[10 <./Main_files/figure-latex/penalty-dist-men1-1.pdf>] [11 <./Main_files/figu
-re-latex/diff-quali-v-final-vis-women-1.pdf>] [12 <./Main_files/figure-latex/di
-ff-world-v-nonworld-vis-women-1.pdf>] [13 <./Main_files/figure-latex/Score-worl
-d-v-nonworld-vis-women-1.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-22.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-524.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-<Main_files/figure-latex/score-dist-women-1.pdf, id=174, 469.755pt x 325.215pt>
-
-File: Main_files/figure-latex/score-dist-women-1.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/score-dist-women-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/score-dist-women-1.pdf  used o
-n input line 528.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/score-dist-men-1.pdf, id=175, 469.755pt x 325.215pt>
-File: Main_files/figure-latex/score-dist-men-1.pdf Graphic file (type pdf)
-<use Main_files/figure-latex/score-dist-men-1.pdf>
-Package pdftex.def Info: Main_files/figure-latex/score-dist-men-1.pdf  used on 
-input line 538.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/unnamed-chunk-12-1.pdf, id=176, 469.755pt x 325.215pt>
+[6 <./Main_files/figure-latex/team-usa-over-time-women-1.pdf>] [7 <./Main_files
+/figure-latex/diff_qual_v_final_output-1.pdf>]
+<Main_files/figure-latex/unnamed-chunk-12-1.pdf, id=120, 469.755pt x 325.215pt>
 
 File: Main_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-12-1.pdf  used o
-n input line 550.
+n input line 555.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[14 <./Main_files/figure-latex/penalty-dist-women-1.pdf>] [15 <./Main_files/fig
-ure-latex/penalty-dist-men-1.pdf>] [16 <./Main_files/figure-latex/score-dist-wo
-men-1.pdf>] [17 <./Main_files/figure-latex/score-dist-men-1.pdf>]
-<Main_files/figure-latex/unnamed-chunk-12-2.pdf, id=218, 469.755pt x 325.215pt>
+[8 <./Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf>] [9 <.
+/Main_files/figure-latex/brazilian-women-1.pdf>] [10 <./Main_files/figure-latex
+/penalty-dist-women1-1.pdf>] [11 <./Main_files/figure-latex/penalty-dist-men1-1
+.pdf>] [12 <./Main_files/figure-latex/diff-quali-v-final-vis-women-1.pdf>] [13 
+<./Main_files/figure-latex/diff-world-v-nonworld-vis-women-1.pdf>] [14 <./Main_
+files/figure-latex/Score-world-v-nonworld-vis-women-1.pdf>] [15 <./Main_files/f
+igure-latex/penalty-dist-women-1.pdf>] [16 <./Main_files/figure-latex/penalty-d
+ist-men-1.pdf>]
+<Main_files/figure-latex/unnamed-chunk-12-2.pdf, id=217, 469.755pt x 325.215pt>
 
 File: Main_files/figure-latex/unnamed-chunk-12-2.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/unnamed-chunk-12-2.pdf>
 Package pdftex.def Info: Main_files/figure-latex/unnamed-chunk-12-2.pdf  used o
-n input line 556.
+n input line 561.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[18 <./Main_files/figure-latex/unnamed-chunk-12-1.pdf>]
-<Main_files/figure-latex/diff-quali-v-final-vis-men-1.pdf, id=228, 469.755pt x 
+[17 <./Main_files/figure-latex/unnamed-chunk-12-1.pdf>]
+<Main_files/figure-latex/diff-quali-v-final-vis-men-1.pdf, id=227, 469.755pt x 
 325.215pt>
 File: Main_files/figure-latex/diff-quali-v-final-vis-men-1.pdf Graphic file (ty
 pe pdf)
 <use Main_files/figure-latex/diff-quali-v-final-vis-men-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/diff-quali-v-final-vis-men-1.p
-df  used on input line 578.
+df  used on input line 585.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Main_files/figure-latex/diff-world-v-nonworld-vis-men-1.pdf, id=229, 469.755pt
+<Main_files/figure-latex/diff-world-v-nonworld-vis-men-1.pdf, id=228, 469.755pt
  x 325.215pt>
 File: Main_files/figure-latex/diff-world-v-nonworld-vis-men-1.pdf Graphic file 
 (type pdf)
 <use Main_files/figure-latex/diff-world-v-nonworld-vis-men-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/diff-world-v-nonworld-vis-men-
-1.pdf  used on input line 580.
+1.pdf  used on input line 594.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 578--581
-[][]
- []
-
-
-Overfull \hbox (149.94281pt too wide) in paragraph at lines 578--581
-\T1/lmr/m/n/9 (-20) Wait-ing for com-pe-ti-tion scope for men [] 
- []
-
-[19 <./Main_files/figure-latex/unnamed-chunk-12-2.pdf>]
-<Main_files/figure-latex/Score-world-v-nonworld-vis-men-1.pdf, id=240, 469.755p
+<Main_files/figure-latex/Score-world-v-nonworld-vis-men-1.pdf, id=229, 469.755p
 t x 325.215pt>
 File: Main_files/figure-latex/Score-world-v-nonworld-vis-men-1.pdf Graphic file
  (type pdf)
 <use Main_files/figure-latex/Score-world-v-nonworld-vis-men-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/Score-world-v-nonworld-vis-men
--1.pdf  used on input line 584.
+-1.pdf  used on input line 601.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[20 <./Main_files/figure-latex/diff-quali-v-final-vis-men-1.pdf>] [21 <./Main_f
-iles/figure-latex/diff-world-v-nonworld-vis-men-1.pdf>] [22 <./Main_files/figur
-e-latex/Score-world-v-nonworld-vis-men-1.pdf>] (./Main.aux)
+[18 <./Main_files/figure-latex/unnamed-chunk-12-2.pdf>] [19 <./Main_files/figur
+e-latex/diff-quali-v-final-vis-men-1.pdf>] [20 <./Main_files/figure-latex/diff-
+world-v-nonworld-vis-men-1.pdf>] [21 <./Main_files/figure-latex/Score-world-v-n
+onworld-vis-men-1.pdf>] (./Main.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -721,13 +673,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13639 strings out of 474934
- 218229 string characters out of 5759818
+ 13646 strings out of 474934
+ 217692 string characters out of 5759818
  1937807 words of memory out of 5000000
- 34774 multiletter control sequences out of 15000+600000
- 616235 words of font info for 145 fonts, out of 8000000 for 9000
+ 34771 multiletter control sequences out of 15000+600000
+ 616413 words of font info for 147 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,9n,81p,1483b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,9n,81p,1001b,484s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
 cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texliv
 e/2023/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/local/texlive/2023/texm
@@ -735,10 +687,10 @@ f-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/font
 s/type1/public/lm/lmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pub
 lic/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt9
 .pfb>
-Output written on Main.pdf (22 pages, 435215 bytes).
+Output written on Main.pdf (21 pages, 439282 bytes).
 PDF statistics:
- 374 PDF objects out of 1000 (max. 8388607)
- 294 compressed objects within 3 object streams
- 68 named destinations out of 1000 (max. 500000)
- 35035 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 384 PDF objects out of 1000 (max. 8388607)
+ 306 compressed objects within 4 object streams
+ 74 named destinations out of 1000 (max. 500000)
+ 35046 words of extra memory for PDF output out of 35830 (max. 10000000)
 

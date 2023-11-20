@@ -725,11 +725,15 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event, fill
    scale_fill_gradient(low = "#3b4992ff", high = "gold") +
   theme_light()+
   theme(
-    legend.position = "top"
+    legend.position = "top",
+    legend.key.height= unit(.5, 'cm'),
+    legend.key.width= unit(1.5, 'cm')
   )+
   labs(
-       x = "Country",
+       x = NULL,
        y = "Event") 
+
+heatmap_women
 ```
 
 ```{r heatmap-men}
@@ -740,7 +744,7 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event, fill = M
   theme_light()+
   theme(legend.position="none")+
   labs(
-    y = NULL,
+    y = "Event",
        x = "Country",
        fill = "Medals") 
 ```
@@ -920,13 +924,17 @@ top_countries_women <- filter(df_women_c,
 top_countries_women <- filter(top_countries_women, Rank != 0)
 
 winningmost_country_women <- ggplot(data = top_countries_women, aes(y = clean_country, x = Rank))+
-  geom_boxplot( color = "#3b4992ff")+
+  geom_boxplot( color = "#3b4992ff", alpha = 0.5)+
   theme_light()+
+  theme(
+    plot.title = element_text(size = 8),
+    axis.title.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8)
+  )+
   labs(
     x = "Rank",
     y = "Country",
-    title = "",
-    subtitle = "Women"
+    title = "Women's Competition Rank's by Country"
   )
 ```
 
@@ -948,17 +956,20 @@ top_countries_men <- filter(df_men_c,
 
 top_countries_men <- filter(top_countries_men, Rank != 0)
 winningmost_country_men <- ggplot(data = top_countries_men, aes(y = clean_country, x = Rank))+
-  geom_boxplot(color = "#3b4992ff")+
+  geom_boxplot(color = "#3b4992ff", alpha = 0.5)+
   theme_light()+
+  theme(
+    plot.title = element_text(size = 8),
+    axis.title.x = element_text(size = 8)
+  )+
   labs(
     x = "Rank",
-    y = "Country",
-    title = "",
-    subtitle = "Men"
+    y = NULL,
+    title = "Men's Competition Rank's by Country"
   ) 
 ```
 
-```{r adding-winningmost-countries-graphs, fig.cap = "Each Athletes Rank for Olympic Qualified Countries across all Competitions", fig.height = 4}
+```{r adding-winningmost-countries-graphs, fig.cap = "Each Athlete's Competition Rank's for Olympic Qualified Countries", fig.height = 4}
 grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
 ```
 

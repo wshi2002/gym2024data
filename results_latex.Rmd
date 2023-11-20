@@ -27,10 +27,9 @@ TOP MEN'S AND PERCENTAGES
   Yul Moldauer & Donnell Whittenburg & Shane Wiskus & Ian Lasic & Yul Moldauer \\
   Donnell Whittenburg & Khoi Young & Khoi Young & Khoi Young & Khoi Young \\
   \hline
-  \multicolumn{5}{c}{Percentage of Simulations With Highest Weighted Medal Count} \\
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having Highest Weighted Medal Count} \\
   \hline
-  \textit{China: 79\%} & \textit{China: 79\%} & \textit{China: 82\%} & \textit{China: 82\%} & \textit{China: 75\%} \\
-  \textit{USA: 14\%} & \textit{USA: 10\%} & \textit{USA: 6.7\%} & \textit{USA: 9.3\%} & \textit{USA: 15\%} \\
+  \textit{13.7\%} & \textit{10.0\%} & \textit{6.7\%} & \textit{9.3\%} & \textit{15.3\%} \\
   \hline
   \multicolumn{5}{c}{Teams 6-10} \\
   \cline{1-5}
@@ -44,65 +43,100 @@ TOP MEN'S AND PERCENTAGES
   Paul Juda & Brody Malone & Yul Moldauer & Riley Loos & Curran Phillips \\
   Frederick Richaard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
   \hline
-  \multicolumn{5}{c}{Percentage of Simulations With Highest Weighted Medal Count} \\
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline
-  \textit{China: 85\%} & \textit{China: 78\%} & \textit{China: 84\%} & \textit{China: 86\%} & \textit{China: 79\%} \\
-  \textit{USA: 6.7\%} & \highlight{\textit{USA: 16\%}} & \textit{USA: 8.7\%} & \textit{USA: 3.3\%} & \textit{USA: 14\%} \\
+  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{USA: 13.7\%} \\
   \hline
 \end{tabular}
 \end{center}
 
-\label{tab:gymnastics_medals}
+\label{tab:top_men_medals}
 \end{table}
 
 
 ```
 
 
+TOP WOMEN'S
 
 ```{=latex}
 
 \begin{table}[htbp]
-\centering
-\caption{Men's Artistic Gymnastics - Second Round Simulations for Possible Top Teams}
-\small
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{center}
+  \caption{Women's Artistic Gymnastics - Second Round Simulations for Possible Top Teams}
+  \medskip
+\begin{tabular}{c|c|c|c|c}
+\hline
+\multicolumn{5}{c}{Teams 1-5} \\
   \hline
-  \textbf{Team} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+  \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} & \textbf{Team 4} & \textbf{Team 5} \\
   \hline
-  \multicolumn{6}{|c|}{\textbf{Athletes}} \\
+  \multicolumn{5}{c}{Athletes} \\
   \hline
-  1 & Vitaliy Guimaraes & Asher Hong & Riley Loos & Vitaliy Guimaraes & Asher Hong \\
-  2 & Asher Hong & Michael Jaroh & Yul Moldauer & Asher Hong & Jose Lopez \\
-  3 & Brody Malone & Paul Juda & Frederick Richard & Paul Juda & Brody Malone \\
-  4 & Yul Moldauer & Donnell Whittenburg & Shane Wiskus & Ian Lasic & Yul Moldauer \\
-  5 & Donnell Whittenburg & Khoi Young & Khoi Young & Khoi Young & Khoi Young \\
+  Simone Biles & Simone Biles & Simone Biles & Simone Biles & Simone Biles \\
+  Charlotte Booth & Jade Carey & Jade Carey & Jade Carey & Jade Carey \\
+  eMjae Frazier & eMjae Frazier & Karis German & Kayla DiCello & Jordan Chiles \\
+  Shilese Jones & Kaliya Lincoln & Shilese Jones & eMjae Frazier & Levi Jung \\
+  Leanne Wong & Zoe Miller & Konnor McClain & Konnor McClain & Konnor McClain \\
   \hline
-  \multicolumn{6}{|c|}{\textbf{Percentage of Simulations With Highest Weighted Medal Count}} \\
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline
-  China & 79\% & 79\% & 82\% & 82\% & 75\% \\
-  USA & 14\% & 10\% & 6.7\% & 9.3\% & 15\% \\
+  \textit{98.7\%} & \textit{99.0\%} & \textit{99.0\%} & \textit{99.3\%} & \highlight{\textit{99.7\%}} \\
   \hline
-  \textbf{Team} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} \\
+  \multicolumn{5}{c}{Teams 6-10} \\
+  \cline{1-5}
+  \textbf{Team 6} & \textbf{Team 7} & \textbf{Team 8} & \textbf{Team 9} & \textbf{Team 10} \\
   \hline
-  \multicolumn{6}{|c|}{\textbf{Athletes}} \\
+  \multicolumn{5}{c}{Athletes} \\
   \hline
-  1 & Cameron Bock & Asher Hong & Taylor Burkhart & Raydel Gamboa & Vitaliy Guimaraes \\
-  2 & Matt Cormier & Patrick Hoopes & Vitaliy Guimaraes & Vitaliy Guimaraes & Asher Hong \\
-  3 & Vitaliy Guimaraes & Paul Juda & Brody Malone & Paul Juda & Paul Juda \\
-  4 & Paul Juda & Brody Malone & Yul Moldauer & Riley Loos & Curran Phillips \\
-  5 & Frederick Richard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
+  Simone Biles & Simone Biles & Simone Biles & Simone Biles & Simone Biles \\
+  eMjae Frazier & Jordan Chiles & Addison Fatta & Jordan Chiles & Charlotte Booth \\
+  Shilese Jones & eMjae Frazier & Nola Matthews & Silese Jones & Jade Carey \\
+  Konnor McClain & Karis German & Konnor McClain & Katelyn Jong & Addison Fatta \\
+  Elle Mueller & Konnor McClain & Elle Mueller & Marissa Neal & Konnor McClain \\
   \hline
-  \multicolumn{6}{|c|}{\textbf{Percentage of Simulations With Highest Weighted Medal Count}} \\
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline
-  China & 85\% & 78\% & 84\% & 86\% & 79\% \\
-  USA & 6.7\% & \highlight{16\%} & 8.7\% & 3.3\% & 14\% \\
+  \highlight{\textit{99.7\%}} & \highlight{\textit{99.7\%}} & \textit{98.7\%} & \highlight{\textit{99.7\%}} & \highlight{\textit{99.7\%}} \\
   \hline
 \end{tabular}
-\label{tab:gymnastics_medals}
+\end{center}
+
+\label{tab:top_women_medals}
 \end{table}
+
 
 ```
 
+```{=latex}
+
+\begin{table}[htbp]
+\begin{center}
+  \caption{Women's Artistic Gymnastics - Third Round Simulations for Tied Top Teams}
+  \medskip
+\begin{tabular}{c|c|c}
+  \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} \\
+  \cline{1-3}
+  \multicolumn{3}{c}{Athletes} \\
+  \hline
+  Simone Biles & Simone Biles & Simone Biles \\
+  Konnor McClain & Konnor McClain & Konnor McClain \\
+  Jordan Chiles & Jordan Chiles.& Jordan Chiles \\
+  eMjae Frazier & eMjae Frazier & Jade Carey \\
+  Jade Carey & Shilese Jones & Shilese Jones \\
+  \hline
+  \multicolumn{3}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \hline
+  \textit{99.7\%} & \textit{99.7\%} & \textit{99.7\%} \\
+  \hline
+  \multicolumn{3}{c}{Average Weighted Medal Count} \\
+  \hline
+  \textit{16.8} &\textit{17.5} &\textit{18.4} \\
+\end{tabular}
+\end{center}
+
+\label{tab:top_women_medals}
+\end{table}
 
 
+```

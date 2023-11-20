@@ -423,6 +423,9 @@ men_team_sim10[[1]]@teamSummary$athletes[[12]]
 ```
 
 
+```{r}
+women_team_sim1
+```
 
 
 

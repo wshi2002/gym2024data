@@ -733,8 +733,6 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event, fill
   labs(
        x = NULL,
        y = "Event") 
-
-heatmap_women
 ```
 
 ```{r heatmap-men}

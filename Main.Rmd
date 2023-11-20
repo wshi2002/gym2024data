@@ -490,7 +490,7 @@ first_medals_w
 
 ## Men's Artistic Gymnastics Event
 
-Of the 5000 simulations for both men and women, the 10 simulation with the highest weighted medal score for the United States were separated. Then, 300 more simulations were run with these 10 teams fixed, as described in the methodology. For each of these 10 teams, the percentage of simulations where the United States had the highest weighted medal count is included in the table below. The team where the USA won the highest weighted medal count for the largest percentage of the 300 simulations was taken to be the Men's Team USA.
+Of the 3000 simulations for both men and women, the 10 simulation with the highest weighted medal score for the United States were separated. Then, 300 more simulations were run with these 10 teams fixed, as described in the methodology. For each of these 10 teams, the percentage of simulations where the United States had the highest weighted medal count is included in the table below. The team where the USA won the highest weighted medal count for the largest percentage of the 300 simulations was taken to be the Men's Team USA.
 
 ```{=latex}
 
@@ -556,7 +556,7 @@ Since this Team 7 was identified as the men's Team USA, we have included a table
   \begin{tabular}{l|l|l|l}
     \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
     \hline
-    Team All-Around & China & USA & Italy \\
+    Team All-Around & China & \highlight{USA} & Italy \\
     \hline
     Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
     \hline

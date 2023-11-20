@@ -732,6 +732,13 @@ for (i in seq_along(top_women_team_sim3)) {
 ```
 
 ```{r}
+#trying <- aggregated_heatmap_data %>%
+  #group_by(Country) %>%
+  #summarise(across(everything(), mean, na.rm = TRUE))
+```
+
+
+```{r}
 long_format_data_women <- aggregated_heatmap_data %>%
   select(-c("total_medals")) %>%
   gather(key = "Event", value = "Medals", -Country)

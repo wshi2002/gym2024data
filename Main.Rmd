@@ -778,7 +778,7 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event_clean
     legend.key.width= unit(1.5, 'cm'),
     plot.title = element_text(size = 9),
     legend.direction = "horizontal",
-    plot.margin = margin(t=4,1,1,1, "lines"),
+    plot.margin = margin(t=5,1,1,1, "lines"),
     axis.title.x = element_text(size = 9),
     axis.title.y = element_text(size = 9)
   )+
@@ -815,7 +815,9 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event_clean, fi
 ```
 
 ```{r heatmap-output, fig.cap = "Average Weighted Medal Count Performance Across Simulations", fig.show = 'asis', fig.height = 4, fig.width = 6}
-combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
+#combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
+library(cowplot)
+plot_grid(heatmap_women, heatmap_men, align = "v", nrow = 2, rel_heights = c(1/2, 1/3))
 ```
 
 An observation, noted in the results section, is that the selected women's Team USA receives the highest weighted medal number in the Olympic simulations more times than the selected men's Team USA. In addition, the best weighted medal score for the women's team is 25 and for the men's team is 16, despite the men having more medal events. This is consistent with the past performance of the Women's team; they are the 2023 reigning World Champions, and won silver at the last Olympics. The Men's team won bronze in the 2023 World Championships and did not place in the last Olympics; however, the individual athletes selected for Team USA have a strong track record described at the beginning of the discussion, and sports commentators believe they have a strong potential to place in the 2024 Games [9]. 

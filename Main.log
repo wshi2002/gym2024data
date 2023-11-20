@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  20 NOV 2023 10:49
-=======
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  20 NOV 2023 10:56
->>>>>>> 633ac0a1e006ca8956482b5a058f9866b336b471
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  20 NOV 2023 11:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -520,7 +516,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 355.
 [3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 410.
+(Font)              <9> on input line 411.
 [4] [5]
 <Main_files/figure-latex/range_of_rank_together-1.pdf, id=72, 505.89pt x 289.08
 pt>
@@ -528,47 +524,37 @@ File: Main_files/figure-latex/range_of_rank_together-1.pdf Graphic file (type p
 df)
 <use Main_files/figure-latex/range_of_rank_together-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/range_of_rank_together-1.pdf  
-used on input line 621.
+used on input line 620.
 (pdftex.def)             Requested size: 505.89645pt x 289.0837pt.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
-45.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-648.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 <Main_files/figure-latex/heatmap-output-1.pdf, id=73, 433.62pt x 289.08pt>
 File: Main_files/figure-latex/heatmap-output-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/heatmap-output-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/heatmap-output-1.pdf  used on 
-input line 658.
+input line 646.
 (pdftex.def)             Requested size: 433.63878pt x 289.09251pt.
 [6 <./Main_files/figure-latex/range_of_rank_together-1.pdf>] [7 <./Main_files/f
 igure-latex/heatmap-output-1.pdf>] [8]
-Overfull \hbox (10.85536pt too wide) in paragraph at lines 827--831
+Overfull \hbox (10.85536pt too wide) in paragraph at lines 815--819
 []\T1/lmr/m/n/10 (-20) [6] ``Patrick Hoopes - Men's Gym-nas-tics.'' Air Force A
 cademy Ath-let-ics, goairforcefalcons.com/sports/mens-gymnastics/roster/patrick
 -
  []
 
-<Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf, id=106, 469
+<Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf, id=104, 469
 .755pt x 289.08pt>
 File: Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf Graphic
  file (type pdf)
 <use Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/adding-winningmost-countries-g
-raphs-1.pdf  used on input line 886.
+raphs-1.pdf  used on input line 874.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
 [9]
-<Main_files/figure-latex/output-penalties-1.pdf, id=114, 469.755pt x 325.215pt>
+<Main_files/figure-latex/output-penalties-1.pdf, id=112, 469.755pt x 325.215pt>
 
 File: Main_files/figure-latex/output-penalties-1.pdf Graphic file (type pdf)
 <use Main_files/figure-latex/output-penalties-1.pdf>
 Package pdftex.def Info: Main_files/figure-latex/output-penalties-1.pdf  used o
-n input line 888.
+n input line 876.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [10 <./Main_files/figure-latex/adding-winningmost-countries-graphs-1.pdf> <./Ma
 in_files/figure-latex/output-penalties-1.pdf>] [11{/usr/local/texlive/2023/texm
@@ -585,11 +571,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13623 strings out of 474934
- 213054 string characters out of 5759818
+ 13534 strings out of 474934
+ 211533 string characters out of 5759818
  1943807 words of memory out of 5000000
- 34714 multiletter control sequences out of 15000+600000
- 635748 words of font info for 175 fonts, out of 8000000 for 9000
+ 34633 multiletter control sequences out of 15000+600000
+ 635124 words of font info for 173 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,9n,81p,1001b,447s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
@@ -604,11 +590,11 @@ xlive/2023/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2023/t
 exmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2023/texmf-dist/fo
 nts/type1/public/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/pu
 blic/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lm
-sy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Main.pdf (11 pages, 391724 bytes).
+sy7.pfb>
+Output written on Main.pdf (11 pages, 366079 bytes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 239 compressed objects within 3 object streams
+ 290 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
  65 named destinations out of 1000 (max. 500000)
  43157 words of extra memory for PDF output out of 51595 (max. 10000000)
 

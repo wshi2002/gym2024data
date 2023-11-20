@@ -447,7 +447,7 @@ There were multiple teams who tied amongst the women, which are included in the 
 
 ### Men's Artistic Gymnastics Event
 
-Of the 3000 simulations for both men and women, the 10 simulation with the highest weighted medal score for the United States were separated and re-simulated. For each of these 10 teams, the percentage of simulations where the United States had the highest weighted medal count is included in the table below. The team where the USA won the highest weighted medal count for the largest percentage of the 300 simulations was taken to be the Men's Team USA.
+Of the 3000 simulations for both men and women, the 10 simulation with the highest weighted medal score for the United States were separated and re-simulated. For each of these 10 teams, the percentage of simulations where the United States had the highest weighted medal count is included in Table 1 below. The team where the USA won the highest weighted medal count for the largest percentage of the 300 simulations was taken to be the Men's Team USA.
 
 ```{=latex}
 
@@ -502,11 +502,12 @@ cat("\\end{table}\n")
 
 As seen in the table above, Team USA is taken to be Asher Hong, Patrick Hoopes, Paul Juda, Brody Malone, and Colt Walker (Team 7 above). This Team USA won the highest weighted medal count of any country 15.7% of time during the second round simulations.
 
-Since this Team 7 was identified as the men's Team USA, we have included a table below to demonstrate a potential outcome of the Olympics with this team. This table portrays the best performance of Team 7 in the 300 simulations that were run. It is important to understand the limitations of showcasing only the best score; the simulation process inherently included randomness and could, although at a low probability, include an unreasonable high score. The outcomes of each other simulation are included in the raw code accessible in GitHub.
+Since this Team 7 was identified as the men's Team USA, we have included Table 2 below to demonstrate a potential outcome of the Olympics with this team. This table portrays the best performance of Team 7 in the 300 simulations that were run. It is important to understand the limitations of showcasing only the best score; the simulation process inherently included randomness and could, although at a low probability, include an unreasonable high score. The outcomes of each other simulation are included in the raw code accessible in GitHub.
 
 ```{r, results='asis'}
 
 cat("\\begin{table}[htbp]\n")
+cat("\\centering\n")
 cat("\\caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}\n")
 cat("\\medskip\n")
 cat("\\small\n")
@@ -541,7 +542,7 @@ cat("\\end{table}\n")
 
 ### Women's Artistic Gymnastics Event
 
-The same process above was repeated for the women's event. The results are included in the table below, with the names of the athletes and the percentage of simulations where the United States had the highest weighted medal count.
+The same process above was repeated for the women's event. The results are included in Table 3 below, with the names of the athletes and the percentage of simulations where the United States had the highest weighted medal count.
 
 ```{=latex}
 
@@ -591,7 +592,7 @@ The same process above was repeated for the women's event. The results are inclu
 ```
 As seen above, Team 5, 6, 7, 9, and 10 are all tied for the percentage of times the USA had the highest weighted medal count (of 99.7%). To break the tie, the number of times each individual athlete appeared in one of the five teams with a 99.7% highest weighted medal count percentage was counted. Simone Biles appeared 5 times in a top-performing team, Konnor McClain appeared 4 times, and Jordan Chiles appeared 3 times. These three were chosen for Team USA. eMjae Frazier, Jade Carey, and Shilese Jones were all chosen 2 times (with the rest of the names appearing here only chosen 1 time). Because Team USA can only consist of five athletes, we ran an additional 300 simulations with every combination of Simone, Konnor, and Jordan, and two of the three athletes that appeared 2 times.
 
-In these additional simulations, the USA won the highest weighted medal count the same percentage of times with each team (99.7% of the time). Therefore, after confirming that these combinations of teams had a tied percentage in a second round of "top simulations", we decided to choose the Team USA that had the highest weighted medal count, on average, from these 300 simulations. The average weighted medal count is included in the table below, along with the athletes who achieved these counts:
+In these additional simulations, the USA won the highest weighted medal count the same percentage of times with each team (99.7% of the time). Therefore, after confirming that these combinations of teams had a tied percentage in a second round of "top simulations", we decided to choose the Team USA that had the highest weighted medal count, on average, from these 300 simulations. The average weighted medal count is included in Table 4 below, along with the athletes who achieved these counts:
 
 ```{=latex}
 
@@ -626,40 +627,39 @@ In these additional simulations, the USA won the highest weighted medal count th
 ```
 Since Simone Biles, Konnor McClain, Jordan Chiles, Jade Carey, and Shilese Jones had the highest average weighted medal count in these last round of simulations, they were chosen as the women's Team USA.
 
-Since this Team 3 was identified as the women's Team USA, we have included a table below to demonstrate the *best* performance of Team 3 in the 300 simulations that were run in the last iteration of simulations. It is again important to note the limitations of showcasing only the best score from this simulation round (as described above).
+Since this Team 3 was identified as the women's Team USA, we have included Table 5 below to demonstrate the *best* performance of Team 3 in the 300 simulations that were run in the last iteration of simulations. It is again important to note the limitations of showcasing only the best score from this simulation round (as described above).
 
-```{=latex}
+```{r, echo=FALSE, results='asis'}
 
-\begin{table}[htbp]
-  \caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}
-  \medskip
-  \small
-  \begin{tabular}{l|l|l|l}
-    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
-    \hline
-    Team All-Around & \highlight{USA} & Brazil & China \\
-    \hline
-    Individual All-Around & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
-    \hline
-    Balance Beam & \highlight{USA (Simone Biles)} & \highlight{USA (Konnor McClain)} & China (Ran Wu) \\
-    \hline
-    Vault & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Jade Carey)} \\
-    \hline
-    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
-    \hline
-    Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
-    \\
-    \multicolumn{4}{c}{\textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain}} \\
-    \multicolumn{4}{c}{\textbf{Team USA Medal Count:} 10} \\
-        \multicolumn{4}{c}{\textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1)} \\
-    \multicolumn{4}{c}{\textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze}
-    
-    
+cat("\\begin{table}[htbp]\n")
+cat("\\begin{center}\n")  # Center the table
+cat("\\caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}\n")
+cat("\\medskip\n")
+cat("\\small\n")
+cat("\\begin{tabular}{l|l|l|l}\n")
+cat("\\multicolumn{1}{c}{\\textbf{Event}} & \\multicolumn{1}{c}{\\textbf{Gold}} & \\multicolumn{1}{c}{\\textbf{Silver}} & \\multicolumn{1}{c}{\\textbf{Bronze}} \\\\\n")
+cat("\\hline\n")
+cat("Team All-Around & \\highlight{USA} & Brazil & China \\\\\n")
+cat("\\hline\n")
+cat("Individual All-Around & \\highlight{USA (Simone Biles)} & \\highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\\\\n")
+cat("\\hline\n")
+cat("Balance Beam & \\highlight{USA (Simone Biles)} & \\highlight{USA (Konnor McClain)} & China (Ran Wu) \\\\\n")
+cat("\\hline\n")
+cat("Vault & \\highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \\highlight{USA (Jade Carey)} \\\\\n")
+cat("\\hline\n")
+cat("Floor Exercise & \\highlight{USA (Simone Biles)} & \\highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\\\\n")
+cat("\\hline\n")
+cat("Uneven Bars & \\highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\\\\n")
+cat("\\\\ % Add a blank line to separate the last row\n")
+cat("\\multicolumn{4}{c}{\\textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain}} \\\\\n")
+cat("\\multicolumn{4}{c}{\\textbf{Team USA Medal Count:} 10} \\\\\n")
+cat("\\multicolumn{4}{c}{\\textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1)} \\\\\n")
+cat("\\multicolumn{4}{c}{\\textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze}\n")
+cat("\\end{tabular}\n")
+cat("\\end{center}\n")  # End the centering environment
+cat("\\label{tab:gymnastics_medals}\n")
+cat("\\end{table}\n")
 
-  \end{tabular}
-  
-  \label{tab:gymnastics_medals}
-\end{table}
 ```
 ## Discussion
 
@@ -778,7 +778,7 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event_clean
     legend.key.width= unit(1.5, 'cm'),
     plot.title = element_text(size = 9),
     legend.direction = "horizontal",
-    plot.margin = margin(t=5,1,1,1, "lines"),
+    plot.margin = margin(t=4,1,1,1, "lines"),
     axis.title.x = element_text(size = 9),
     axis.title.y = element_text(size = 9)
   )+
@@ -815,9 +815,7 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event_clean, fi
 ```
 
 ```{r heatmap-output, fig.cap = "Average Weighted Medal Count Performance Across Simulations", fig.show = 'asis', fig.height = 4, fig.width = 6}
-#combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
-library(cowplot)
-plot_grid(heatmap_women, heatmap_men, align = "v", nrow = 2, rel_heights = c(1/2, 1/3))
+combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
 ```
 
 An observation, noted in the results section, is that the selected women's Team USA receives the highest weighted medal number in the Olympic simulations more times than the selected men's Team USA. In addition, the best weighted medal score for the women's team is 25 and for the men's team is 16, despite the men having more medal events. This is consistent with the past performance of the Women's team; they are the 2023 reigning World Champions, and won silver at the last Olympics. The Men's team won bronze in the 2023 World Championships and did not place in the last Olympics; however, the individual athletes selected for Team USA have a strong track record described at the beginning of the discussion, and sports commentators believe they have a strong potential to place in the 2024 Games [9]. 

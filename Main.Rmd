@@ -31,7 +31,7 @@ df <- vroom("cleandata/data_2022_2023.csv")
 
 ```{r, include = FALSE}
 # Clean up names to make sure there is unique name for each athlete.
-# taking the first 'word' of the names to simplify
+# taking the first part of the names to simplify
 df <- df%>%
   mutate(first_name_only = word(FirstName, 1)) %>%
   mutate(last_name_only = word(LastName, 1))

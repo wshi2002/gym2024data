@@ -487,34 +487,90 @@ first_team_usa_w <- first_medals_w$athletes[first_medals_w$clean_country == "USA
 first_medals_w
 ```
 
-Of the 5000 simulations for both men and women, the simulation with the highest weighted medal score for the United States was taken as Team USA. The results of the simulated Olympics competitions, for both the Men's and Women's Artistic Gymnastics events, are included below.
+
+## Men's Artistic Gymnastics Event
+
+Of the 5000 simulations for both men and women, the 10 simulation with the highest weighted medal score for the United States were separated. Then, 300 more simulations were run with these 10 teams fixed, as described in the methodology. For each of these 10 teams, the percentage of simulations where the United States had the highest weighted medal count is included in the table below. The team where the USA won the highest weighted medal count for the largest percentage of the 300 simulations was taken to be the Men's Team USA.
 
 ```{=latex}
 
 \newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
 
 \begin{table}[htbp]
-  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+\begin{center}
+  \caption{Men's Artistic Gymnastics - Simulations for Possible Top Teams}
+  \medskip
+\begin{tabular}{c|c|c|c|c}
+\hline
+\multicolumn{5}{c}{Teams 1-5} \\
+  \hline
+  \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} & \textbf{Team 4} & \textbf{Team 5} \\
+  \hline
+  \multicolumn{5}{c}{Athletes} \\
+  \hline
+  Vitaliy Guimaraes & Asher Hong & Riley Loos & Vitaliy Guimaraes & Asher Hong \\
+  Asher Hong & Michael Jaroh & Yul Moldauer & Asher Hong & Jose Lopez \\
+  Brody Malone & Paul Juda & Frederick Richard & Paul Juda & Brody Malone \\
+  Yul Moldauer & Donnell Whittenburg & Shane Wiskus & Ian Lasic & Yul Moldauer \\
+  Donnell Whittenburg & Khoi Young & Khoi Young & Khoi Young & Khoi Young \\
+  \hline
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having Highest Weighted Medal Count} \\
+  \hline
+  \textit{13.7\%} & \textit{10.0\%} & \textit{6.7\%} & \textit{9.3\%} & \textit{15.3\%} \\
+  \hline
+  \multicolumn{5}{c}{Teams 6-10} \\
+  \cline{1-5}
+  \textbf{Team 6} & \textbf{Team 7} & \textbf{Team 8} & \textbf{Team 9} & \textbf{Team 10} \\
+  \hline
+  \multicolumn{5}{c}{Athletes} \\
+  \hline
+  Cameron Bock & Asher Hong & Taylor Burkhart & Raydel Gamboa & Vitaliy Guimaraes \\
+  Matt Cormier & Patrick Hoopes & Vitaliy Guimaraes & Vitaliy Guimaraes & Asher Hong \\
+  Vitaliy Guimaraes & Paul Juda & Brody Malone & Paul Juda & Paul Juda \\
+  Paul Juda & Brody Malone & Yul Moldauer & Riley Loos & Curran Phillips \\
+  Frederick Richaard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
+  \hline
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \hline
+  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{USA: 13.7\%} \\
+  \hline
+\end{tabular}
+\end{center}
+
+\label{tab:top_men_medals}
+\end{table}
+
+
+```
+
+As seen in the table above, Team USA is taken to be Asher Hong, Patrick Hoopes, Paul Juda, Brody Malone, and Colt Walker (Team 7 above). This Team USA won the highest weighted medal count of any country is 15.7% of the second round simulations.
+
+Since this Team 7 was identified as the men's Team USA, we have included a table below to demonstrate a potential outcome of the Olympics with this team. This table portrays the *best* performance of Team 7 in the 300 simulations that were run. It is important to understand the limitations of showcasing only the best score; the simulation process inherently included randomness and could, although at a low probability, include an unreasonable high score. The outcomes of each other simulation are included in the raw code.
+
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}
   \medskip
   \small
   \begin{tabular}{l|l|l|l}
     \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
     \hline
-    Team All-Around & \highlight{USA} & China & Switzerland \\
+    Team All-Around & China & USA & Italy \\
     \hline
-    Individual All-Around & \highlight{USA (Brody Malone)} & China (Boheng Zhang) & China (Wei Sun) \\
+    Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
     \hline
-    Vault & Armenia (Artur Davtyan) & Philippines (Carlos Yulo) & Great Britain (Luke Whitehouse) \\
+    Vault & Great Britain (Jake Jarman) & Philippines (Carlos Yulo) & Ukraine (Nazar Chepurnyi) \\
     \hline
-    Still Rings & \highlight{USA (Javier Alfonso)} & \highlight{USA (Brody Malone)} & Italy (Salvatore Maresca) \\
+    Still Rings & \highlight{USA (Asher Hong)} & Greece (Eleftherios Petrounias) & China (Xingyu Lan) \\
     \hline
-    Pommel Horse & Chinese Taipei (Chih Lee) & Kazakhstan (Nariman Kurbanov) & Uzbekistan (Abdulla Azimov) \\
+    Pommel Horse & \highlight{USA (Patrick Hoopes)} & Kazakhstan (Nariman Kurbanov) & Canada (Zachary Clay) \\
     \hline
-    Parallel Bars & China (Jingyuan Zou) & \highlight{USA (Curran Phillips)} & Switzerland (Noe Seifert) \\
+    Parallel Bars & Philippines (Carlos Yulo) & Germany (Lukas Dauser) & Japan (Shinnosuke Oka) \\
      \hline
-    High Bar & \highlight{USA (Frederick Richard)} & Kazakhstan (Ilyas Azizov) & \highlight{USA (Brody Malone)} \\
+    High Bar & China (Hao Tian) & Cyprus (Marios Georgiou) & Japan (Shinnosuke Oka) \\
     \hline
-    Floor Exercise & \highlight{USA (Brody Malone)} & Israel (Artem Dolgopyat) & India (Satyajit Mondal) \\
+    Floor Exercise & \highlight{USA (Brody Malone)} & Cuba (Alejandro De) & Philippines (Carlos Yulo) \\
 
   \end{tabular}
   
@@ -522,11 +578,110 @@ Of the 5000 simulations for both men and women, the simulation with the highest 
 \end{table}
 
   \small
-  \textbf{Team USA Athletes: Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, Joshua Karnes} \\
-  \textbf{Team USA Medal Count:} 8 \\
-  \textbf{Team USA Weighted Medal Count:} 20 (where Gold = 3, Silver = 2, Bronze = 1) \\
-  \textbf{Team USA Medal Breakdown:} 5 Gold, 2 Silver, 1 Bronze
+  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
+  \textbf{Team USA Medal Count:} 6 \\
+  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
+
 ```
+
+## Women's Artistic Gymnastics Event
+
+The same process above was repeated for the women's event, and the results are included in the table below, with the names of the athletes and the percentage of simulations where the United States had the highest weighted medal count.
+
+```{=latex}
+
+\begin{table}[htbp]
+\begin{center}
+  \caption{Women's Artistic Gymnastics - Simulations for Possible Top Teams}
+  \medskip
+\begin{tabular}{c|c|c|c|c}
+\hline
+\multicolumn{5}{c}{Teams 1-5} \\
+  \hline
+  \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} & \textbf{Team 4} & \textbf{Team 5} \\
+  \hline
+  \multicolumn{5}{c}{Athletes} \\
+  \hline
+  Simone Biles & Simone Biles & Simone Biles & Simone Biles & Simone Biles \\
+  Charlotte Booth & Jade Carey & Jade Carey & Jade Carey & Jade Carey \\
+  eMjae Frazier & eMjae Frazier & Karis German & Kayla DiCello & Jordan Chiles \\
+  Shilese Jones & Kaliya Lincoln & Shilese Jones & eMjae Frazier & Levi Jung \\
+  Leanne Wong & Zoe Miller & Konnor McClain & Konnor McClain & Konnor McClain \\
+  \hline
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \hline
+  \textit{98.7\%} & \textit{99.0\%} & \textit{99.0\%} & \textit{99.3\%} & \highlight{\textit{99.7\%}} \\
+  \hline
+  \multicolumn{5}{c}{Teams 6-10} \\
+  \cline{1-5}
+  \textbf{Team 6} & \textbf{Team 7} & \textbf{Team 8} & \textbf{Team 9} & \textbf{Team 10} \\
+  \hline
+  \multicolumn{5}{c}{Athletes} \\
+  \hline
+  Simone Biles & Simone Biles & Simone Biles & Simone Biles & Simone Biles \\
+  eMjae Frazier & Jordan Chiles & Addison Fatta & Jordan Chiles & Charlotte Booth \\
+  Shilese Jones & eMjae Frazier & Nola Matthews & Silese Jones & Jade Carey \\
+  Konnor McClain & Karis German & Konnor McClain & Katelyn Jong & Addison Fatta \\
+  Elle Mueller & Konnor McClain & Elle Mueller & Marissa Neal & Konnor McClain \\
+  \hline
+  \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \hline
+  \highlight{\textit{99.7\%}} & \highlight{\textit{99.7\%}} & \textit{98.7\%} & \highlight{\textit{99.7\%}} & \highlight{\textit{99.7\%}} \\
+  \hline
+\end{tabular}
+\end{center}
+
+\label{tab:top_women_medals}
+\end{table}
+
+
+```
+
+
+As seen above, Team 5, 6, 7, 9, and 10 are all tied for the percentage of times the USA had the highest weighted medal count (of 99.7%).
+To break the tie, the number of times each individual athlete appeared in one of the five teams with a 99.7% highest weighted medal count percentage was counted. Simone Biles appeared 5 times in a top-performing team, Konnor McClain appeared 4 times, and Jordan Chiles appeared 3 times. These three were chosen for Team USA. eMjae Frazier, Jade Carey, and Shilese Jones were all chosen 2 times (with the rest of the names appearing here only chosen 1 time). Because Team USA can only consist of five athletes, we ran an additional 300 simulations with every combination of Simone, Konnor, and Jordan, and two of the three athletes that appeared 2 times.
+
+In these additional simulations, the USA won the highest weighted medal count the same percentage of times with each team (99.7% of the time). Therefore, after confirming that these combinations of teams had a tied percentage in a second round of "top simulations", we decided to choose the Team USA that had the highest weighted medal count, on average, from these 300 simulations. The average weighted medal count is included in the table below, along with the athletes who achieved these counts:
+
+```{=latex}
+
+\begin{table}[htbp]
+\begin{center}
+  \caption{Women's Artistic Gymnastics - Simulations for Tied Top Teams}
+  \medskip
+\begin{tabular}{c|c|c}
+  \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} \\
+  \cline{1-3}
+  \multicolumn{3}{c}{Athletes} \\
+  \hline
+  Simone Biles & Simone Biles & Simone Biles \\
+  Konnor McClain & Konnor McClain & Konnor McClain \\
+  Jordan Chiles & Jordan Chiles.& Jordan Chiles \\
+  eMjae Frazier & eMjae Frazier & Jade Carey \\
+  Jade Carey & Shilese Jones & Shilese Jones \\
+  \hline
+  \multicolumn{3}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \hline
+  \textit{99.7\%} & \textit{99.7\%} & \textit{99.7\%} \\
+  \hline
+  \multicolumn{3}{c}{Average Weighted Medal Count} \\
+  \hline
+  \textit{16.8} &\textit{17.5} &\textit{18.4} \\
+\end{tabular}
+\end{center}
+
+\label{tab:top_women_medals}
+\end{table}
+
+
+```
+
+Since Simone Biles, Konnor McClain, Jordan Chiles, Jade Carey, and Shilese Jones had the highest average weighted medal count in these last round of simulations, they were chosen as the women's Team USA.
+
+
+Since this Team 3 was identified as the women's Team USA, we have included a table below to demonstrate the *best* performance of Team 3 in the 300 simulations that were run in the last iteration of simulations. It is again important to note the limitations of showcasing only the best score, although,in this case, the women's Team USA won the highest weighted medal count in 99.7% of the simulations (though not always by this wide of a margin).
+
 ```{=latex}
 
 \begin{table}[htbp]
@@ -538,15 +693,15 @@ Of the 5000 simulations for both men and women, the simulation with the highest 
     \hline
     Team All-Around & \highlight{USA} & Brazil & China \\
     \hline
-    Individual All-Around & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Konnor McClain)} \\
+    Individual All-Around & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
     \hline
-    Balance Beam & \highlight{USA (Konnor McClain)} & \highlight{USA (Simone Biles)} & China (Qingying Zhang) \\
+    Balance Beam & \highlight{USA (Simone Biles)} & \highlight{USA (Konnor McClain)} & China (Ran Wu) \\
     \hline
-    Vault & \highlight{USA (Jade Carey)} & \highlight{USA (Simone Biles)} & South Korea (Seojeong Yeo) \\
+    Vault & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Jade Carey)} \\
     \hline
-    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Jade Carey)} & Brazil (Rebeca Andrade) \\
+    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
     \hline
-    Uneven Bars & Algeria (Kaylia Nemour) & Russia (Viktoria Listunova) & \highlight{USA (Shilese Jones)} \\
+    Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
 
   \end{tabular}
   
@@ -554,28 +709,13 @@ Of the 5000 simulations for both men and women, the simulation with the highest 
 \end{table}
 
   \small
-  \textbf{Team USA Athletes: Simone Biles, Shilese Jones, Karis German, Konnor McClain, Jade Carey} \\
+  \textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain} \\
   \textbf{Team USA Medal Count:} 10 \\
-  \textbf{Team USA Weighted Medal Count:} 23 (where Gold = 3, Silver = 2, Bronze = 1) \\
-  \textbf{Team USA Medal Breakdown:} 5 Gold, 3 Silver, 2 Bronze
+  \textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze
 ```
-These tables show that, for both men's and women's events, the United States earns more medals than any other country.
 
-Simone Biles, Shilese Jones, Karis German, Konnor McClain, and Jade Carey were selected as the women's Team USA. All five of these athletes are proven to be highly accomplished [3]:
 
--   Simone Biles is the most decorated gymnast in history
--   Shilese Jones was part of the gold-winning team at the 2022 World Championships
--   Karis German medaled in a floor exercise event at a qualifying event for the 2024 Olympics
--   Konnor McClain is the 2022 U.S. National Champion
--   Jade Carey represented Team USA in the Tokyo Olympic Games
-
-Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, and Joshua Karnes were selected as the men's Team USA in the simulation where the USA has the highest weighted medal score. All five of these athletes are also proven to be highly accomplished [3]:
-
--   Brody Malone is the 2021 and 2022 U.S. National All-Around Champion
--   Javier Alfonso was part of the silver-winning team at the 2023 NCAA competition
--   Curran Phillips is the 2023 Pan American Games team champion
--   Frederick Richard is the 2023 World all-around bronze medalist
--   Joshua Karnes is the 2023 Winter Cup bronze medalist in parallel bars
 
 # Discussion
 ```{r heatmap-women}

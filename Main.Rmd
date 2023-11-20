@@ -407,7 +407,7 @@ The dataset was provided by UConn Sports Analytics Symposium (UCSAS). Major worl
 
 ### Data Cleaning
 
-Since our goal is to optimize performance in the 2024 Olympics, we chose to only include competition data from 2022 and 2023, while excluding data from the 2017-2021 season. This reflects the unprecedented global pandemic that caused even the Tokyo Olympics to be delayed, and the scoring differences before 2021 versus now, and a potential turnover in athletes. We assumed that competition data from the two most recent years would be the most useful in understanding 2024 Olympic performance. From the original 2022-2023 competition dataset, we standardized variables and added columns. We standardized each athlete's name based on the first instance it appeared and created a column that included the full name of the athlete. Additionally, we made sure the country codes were consistent with International Olympic Committee Codes (for example, Scotland competes as part of the United Kingdom in the Olympics). We also separated the competition data into two datasets of men's and women's competitions, created a variable to track the order in the competitions that occurred by their dates, and added a competition scope variable to aid with data visualizations and athlete selection in the analysis approach. For our Team All-Around analysis approach, which is written in more detail below, we also created a separate dataframe for analysis. After cleaning the data, we looked at *APPENDIX FIGURE X* to show that each country has a wide range of performances across past competitions. This brought us to create an athlete selection criteria to narrow down our possible pool of athletes for our analysis approach, which is detailed below. 
+Since our goal is to optimize performance in the 2024 Olympics, we chose to only include competition data from 2022 and 2023, while excluding data from the 2017-2021 season. This reflects the unprecedented global pandemic that caused even the Tokyo Olympics to be delayed, and the scoring differences before 2021 versus now, and a potential turnover in athletes. We assumed that competition data from the two most recent years would be the most useful in understanding 2024 Olympic performance. From the original 2022-2023 competition dataset, we standardized variables and added columns. We standardized each athlete's name based on the first instance it appeared and created a column that included the full name of the athlete. Additionally, we made sure the country codes were consistent with International Olympic Committee Codes (for example, Scotland competes as part of the United Kingdom in the Olympics). We also separated the competition data into two datasets of men's and women's competitions, created a variable to track the order in the competitions that occurred by their dates, and added a competition scope variable to aid with data visualizations and athlete selection in the analysis approach. For our Team All-Around analysis approach, which is written in more detail below, we also created a separate dataframe for analysis. After cleaning the data, we looked at Appendix 1 to show that each country has a wide range of performances across past competitions. This brought us to create an athlete selection criteria to narrow down our possible pool of athletes for our analysis approach, which is detailed below.
 
 ### Analysis Approach
 
@@ -421,7 +421,7 @@ We only included a group of "elite athletes" as our potential athlete selection 
 
 The next step was to simulate the score that each athlete receives on each apparatus. We created a score distribution for each athlete and apparatus based on the observed scores they received in past competitions on this apparatus, while adding noise and allowing higher or lower scores than the range of scores they have received in the past. We used the process of kernel density estimation (KDE), which provides a continuous representation of the score distribution estimated from their past scores. Note that treated Vault 1 and Vault 2 as separate distributions, because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15]. Mathematical details about the development of our KDE are included in the appendix.
 
-Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs in order to have more data points to estimate from. Additionally, we only created the KDEs based on the total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Appendix Figure 1 additionally demonstrates that most penalty scores are near 0.
+Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs in order to have more data points to estimate from. Additionally, we only created the KDEs based on the total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Appendix Figure 2 additionally demonstrates that most penalty scores are near 0.
 
 #### Team Selection
 
@@ -667,7 +667,7 @@ Simone Biles, Shilese Jones, Jordan Chiles, Konnor McClain, and Jade Carey were 
 
 Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, and Colt Walker were selected as the men's Team USA in the simulation where the USA has the highest weighted medal score. All five of these athletes are also proven to be highly accomplished [4]: Brody Malone is the 2021 and 2022 U.S. National All-Around Champion, Asher Hong was part of the bronze-winning team at the 2023 World Championships, Patrick Hoopes was a 2023 NCAA All-American on the pommel horse, Paul Juda was part of the bronze-winning team at the 2023 World Championships, and Colt Walker was part of the gold-winning team at the 2022 Pan-American Championships.
 
-Figure 3 shows the scores for each athlete selected for Team USA on each apparatus through their 2022-2023 competitions. It can be seen which athletes may be "specialists" versus "all-arounders". These graphs also show the scores of each athlete on each apparatus compared to the others on Team USA, which can be helpful for strategy (for example, selecting which athletes will compete on which apparatus in the team event).
+Figure 1 shows the scores for each athlete selected for Team USA on each apparatus through their 2022-2023 competitions. It can be seen which athletes may be "specialists" versus "all-arounders". These graphs also show the scores of each athlete on each apparatus compared to the others on Team USA, which can be helpful for strategy (for example, selecting which athletes will compete on which apparatus in the team event).
 
 Some items of note are that Patrick Hoopes on the Men's team seems to specialize on the Pommel Horse (he also claims Pommel Horse is his favorite event because "it's not scary") [5]. Simone Biles had not scored below a 14 on any competition in the 2022-2023 dataset; her score distribution being on the higher end is consistent with her earning the title of the most decorated gymnast in history.
 
@@ -712,7 +712,9 @@ range_of_rank_w <- ggplot(data = w_team_usa_no_zero, aes(y= Apparatus, x = Score
   theme_light()+
   scale_color_aaas()+
   theme(
-    plot.title = element_text(size = 10)
+    plot.title = element_text(size = 10),
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9)
   )+
     labs(
     x = "Score",
@@ -730,7 +732,9 @@ range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= Apparatus, x = Score
   theme_light()+
   scale_color_aaas()+
   theme(
-    plot.title = element_text(size = 10)
+    plot.title = element_text(size = 9),    
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9)
   )+
     labs(
     x = "Score",
@@ -748,20 +752,35 @@ grid.arrange(range_of_rank_m, range_of_rank_w, ncol = 2)
 
 ```
 
-Additionally, we created heatmaps of the average country performance across the 300 simulations with team USA held constant and with the selected athletes from Results. Figure 4, below, shows that for men's gymnastics, individual athletes who do not belong to a qualifying country tend to dominate events such as Pommel Horse, Floor Exercise, Vault, and Still Rings. However, this could be unrealistic in the Olympics, as individual athletes still have to qualify in order to compete. For our selected USA men's team, Team All-Around and Individual All-Around appear to be USA's strong suit. The heatmap also shows that China and Japan are strong competitors. China and Japan have historically dominated past Olympic men gymnastic events [6]. 
+Additionally, we created heatmaps of the average country performance across the 300 simulations with team USA held constant and with the selected athletes from Results. Figure 2, below, shows that for men's gymnastics, individual athletes who do not belong to a qualifying country tend to dominate events such as Pommel Horse, Floor Exercise, Vault, and Still Rings. However, this could be unrealistic in the Olympics, as individual athletes still have to qualify in order to compete. For our selected USA men's team, Team All-Around and Individual All-Around appear to be USA's strong suit. The heatmap also shows that China and Japan are strong competitors. China and Japan have historically dominated past Olympic men gymnastic events [6]. 
 
-Figure 4 shows that for women's gymnastics, our selected USA team tends to dominate most events, except uneven bars. This agrees with historical performances, as the USA has not won gold in Uneven Bars at the Olympics since 1984 [7]. USA's strong suit is Individual All-Around, which also agrees with USA's historical performances. USA has won gold in women's Individual All-Around at every single Olympics since 2004 [8].
+Figure 2 shows that for women's gymnastics, our selected USA team tends to dominate most events, except uneven bars. This agrees with historical performances, as the USA has not won gold in Uneven Bars at the Olympics since 1984 [7]. USA's strong suit is Individual All-Around, which also agrees with USA's historical performances. USA has won gold in women's Individual All-Around at every single Olympics since 2004 [8].
 
 ```{r heatmap-women}
 long_format_data_women = read_rds("Heatmap_data_women")
-heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
+
+long_format_data_women <- long_format_data_women |> mutate( Event_clean = case_when(
+  Event == "VT_medal" ~ "VT",
+  Event == "UB_medal" ~ "UB",
+  Event == "Team_AA_medal" ~ "Team AA",
+  Event == "indiv_medal" ~ "Indiv",
+  Event == "FX_medal" ~ "FX",
+  Event == "BB_medal" ~ "BB"
+))
+
+heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event_clean, fill = Medals)) +
   geom_tile() +
    scale_fill_gradient(low = "#3b4992ff", high = "gold") +
   theme_light()+
   theme(
-    legend.position = "top",
+    legend.position = c(0.5, 2),
     legend.key.height= unit(.5, 'cm'),
-    legend.key.width= unit(1.5, 'cm')
+    legend.key.width= unit(1.5, 'cm'),
+    plot.title = element_text(size = 9),
+    legend.direction = "horizontal",
+    plot.margin = margin(t=4,1,1,1, "lines"),
+    axis.title.x = element_text(size = 9),
+    axis.title.y = element_text(size = 9)
   )+
   labs(title = "Women's Average Country Performance",
        x = NULL,
@@ -770,11 +789,25 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event, fill
 
 ```{r heatmap-men}
 long_format_data_men = read_rds("Heatmap_data_men")
-heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
+long_format_data_men <- long_format_data_men |> mutate( Event_clean = case_when(
+  Event == "FX_medal" ~ "FX",
+  Event == "HB_medal" ~ "HB",
+  Event == "Team_AA_medal" ~ "Team AA",
+  Event == "indiv_medal" ~ "Indiv",
+  Event == "PB_medal" ~ "PB",
+  Event == "PH_medal" ~ "PH",
+  Event == "SR_medal" ~ "SR",
+  Event == "VT_medal" ~ "VT"
+))
+
+heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event_clean, fill = Medals)) +
   geom_tile() +
    scale_fill_gradient(low = "#3b4992ff", high = "gold") +
   theme_light()+
-  theme(legend.position="none")+
+  theme(legend.position="none",
+        plot.title = element_text(size = 9),
+        axis.title.x = element_text(size = 9),
+        axis.title.y = element_text(size = 9))+
   labs(title = "Men's Average Country Performance",
     y = "Event",
        x = "Country",
@@ -783,7 +816,6 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event, fill = M
 
 ```{r heatmap-output, fig.cap = "Average Weighted Medal Count Performance Across Simulations", fig.show = 'asis', fig.height = 4, fig.width = 6}
 combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
-
 ```
 
 An observation, noted in the results section, is that the selected women's Team USA receives the highest weighted medal number in the Olympic simulations more times than the selected men's Team USA. In addition, the best weighted medal score for the women's team is 25 and for the men's team is 16, despite the men having more medal events. This is consistent with the past performance of the Women's team; they are the 2023 reigning World Champions, and won silver at the last Olympics. The Men's team won bronze in the 2023 World Championships and did not place in the last Olympics; however, the individual athletes selected for Team USA have a strong track record described at the beginning of the discussion, and sports commentators believe they have a strong potential to place in the 2024 Games [9]. 
@@ -892,9 +924,9 @@ winningmost_country_women <- ggplot(data = top_countries_women, aes(y = clean_co
     axis.title.y = element_text(size = 8)
   )+
   labs(
-    x = "Rank",
+    x = "Women's Competition Ranks by Country",
     y = "Country",
-    title = "Women's Competition Ranks by Country"
+    title = "Appendix 1:Each Athlete's Competition \nRanks for Olympic Qualified Countries "
   )
 ```
 
@@ -923,13 +955,13 @@ winningmost_country_men <- ggplot(data = top_countries_men, aes(y = clean_countr
     axis.title.x = element_text(size = 8)
   )+
   labs(
-    x = "Rank",
+    x = "Men's Competition Ranks by Country",
     y = NULL,
-    title = "Men's Competition Ranks by Country"
+    title = NULL
   ) 
 ```
 
-```{r adding-winningmost-countries-graphs, fig.cap = "Each Athlete's Competition Ranks for Olympic Qualified Countries", fig.height = 4}
+```{r adding-winningmost-countries-graphs, fig.height = 4}
 grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
 ```
 
@@ -942,8 +974,8 @@ grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
 
 penalty_w <- ggplot(data = df_women_c, aes(x = Penalty)) +
   geom_histogram(bins = 30, color = "#3b4992ff")+
-  labs(title = "Appendix 1: Penalty Distribution",
-       x = "Penalty",
+  labs(title = "Appendix 2: Penalty Distribution \nby Competition Scope",
+       x = "Penalty for Female Athletes",
        y = "Count") +
   theme_light() +
   scale_color_aaas()
@@ -958,15 +990,15 @@ penalty_w <- ggplot(data = df_women_c, aes(x = Penalty)) +
 
 penalty_m <- ggplot(data = df_men_c, aes(x = Penalty)) +
   geom_histogram(bins = 30, color = "#3b4992ff")+
-    labs(title = "Male Athletes",
-       x = "Penalty",
-       y = "Count") +
+    labs(title = NULL,
+       x = "Penalty for Male Athletes",
+       y = NULL) +
   theme_light() +
   scale_color_aaas()
 
 ```
 
-```{r }
+```{r output-penalties}
 grid.arrange(penalty_w, penalty_m, ncol = 2)
 ```
 

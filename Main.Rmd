@@ -421,7 +421,7 @@ We only included a group of "elite athletes" as our potential athlete selection 
 
 The next step was to simulate the score that each athlete receives on each apparatus. We created a score distribution for each athlete and apparatus based on the observed scores they received in past competitions on this apparatus, while adding noise and allowing higher or lower scores than the range of scores they have received in the past. We used the process of kernel density estimation (KDE), which provides a continuous representation of the score distribution estimated from their past scores. Note that treated Vault 1 and Vault 2 as separate distributions, because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15]. Mathematical details about the development of our KDE are included in the appendix.
 
-Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs in order to have more data points to estimate from. *APPENDIX FIGURE X* shows the qualification and final round scores by apparatus. The distribution of qualification scores is slightly lower than the distribution of final round scores, which is consistent with the observation that the athletes who have low scores in the qualification rounds do not move on to the final rounds. Although there is still the possibility of a difference in qualification and final round scores for the same athlete, the inclusion of qualification rounds provides more data about each athlete's performance distribution, so we will include information from both rounds in our simulation. Additionally, we only created the KDEs based on the total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Appendix Figure 1 additionally demonstrates that most penalty scores are near 0.
+Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs in order to have more data points to estimate from. Additionally, we only created the KDEs based on the total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Appendix Figure 1 additionally demonstrates that most penalty scores are near 0.
 
 #### Team Selection
 
@@ -968,53 +968,6 @@ penalty_m <- ggplot(data = df_men_c, aes(x = Penalty)) +
 
 ```{r }
 grid.arrange(penalty_w, penalty_m, ncol = 2)
-```
-
-
-
-```{r diff-quali-v-final-vis-women1, fig.cap="Distribution of the Score by Round and Apparatus for Women"}
-
-women_boxplot_temp <- filter(df_women_c, Round == "final" | Round == "qual")
-#women_boxplot_temp <- filter(women_boxplot_temp, clean_name%in%all_elites$clean_name )
-
-diff_qual_v_final_w <- ggplot(data = women_boxplot_temp, aes(y = Score, x = Round, fill = Round))+
-  geom_boxplot()+
-  facet_wrap(.~Apparatus) +
-  theme_light()+
-  theme(
-    legend.position = "none"
-  )+
-  scale_fill_aaas()+  
-  labs(
-    fill = "Round",
-    y = "Women"
-  )
-
-```
-
-```{r diff-quali-v-final-vis-men1, fig.cap="Distribution of the Score by Round and Apparatus for Men"}
-
-men_boxplot_temp <- filter(df_men_c, Round == "final" | Round == "qual")
-men_boxplot_temp <- filter(men_boxplot_temp, Apparatus !="hb")
-#men_boxplot_temp <- filter(men_boxplot_temp, clean_name%in%all_elites_m$clean_name )
-
-diff_qual_v_final_m <- ggplot(data = men_boxplot_temp, aes(y = Score,x = Round, fill = Round))+
-  geom_boxplot()+
-  facet_wrap(.~Apparatus) +
-  theme_light()+
-  theme(
-    legend.position = "none"
-  )+
-  scale_fill_aaas()+  
-  labs(
-    fill = "Round",
-    y = "Men"
-  )
-
-```
-
-```{r diff_qual_v_final_output, fig.cap = "Distribution of the Score by Round and Apparatus", fig.height = 5, fig.width = 7}
-grid.arrange(diff_qual_v_final_m, diff_qual_v_final_w, ncol = 2)
 ```
 
 

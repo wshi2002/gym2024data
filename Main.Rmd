@@ -578,31 +578,39 @@ Brody Malone, Javier Alfonso, Curran Phillips, Frederick Richard, and Joshua Kar
 -   Joshua Karnes is the 2023 Winter Cup bronze medalist in parallel bars
 
 # Discussion
-
-```{r}
-long_format_data_men = read_rds("Heatmap_data_men")
-ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
-  geom_tile() +
-   scale_fill_gradient(low = "darkblue", high = "gold") +
-  labs(title = "Average Country Performance Across Events",
-       x = "Country",
-       y = "Event",
-       fill = "Medals") +
-  theme_minimal()
-```
-
-
-```{r}
+```{r heatmap-women}
 long_format_data_women = read_rds("Heatmap_data_women")
-ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
+heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
   geom_tile() +
-   scale_fill_gradient(low = "darkblue", high = "gold") +
-  labs(title = "Average Country Performance Across Simulations",
+   scale_fill_gradient(low = "#3b4992ff", high = "gold") +
+  theme_light()+
+  theme(
+    legend.position = "top"
+  )+
+  labs(
        x = "Country",
-       y = "Event",
-       fill = "Medals") +
-  theme_minimal()
+       y = "Event") 
 ```
+
+```{r heatmap-men}
+long_format_data_men = read_rds("Heatmap_data_men")
+heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
+  geom_tile() +
+   scale_fill_gradient(low = "#3b4992ff", high = "gold") +
+  theme_light()+
+  theme(legend.position="none")+
+  labs(
+    y = NULL,
+       x = "Country",
+       fill = "Medals") 
+```
+
+```{r heatmap-output, fig.cap = "Average Country Performance Across Simulations"}
+grid.arrange(heatmap_women, heatmap_men, nrow = 2)
+
+```
+
+
 
 Plots to add, once we get final team: average Score by apperatous per team USA athlete performance over time
 
@@ -679,7 +687,7 @@ range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= Apparatus, x = Score
 
 ```
 
-```{r range_of_rank_together, fig.cap = "Every Competition Rank for each team USA Athlete by Apparatus", fig.fullwidth = TRUE, fig.height = 7, fig.width = 7}
+```{r range_of_rank_together, fig.cap = "Every Competition Score for each team USA Athlete by Apparatus", fig.fullwidth = TRUE, fig.height = 7, fig.width = 7}
 
 grid.arrange(range_of_rank_w, range_of_rank_m, nrow = 2)
 

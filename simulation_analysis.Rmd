@@ -427,7 +427,6 @@ men_team_sim10[[1]]@teamSummary$athletes[[12]]
 
 
 
-
 WOMEN'S RESULTS: TOP SIMULATION OF TOP TEAM
 
 ```{=latex}

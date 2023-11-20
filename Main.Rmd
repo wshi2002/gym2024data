@@ -773,17 +773,17 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event_clean
    scale_fill_gradient(low = "#3b4992ff", high = "gold") +
   theme_light()+
   theme(
-    legend.position = c(0.5, 2),
+   # legend.position = c(0.5, 2),
     legend.key.height= unit(.5, 'cm'),
     legend.key.width= unit(1.5, 'cm'),
     plot.title = element_text(size = 9),
-    legend.direction = "horizontal",
-    plot.margin = margin(t=4,1,1,1, "lines"),
+    legend.position = "bottom",
+  #  plot.margin = margin(t=4,1,1,1, "lines"),
     axis.title.x = element_text(size = 9),
     axis.title.y = element_text(size = 9)
   )+
   labs(title = "Women's Average Country Performance",
-       x = NULL,
+       x = "Country",
        y = "Event") 
 ```
 
@@ -810,12 +810,13 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event_clean, fi
         axis.title.y = element_text(size = 9))+
   labs(title = "Men's Average Country Performance",
     y = "Event",
-       x = "Country",
+       x = NULL,
        fill = "Medals") 
 ```
 
 ```{r heatmap-output, fig.cap = "Average Weighted Medal Count Performance Across Simulations", fig.show = 'asis', fig.height = 4, fig.width = 6}
-combined_plot = grid.arrange(heatmap_women, heatmap_men, nrow = 2)
+library(cowplot)
+plot_grid(heatmap_men, heatmap_women, align = "v",nrow = 2, rel_heights = c(1/3, 1/2))
 ```
 
 An observation, noted in the results section, is that the selected women's Team USA receives the highest weighted medal number in the Olympic simulations more times than the selected men's Team USA. In addition, the best weighted medal score for the women's team is 25 and for the men's team is 16, despite the men having more medal events. This is consistent with the past performance of the Women's team; they are the 2023 reigning World Champions, and won silver at the last Olympics. The Men's team won bronze in the 2023 World Championships and did not place in the last Olympics; however, the individual athletes selected for Team USA have a strong track record described at the beginning of the discussion, and sports commentators believe they have a strong potential to place in the 2024 Games [9]. 
@@ -919,9 +920,9 @@ winningmost_country_women <- ggplot(data = top_countries_women, aes(y = clean_co
   geom_boxplot( color = "#3b4992ff", alpha = 0.5)+
   theme_light()+
   theme(
-    plot.title = element_text(size = 8),
-    axis.title.x = element_text(size = 8),
-    axis.title.y = element_text(size = 8)
+    plot.title = element_text(size = 10),
+    axis.title.x = element_text(size = 10),
+    axis.title.y = element_text(size = 10)
   )+
   labs(
     x = "Women's Competition Ranks by Country",
@@ -951,8 +952,8 @@ winningmost_country_men <- ggplot(data = top_countries_men, aes(y = clean_countr
   geom_boxplot(color = "#3b4992ff", alpha = 0.5)+
   theme_light()+
   theme(
-    plot.title = element_text(size = 8),
-    axis.title.x = element_text(size = 8)
+    plot.title = element_text(size = 10),
+    axis.title.x = element_text(size = 10)
   )+
   labs(
     x = "Men's Competition Ranks by Country",
@@ -962,7 +963,11 @@ winningmost_country_men <- ggplot(data = top_countries_men, aes(y = clean_countr
 ```
 
 ```{r adding-winningmost-countries-graphs, fig.height = 4}
-grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
+library(gridExtra)
+
+combined_plot <- grid.arrange(winningmost_country_women, winningmost_country_men, ncol = 2)
+
+combined_plot <- combined_plot + annotate("text", x = 0.5, y = 1, label = "test", vjust = 2, hjust = 0.6, size = 6)
 ```
 
 
@@ -976,7 +981,7 @@ penalty_w <- ggplot(data = df_women_c, aes(x = Penalty)) +
   geom_histogram(bins = 30, color = "#3b4992ff")+
   labs(title = "Appendix 2: Penalty Distribution \nby Competition Scope",
        x = "Penalty for Female Athletes",
-       y = "Count") +
+       y = NULL) +
   theme_light() +
   scale_color_aaas()
 
@@ -992,14 +997,14 @@ penalty_m <- ggplot(data = df_men_c, aes(x = Penalty)) +
   geom_histogram(bins = 30, color = "#3b4992ff")+
     labs(title = NULL,
        x = "Penalty for Male Athletes",
-       y = NULL) +
+       y = "Count") +
   theme_light() +
   scale_color_aaas()
 
 ```
 
 ```{r output-penalties}
-grid.arrange(penalty_w, penalty_m, ncol = 2)
+grid.arrange(penalty_m, penalty_w, ncol = 2)
 ```
 
 

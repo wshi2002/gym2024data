@@ -11,7 +11,7 @@ TOP MEN'S AND PERCENTAGES
 
 \begin{table}[htbp]
 \begin{center}
-  \caption{Men's Artistic Gymnastics - Second Round Simulations for Possible Top Teams}
+  \caption{Men's Artistic Gymnastics - Simulations for Possible Top Teams}
   \medskip
 \begin{tabular}{c|c|c|c|c}
 \hline
@@ -215,11 +215,5 @@ MEN'S TOP OF TOP
   
   \label{tab:gymnastics_medals}
 \end{table}
-
-  \small
-  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
-  \textbf{Team USA Medal Count:} 6 \\
-  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
-  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
 
 ```

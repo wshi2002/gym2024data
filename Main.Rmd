@@ -1,10 +1,12 @@
 ---
 title: "**Case Study 2: Paris 2024 Team USA Olympics Gymnastics Team**"
 author: "Aimi Wen, Katie Nash, Nidhi Dhupati, Wendy Shi"
+geometry: "left=1cm,right=1cm,top=1.5cm,bottom=1.5cm"
 output: 
   pdf_document:
     fig_caption: yes
 warnings: false
+fontsize: 10
 ---
 
 ```{r setup, include=FALSE}
@@ -389,7 +391,7 @@ The Olympic Games are an international multi-sport event held every four years, 
 
 Our hypothesis is:
 
-Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
+-   Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
 
 ### Data Description
 
@@ -613,17 +615,18 @@ Of the 3000 simulations for both men and women, the 10 simulation with the highe
   Matt Cormier & Patrick Hoopes & Vitaliy Guimaraes & Vitaliy Guimaraes & Asher Hong \\
   Vitaliy Guimaraes & Paul Juda & Brody Malone & Paul Juda & Paul Juda \\
   Paul Juda & Brody Malone & Yul Moldauer & Riley Loos & Curran Phillips \\
-  Frederick Richard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
+  Frederick Richaard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
   \hline
   \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline
-  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{13.7\%} \\
+  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{USA: 13.7\%} \\
   \hline
 \end{tabular}
 \end{center}
 
 \label{tab:top_men_medals}
 \end{table}
+
 ```
 As seen in the table above, Team USA is taken to be Asher Hong, Patrick Hoopes, Paul Juda, Brody Malone, and Colt Walker (Team 7 above). This Team USA won the highest weighted medal count of any country is 15.7% of the second round simulations.
 
@@ -638,7 +641,7 @@ Since this Team 7 was identified as the men's Team USA, we have included a table
   \begin{tabular}{l|l|l|l}
     \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
     \hline
-    Team All-Around & China & \highlight{USA} & Italy \\
+    Team All-Around & China & USA & Italy \\
     \hline
     Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
     \hline
@@ -653,17 +656,16 @@ Since this Team 7 was identified as the men's Team USA, we have included a table
     High Bar & China (Hao Tian) & Cyprus (Marios Georgiou) & Japan (Shinnosuke Oka) \\
     \hline
     Floor Exercise & \highlight{USA (Brody Malone)} & Cuba (Alejandro De) & Philippines (Carlos Yulo) \\
+    \\
+        \multicolumn{4}{c}{\textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker}} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Count:} 6} \\
+        \multicolumn{4}{c}{\textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1)} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze}
 
   \end{tabular}
   
   \label{tab:gymnastics_medals}
 \end{table}
-
-  \small
-  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
-  \textbf{Team USA Medal Count:} 6 \\
-  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
-  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
 ```
 ## Women's Artistic Gymnastics Event
 
@@ -736,18 +738,20 @@ In these additional simulations, the USA won the highest weighted medal count th
   eMjae Frazier & eMjae Frazier & Jade Carey \\
   Jade Carey & Shilese Jones & Shilese Jones \\
   \hline
-  \multicolumn{3}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \multicolumn{3}{c}{Percentage of Simulations With USA} \\
+  \multicolumn{3}{c}{Having the Highest Weighted Medal Count} \\
   \hline
   \textit{99.7\%} & \textit{99.7\%} & \textit{99.7\%} \\
   \hline
   \multicolumn{3}{c}{Average Weighted Medal Count} \\
   \hline
-  \textit{16.8} &\textit{17.5} &\textit{18.4} \\
+  \textit{16.8} & \textit{17.5} & \textit{18.4} \\
 \end{tabular}
 \end{center}
 
 \label{tab:top_women_medals}
 \end{table}
+
 ```
 Since Simone Biles, Konnor McClain, Jordan Chiles, Jade Carey, and Shilese Jones had the highest average weighted medal count in these last round of simulations, they were chosen as the women's Team USA.
 
@@ -773,17 +777,18 @@ Since this Team 3 was identified as the women's Team USA, we have included a tab
     Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
     \hline
     Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
+    \\
+    \multicolumn{4}{c}{\textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain}} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Count:} 10} \\
+        \multicolumn{4}{c}{\textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1)} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze}
+    
+    
 
   \end{tabular}
   
   \label{tab:gymnastics_medals}
 \end{table}
-
-  \small
-  \textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain} \\
-  \textbf{Team USA Medal Count:} 10 \\
-  \textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1) \\
-  \textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze
 ```
 # Discussion
 
@@ -835,7 +840,7 @@ m_team_usa <- m_team_usa %>% mutate(clean_name = case_when (
 ))
 ```
 
-```{r range-of-score-w, fig.cap = "Every Competition Rank for each Female team USA Athlete by Apparatus", fig.margin = TRUE, fig.width = 4, fig.height = 3}
+```{r range-of-score-w, fig.cap = "Competition Scores for Each Female Team USA Athlete by Apparatus", fig.margin = TRUE, fig.width = 4, fig.height = 3}
 
 
 w_team_usa_no_zero <- filter(w_team_usa, Rank != 0)
@@ -846,14 +851,15 @@ range_of_rank_w <- ggplot(data = w_team_usa_no_zero, aes(y= Apparatus, x = Score
   theme(
     plot.title = element_text(size = 10)
   )+
- # labs(
- #   x = NULL,
- #   y = "Team USA Athletes- Women"
- # )+
+    labs(
+    x = "Score",
+    y = "Apparatus",
+    title = "Women's Team USA Competition Scores"
+  ) +
   facet_wrap(.~clean_name)
 ```
 
-```{r range-of-score-m, fig.cap = "Every Competition Rank for each Male team USA Athlete by Apparatus", fig.margin = TRUE, fig.height = 4, fig.width = 4}
+```{r range-of-score-m, fig.cap = "Competition Scores for Each Male team USA Athlete by Apparatus", fig.margin = TRUE, fig.height = 4, fig.width = 4}
 
 m_team_usa_no_zero <- filter(m_team_usa, Rank != 0)
 range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= Apparatus, x = Score))+
@@ -863,18 +869,19 @@ range_of_rank_m <- ggplot(data = m_team_usa_no_zero, aes(y= Apparatus, x = Score
   theme(
     plot.title = element_text(size = 10)
   )+
-  #labs(
- #   x = "Rank",
- #   y = "Team USA Athletes - Men"
- # )+
+    labs(
+    x = "Score",
+    y = "Apparatus",
+    title = "Men's Team USA Competition Scores"
+  ) +
   facet_wrap(.~clean_name)
 
 
 ```
 
-```{r range_of_rank_together, fig.cap = "Every Competition Score for each team USA Athlete by Apparatus", fig.fullwidth = TRUE, fig.height = 7, fig.width = 7}
+```{r range_of_rank_together, fig.cap = "Every Competition Score for Each team USA Athlete by Apparatus", fig.fullwidth = TRUE, fig.height = 7, fig.width = 7}
 
-grid.arrange(range_of_rank_w, range_of_rank_m, nrow = 2)
+grid.arrange(range_of_rank_m, range_of_rank_w, nrow = 2)
 
 ```
 
@@ -948,7 +955,9 @@ In conclusion, this paper predicts the 5 men and 5 women who can make Team USA a
 
 [3] James Herbert Oct 5. "2024 Paris Olympics: Projecting Team USA's 12-Man Roster with Joel Embiid Joining Lebron James, Stephen Curry." CBSSports.Com, 5 Oct. 2023, www.cbssports.com/nba/news/2024-paris-olympics-projecting-team-usas-12-man-roster-with-joel-embiid-joining-lebron-james-stephen-curry/.
 
-[4] "List of IOC Country Codes." Wikipedia, Wikimedia Foundation, 3 Nov. 2023, en.wikipedia.org/wiki/List_of_IOC_country_codes.
+[4] "List of IOC Country Codes." Wikipedia, Wikimedia Foundation, 3 Nov. 2023,
+
+en.wikipedia.org/wiki/List_of_IOC_country_codes.
 
 [5] USA Gymnastics, 14 Aug. 2023, usagym.org/.
 
@@ -976,7 +985,9 @@ www.reddit.com/r/Gymnastics/comments/1700rmc/who_will_be_on_the_usa_womens_team_
 
 [13] Pathak, Manasi. "Olympic Champion Sunisa Lee Expects Paris 2024 Games to Be Stressful." Forbes, Forbes Magazine, 31 July 2023, www.forbes.com/sites/manasipathak-1/2023/07/24/olympic-champion-sunisa-lee-expects-paris-2024-games-to-be-stressful/?sh=53a9ae9c600c.
 
-[14] Gough, Christina. "Global Sports Market Revenue 2027." Statista, 13 July 2023, www.statista.com/statistics/370560/worldwide-sports-market-revenue/.
+[14] Gough, Christina. "Global Sports Market Revenue 2027." Statista, 13 July 2023,
+
+www.statista.com/statistics/370560/worldwide-sports-market-revenue/.
 
 [15] "Vault (Gymnastics)." Wikipedia, Wikimedia Foundation, 30 Oct. 2023, en.wikipedia.org/wiki/Vault(gymnastics).
 
@@ -999,7 +1010,7 @@ cat("\\setcounter{figure}{0}\n")
 #quantile(as.numeric(df_women_c$Penalty), 0.51, na.rm = TRUE)
 
 penalty_w <- ggplot(data = df_women_c, aes(x = Penalty)) +
-  geom_histogram(bins = 30)+
+  geom_histogram(bins = 30, color = "#3b4992ff")+
   labs(title = "Appendix 1: Penalty Distribution",
        x = "Penalty",
        y = "Count") +
@@ -1015,7 +1026,7 @@ penalty_w <- ggplot(data = df_women_c, aes(x = Penalty)) +
 #quantile(as.numeric(df_men_c$Penalty), 0.51, na.rm = TRUE)
 
 penalty_m <- ggplot(data = df_men_c, aes(x = Penalty)) +
-  geom_histogram(bins = 30)+
+  geom_histogram(bins = 30, color = "#3b4992ff")+
     labs(title = "Male Athletes",
        x = "Penalty",
        y = "Count") +
@@ -1034,7 +1045,7 @@ grid.arrange(penalty_w, penalty_m, ncol = 2)
 
 This Appendix section includes details about how the KDEs for a continuous representation of the score distribution for each athlete and apparatus were created. 
 
-KDE stands for Kernel Density Estimation, it is a nonparametric method to estimate the distribution of a certain set of points. In our case, we used the KDE to estimate the pdf of the score distribution for an athlete\'s performance on one apparatus. Delving into the mathematical details, the kernel function is evaluated for each past score separately, and these partial results are summed in order to form our KDE.
+KDE stands for Kernel Density Estimation, it is a nonparametric method to estimate the distribution of a certain set of points. In our case, we used the KDE to estimate the pdf of the score distribution for an athlete's performance on one apparatus. Delving into the mathematical details, the kernel function is evaluated for each past score separately, and these partial results are summed in order to form our KDE.
 
  We start with a Gaussian kernel with zero mean and unit variance.
 
@@ -1050,14 +1061,14 @@ To get the overall KDE estimate $f(x)$ for a set of n points, $x_1 \ldots x_n$, 
 
 $f(x) = \frac{1}{n} \left[ \frac{1}{h}K \left( \frac{x-x_1}{h} \right) + \ldots + \frac{1}{h}K \left( \frac{x-x_n}{h} \right)  \right]$
 
- We used the density function in R to create the KDEs for most athletes. If an athlete only had one score for an event, we were unable to generate a realistic KDE estimate, so for these cases, we used a normal distribution with the mean as the athlete\'s score and standard deviation of 0.1 As mentioned before, we made gymnasts who compete with two vaults have two score distributions for the event: one distribution for the first vault and one distribution for the second vault. We made a decision to have 2 separate score distributions because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15].
+ We used the density function in R to create the KDEs for most athletes. If an athlete only had one score for an event, we were unable to generate a realistic KDE estimate, so for these cases, we used a normal distribution with the mean as the athlete's score and standard deviation of 0.1 As mentioned before, we made gymnasts who compete with two vaults have two score distributions for the event: one distribution for the first vault and one distribution for the second vault. We made a decision to have 2 separate score distributions because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15].
 
 ### Team Selection
 
-To create weights for each athlete, we found the median of the KDE for each apparatus they competed in and took a \"skewed average\" of the medians. We chose this method rather than taking a simple average of the medians since simply averaging the medians would bias the weights toward the specialists in our dataset. For example, an athlete who was really good in only two events, but had zeroes in the other events would have a high average median score, because we are adding the scores and then dividing by 2 (for the two events). For the skewed average, instead of dividing by the number of events $n$ they competed in, we divided by $n+1$. The equation for weight w of $i_{th}$ athlete is as below. 
+To create weights for each athlete, we found the median of the KDE for each apparatus they competed in and took a "skewed average" of the medians. We chose this method rather than taking a simple average of the medians since simply averaging the medians would bias the weights toward the specialists in our dataset. For example, an athlete who was really good in only two events, but had zeroes in the other events would have a high average median score, because we are adding the scores and then dividing by 2 (for the two events). For the skewed average, instead of dividing by the number of events $n$ they competed in, we divided by $n+1$. The equation for weight w of $i_{th}$ athlete is as below. 
 
 $w_i =\frac{ median\_apparatus_1 + \ldots + median\_apparatus_n}{n+1}$
 
-This biased our weights towards gymnasts who compete on more apparatuses. While we recognize that focusing on winning individual events could be a team strategy, we found with some testing that having too many specialists could cause more \"unrealistic\" simulations. For example, if specialists are sampled more often, this could mean cases where there would not be enough athletes able to compete on each apparatus for the Team All Around event. This is especially a concern for men's gymnastics, as they have more apparatuses. Even without weights being applied, we had instances where teams would only have 2 athletes that \"could compete\" (non zero past scores) for an apparatus. Taking this into consideration, we apply the above bias towards all-around athletes in our weighting scheme. 
+This biased our weights towards gymnasts who compete on more apparatuses. While we recognize that focusing on winning individual events could be a team strategy, we found with some testing that having too many specialists could cause more "unrealistic" simulations. For example, if specialists are sampled more often, this could mean cases where there would not be enough athletes able to compete on each apparatus for the Team All Around event. This is especially a concern for men's gymnastics, as they have more apparatuses. Even without weights being applied, we had instances where teams would only have 2 athletes that "could compete" (non zero past scores) for an apparatus. Taking this into consideration, we apply the above bias towards all-around athletes in our weighting scheme. 
 
-After calculating our pseudo average, we realized the weights were really similar to each other. Therefore to \"stretch out\" the scale,  to emphasize the differences in skill level, we decided to use final weight as $e^{w_i}$. So, if the weight before was 13, the new weight would be $e^{13}$. This helped in differentiating between the athlete\'s weights and making sure again that the really top athletes were almost always chosen.
+After calculating our pseudo average, we realized the weights were really similar to each other. Therefore to "stretch out" the scale,  to emphasize the differences in skill level, we decided to use final weight as $e^{w_i}$. So, if the weight before was 13, the new weight would be $e^{13}$. This helped in differentiating between the athlete's weights and making sure again that the really top athletes were almost always chosen.

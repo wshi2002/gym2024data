@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  19 NOV 2023 20:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  19 NOV 2023 22:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -355,6 +355,9 @@ File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 
 LaTeX Warning: Label `tab:top_women_medals' multiply defined.
 
+
+LaTeX Warning: Label `tab:gymnastics_medals' multiply defined.
+
 )
 \openout1 = `results_latex.aux'.
 
@@ -502,11 +505,23 @@ Overfull \hbox (17.14749pt too wide) in paragraph at lines 83--118
  [] 
  []
 
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 204.
+
+Overfull \hbox (26.0554pt too wide) in paragraph at lines 204--227
+[][] 
+ []
+
+
+Overfull \hbox (32.69626pt too wide) in paragraph at lines 237--262
+[][] 
+ []
+
 [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [2] (./results_latex.
-aux)
+al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [2] [3] (./results_la
+tex.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -516,22 +531,24 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13197 strings out of 474934
- 205517 string characters out of 5759818
- 1947807 words of memory out of 5000000
- 34500 multiletter control sequences out of 15000+600000
- 601323 words of font info for 95 fonts, out of 8000000 for 9000
+ 13234 strings out of 474934
+ 205992 string characters out of 5759818
+ 1957807 words of memory out of 5000000
+ 34517 multiletter control sequences out of 15000+600000
+ 611870 words of font info for 108 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,9n,81p,1010b,449s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
-cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive
-/2023/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2023/texmf
--dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts
-/type1/public/lm/lmri10.pfb>
-Output written on results_latex.pdf (2 pages, 122524 bytes).
+cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/local/texlive
+/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf
+-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts
+/type1/public/lm/lmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/publ
+ic/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10
+.pfb>
+Output written on results_latex.pdf (3 pages, 188419 bytes).
 PDF statistics:
- 46 PDF objects out of 1000 (max. 8388607)
- 31 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 22529 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 64 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 28673 words of extra memory for PDF output out of 29859 (max. 10000000)
 

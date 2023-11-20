@@ -424,7 +424,17 @@ men_team_sim10[[1]]@teamSummary$athletes[[12]]
 
 
 ```{r}
-women_team_sim1
+women_team_sim1[[1]]@teamSummary$athletes[[12]]
+women_team_sim2[[1]]@teamSummary$athletes[[12]]
+women_team_sim3[[1]]@teamSummary$athletes[[12]]
+women_team_sim4[[1]]@teamSummary$athletes[[12]]
+women_team_sim5[[1]]@teamSummary$athletes[[12]]
+women_team_sim6[[1]]@teamSummary$athletes[[12]]
+women_team_sim7[[1]]@teamSummary$athletes[[12]]
+women_team_sim8[[1]]@teamSummary$athletes[[12]]
+women_team_sim9[[1]]@teamSummary$athletes[[12]]
+women_team_sim10[[1]]@teamSummary$athletes[[12]]
+
 ```
 
 
@@ -452,6 +462,7 @@ WOMEN'S RESULTS: TOP SIMULATION OF TOP TEAM
     Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
     \hline
     Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
+    \multicolumn{4}{c}{\textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain}}
 
   \end{tabular}
   

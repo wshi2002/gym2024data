@@ -112,7 +112,7 @@ TOP WOMEN'S
 
 \begin{table}[htbp]
 \begin{center}
-  \caption{Women's Artistic Gymnastics - Third Round Simulations for Tied Top Teams}
+  \caption{Women's Artistic Gymnastics - Simulations for Tied Top Teams}
   \medskip
 \begin{tabular}{c|c|c}
   \textbf{Team 1} & \textbf{Team 2} & \textbf{Team 3} \\
@@ -125,18 +125,101 @@ TOP WOMEN'S
   eMjae Frazier & eMjae Frazier & Jade Carey \\
   Jade Carey & Shilese Jones & Shilese Jones \\
   \hline
-  \multicolumn{3}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
+  \multicolumn{3}{c}{Percentage of Simulations With USA} \\
+  \multicolumn{3}{c}{Having the Highest Weighted Medal Count} \\
   \hline
   \textit{99.7\%} & \textit{99.7\%} & \textit{99.7\%} \\
   \hline
   \multicolumn{3}{c}{Average Weighted Medal Count} \\
   \hline
-  \textit{16.8} &\textit{17.5} &\textit{18.4} \\
+  \textit{16.8} & \textit{17.5} & \textit{18.4} \\
 \end{tabular}
 \end{center}
 
 \label{tab:top_women_medals}
 \end{table}
 
+
+```
+
+
+WOMEN'S TOP OF TOP
+
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & \highlight{USA} & Brazil & China \\
+    \hline
+    Individual All-Around & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Balance Beam & \highlight{USA (Simone Biles)} & \highlight{USA (Konnor McClain)} & China (Ran Wu) \\
+    \hline
+    Vault & \highlight{USA (Simone Biles)} & Brazil (Rebeca Andrade) & \highlight{USA (Jade Carey)} \\
+    \hline
+    Floor Exercise & \highlight{USA (Simone Biles)} & \highlight{USA (Shilese Jones)} & Brazil (Rebeca Andrade) \\
+    \hline
+    Uneven Bars & \highlight{USA (Shilese Jones)} & Trinidad and Tobago (Annalise Newman) & Algeria (Kaylia Nemour) \\
+    \\
+    \multicolumn{4}{c}{\textbf{Team USA Athletes: Simone Biles, Jade Carey, Jordan Chiles, Shilese Jones, Konnor McClain}} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Count:} 10} \\
+        \multicolumn{4}{c}{\textbf{Team USA Weighted Medal Count:} 25 (where Gold = 3, Silver = 2, Bronze = 1)} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Breakdown:} 6 Gold, 3 Silver, 1 Bronze}
+    
+    
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+```
+
+
+MEN'S TOP OF TOP
+```{=latex}
+
+\begin{table}[htbp]
+  \caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}
+  \medskip
+  \small
+  \begin{tabular}{l|l|l|l}
+    \multicolumn{1}{c}{\textbf{Event}} & \multicolumn{1}{c}{\textbf{Gold}} & \multicolumn{1}{c}{\textbf{Silver}} & \multicolumn{1}{c}{\textbf{Bronze}} \\
+    \hline
+    Team All-Around & China & USA & Italy \\
+    \hline
+    Individual All-Around & \highlight{USA (Brody Malone)} & \highlight{USA (Asher Hong)} & China (Xingyu Lan) \\
+    \hline
+    Vault & Great Britain (Jake Jarman) & Philippines (Carlos Yulo) & Ukraine (Nazar Chepurnyi) \\
+    \hline
+    Still Rings & \highlight{USA (Asher Hong)} & Greece (Eleftherios Petrounias) & China (Xingyu Lan) \\
+    \hline
+    Pommel Horse & \highlight{USA (Patrick Hoopes)} & Kazakhstan (Nariman Kurbanov) & Canada (Zachary Clay) \\
+    \hline
+    Parallel Bars & Philippines (Carlos Yulo) & Germany (Lukas Dauser) & Japan (Shinnosuke Oka) \\
+     \hline
+    High Bar & China (Hao Tian) & Cyprus (Marios Georgiou) & Japan (Shinnosuke Oka) \\
+    \hline
+    Floor Exercise & \highlight{USA (Brody Malone)} & Cuba (Alejandro De) & Philippines (Carlos Yulo) \\
+    \\
+        \multicolumn{4}{c}{\textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker}} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Count:} 6} \\
+        \multicolumn{4}{c}{\textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1)} \\
+    \multicolumn{4}{c}{\textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze}
+
+  \end{tabular}
+  
+  \label{tab:gymnastics_medals}
+\end{table}
+
+  \small
+  \textbf{Team USA Athletes: Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, Colt Walker} \\
+  \textbf{Team USA Medal Count:} 6 \\
+  \textbf{Team USA Weighted Medal Count:} 16 (where Gold = 3, Silver = 2, Bronze = 1) \\
+  \textbf{Team USA Medal Breakdown:} 4 Gold, 2 Silver, 0 Bronze
 
 ```

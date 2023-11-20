@@ -532,7 +532,7 @@ Of the 5000 simulations for both men and women, the 10 simulation with the highe
   \hline
   \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline
-  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{USA: 13.7\%} \\
+  \textit{6.7\%} & \highlight{\textit{15.7\%}} & \textit{8.7\%} & \textit{3.3\%} & \textit{13.7\%} \\
   \hline
 \end{tabular}
 \end{center}

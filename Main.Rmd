@@ -393,55 +393,39 @@ The Olympic Games are an international multi-sport event held every four years, 
 
 Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women who will represent our country as Team USA in the Artistic Gymnastics events. The importance of and interest surrounding the Olympics provides a rich foundation for statistical analysis of past athlete performances and an interesting platform for making predictions about who will best represent Team USA in future Olympics. There have already been analyses, published in major news outlets, about who Team USA will consist of for non-gymnastics sports in 2024 [3].
 
-The objective of this project is to extend this analysis to the Artistic Gymnastics events, and to select the 5 athletes for each of the men's and women's events that will optimize performance for Team USA. The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men's opportunities for medals are: 1) team all-around, 2) individual all-around, 3) floor exercise, 4) pommel horse, 5) still rings, 6) vault, 7) parallel bars, and 8) high bar. Women's opportunities for medals are: 1) team all-around, 2) individual all-around, 3) vault, 4) uneven bars, 5) balance beam, and 6) floor exercise. The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
+The objective of this project is to extend this analysis to the Artistic Gymnastics events, and to select the 5 athletes for each of the men's and women's events that will optimize performance for Team USA. The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) floor exercise (FX), 4) pommel horse (PH), 5) still rings (SR), 6) vault (VT), 7) parallel bars (PB), and 8) high bar (HB). Women's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) vault (VT), 4) uneven bars (UB), 5) balance beam (BB), and 6) floor exercise (FX). The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
 
-Our hypothesis is:
-
--   Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
+Our hypothesis is: Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
 
 ### Data Description
 
-The dataset was provided by UConn Sports Analytics Symposium (UCSAS). Major worldwide and national Gymnastics competitions were included in two separate datasets: one for 2017-2021 competitions, and one for the 2022-2023 season leading up to the 2024 Paris Games. The competition data included scoring information, athlete names, athlete demographic information, athlete scores, and competition details. Each entry in the dataset is one event from one athlete, which includes the country affiliation of the athlete, the competition and competition location, the difficulty, execution, penalty, and overall scores, the apparatus that the athlete competed on, and their ranking. Additionally, the countries who qualified as a team, which are the countries that will be allowed to compete in the Team All-Around event for the men's and women's Olympic events, were provided. Verification of athlete names and country affiliation was conducted by using Wikipedia [3] alongside the USA Gymnastics website [4]. The dataset we used for analysis was last synced with the central UCSAS repository on November 2nd.
+The dataset was provided by UConn Sports Analytics Symposium (UCSAS). Major worldwide and national Gymnastics competitions were included in two separate datasets: one for 2017-2021 competitions, and one for the 2022-2023 season leading up to the 2024 Paris Games. The competition data included scoring information, athlete names, athlete demographic information, athlete scores, and competition details. Each entry in the dataset is one event from one athlete, which includes the country affiliation of the athlete, the competition and competition location, the difficulty, execution, penalty, and overall scores, the apparatus that the athlete competed on, and their ranking. Additionally, the countries who qualified as a team, which are the countries that will be allowed to compete in the Team All-Around event for the men's and women's Olympic events, were provided by UCSAS. Verification of athlete names and country affiliation was conducted by using Wikipedia [3] alongside the USA Gymnastics website [4]. The dataset we used for analysis was last synced with the central UCSAS repository on November 2nd.
 
 ## Methodology
 
 ### Data Cleaning
 
-Since our goal is to optimize performance in the 2024 Olympics, we chose to only include competition data from 2022 and 2023, while excluding data from the 2017-2021 season. This reflects the unprecedented global pandemic that caused even the Tokyo Olympics to be delayed, and the scoring differences before 2021 versus now, and a potential turnover in athletes. We assumed that competition data from the two most recent years would be the most useful in understanding 2024 Olympic performance. From the original 2022-2023 competition dataset, we standardized variables and added columns. We standardized each athlete's name based on the first instance it appeared and created a column that included the full name of the athlete. Additionally, we made sure the country codes were consistent with International Olympic Committee Codes (for example, Scotland competes as part of the United Kingdom in the Olympics). We also separated the competition data into two datasets of men's and women's competitions, created a variable to track the order in the competitions that occurred by their dates, and added a competition scope variable to aid with data visualizations and athlete selection in the analysis approach. For our Team All-Around analysis approach, which is written in more detail below, we also created a separate dataframe for analysis. After cleaning the data, we looked at Appendix 1 to show that each country has a wide range of performances across past competitions. This brought us to create an athlete selection criteria to narrow down our possible pool of athletes for our analysis approach, which is detailed below.
+Since our goal is to optimize performance in the 2024 Olympics, we chose to only include competition data from 2022 and 2023, while excluding data from the 2017-2021 season. This reflects the unprecedented global pandemic that caused even the Tokyo Olympics to be delayed, and the scoring differences before 2021 versus now, and a potential turnover in athletes. We assumed that competition data from the two most recent years would be the most useful in understanding 2024 Olympic performance. From the original 2022-2023 competition dataset, we standardized variables and added columns. We standardized each athlete's name based on the first instance it appeared and created a column that included the full name of the athlete. Additionally, we made sure the country codes were consistent with International Olympic Committee Codes (for example, Scotland competes as part of the United Kingdom in the Olympics). We also separated the competition data into two datasets of men's and women's competitions, created a variable to track the order in the competitions that occurred by their dates, and added a competition scope variable to aid with data visualizations and athlete selection in the analysis approach. For our Team All-Around analysis approach, which is written in more detail below, we filtered for only the countries who have qualified as a team. After cleaning the data, we wanted to understand the performance by qualifying country in our data. Appendix Figure 1 shows that each country has a wide range of performances across past competitions. This brought us to create an athlete selection criteria to narrow down our possible pool of athletes for our analysis approach, which is detailed below.
 
 ### Analysis Approach
 
 In order to study which athletes could enable Team USA to achieve maximum success at the Paris Olympics, we decided to model possible Olympic scenarios by simulating the medal outcomes of different versions of Team USA (different combinations of 5 athletes)  competing with teams from other countries. One iteration of our simulation would model one run of the Olympics. We conducted a separate simulation process for the Men's Artistic Gymnastics Event and the Women's Artistic Gymnastics Event. Our metric of success was a weighted medal count: we assigned 3 points to a Gold medal, 2 points to a Silver medal, and 1 point to a Bronze medal. This reflects our belief in the relative prestige of each medal and will allow the highest score to reflect our interpretation of the highest level of success. The methodology can be broken down into the following subsections: athlete selection, creating score distributions, team selection, Team All-Around event simulation, individual event simulation, and finding the top-performing USA teams.
 
-#### Athlete Selection Criteria
+**Athlete Selection Criteria:** We only included a group of "elite athletes" as our potential athlete selection pool. To create this pool, we included athletes who placed in the top 10 at a World competition or in the top 3 at a non-world competition. This reflects two assumptions: 1) the Olympic competition would only consist of athletes who are already competing at the highest level, and 2) world competitions are more competitive than non-world competitions, so a larger placement range should be allowed.
 
-We only included a group of "elite athletes" as our potential athlete selection pool. To create this pool, we included athletes who placed in the top 10 at a World competition or in the top 3 at a non-world competition. This reflects two assumptions: 1) the Olympic competition would only consist of athletes who are already competing at the highest level, and 2) world competitions are more competitive than non-world competitions, so a larger placement range should be allowed.
-
-#### Creating Score Distributions
-
-The next step was to simulate the score that each athlete receives on each apparatus. We created a score distribution for each athlete and apparatus based on the observed scores they received in past competitions on this apparatus, while adding noise and allowing higher or lower scores than the range of scores they have received in the past. We used the process of kernel density estimation (KDE), which provides a continuous representation of the score distribution estimated from their past scores. Note that treated Vault 1 and Vault 2 as separate distributions, because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15]. Mathematical details about the development of our KDE are included in the appendix.
+**Creating Score Distributions:** The next step was to simulate the score that each athlete receives on each apparatus. We created a score distribution for each athlete and apparatus based on the observed scores they received in past competitions on this apparatus, while adding noise and allowing higher or lower scores than the range of scores they have received in the past. We used the process of kernel density estimation (KDE), which provides a continuous representation of the score distribution estimated from their past scores. Note that treated Vault 1 and Vault 2 as separate distributions, because there could be a meaningful difference between the score distributions, since gymnasts use the opportunity for two vaults to demonstrate different techniques and execution styles [15]. Mathematical details about the development of our KDE are included in the appendix.
 
 Although we are only simulating scores for the final rounds, since those are the medal-earning events, we decided to include athlete scores from qualification and final rounds in our creation of the KDEs in order to have more data points to estimate from. Additionally, we only created the KDEs based on the total score for the athlete, instead of separating the scores by difficulty score, execution score, and penalty score. Since the total score is difficulty score + execution score - penalty score, it encompasses all of these sub-scores. Appendix Figure 2 additionally demonstrates that most penalty scores are near 0.
 
-#### Team Selection
+**Team Selection:** In order to simulate Olympics outcomes, we had to select a team of five gymnasts for each qualifying country in the Olympics, for each simulation round. The countries who qualified as a team for the Olympics were given by the UCSAS website. For each qualifying country, we used weighted random sampling to select 5 gymnasts. Weighted random sampling was chosen rather than simple random sampling in order for the highest performing athletes to be sampled more often. This allows for the formation of teams to be more realistic, reflecting the assumption that each country would only select their top performers to represent their country in the Olympics. The weighting was based on the median of each athlete's kernel density for each apparatus, and reflects the observed past score and skill level of the athletes. Mathematical details about the weighting process are included in the appendix, and further explanation and justification is included as well.
 
-In order to simulate Olympics outcomes, we had to select a team of five gymnasts for each qualifying country in the Olympics, for each simulation round. For each qualifying country, we used weighted random sampling to select 5 gymnasts. Weighted random sampling was chosen rather than simple random sampling in order for the highest performing athletes to be sampled more often. This allows for the formation of teams to be more realistic, reflecting the assumption that each country would only select their top performers to represent their country in the Olympics. The weighting was based on the median of each athlete's kernel density for each apparatus, and reflects the observed past score and skill level of the athletes. Mathematical details about the weighting process are included in the appendix, and further explanation and justification is included as well.
+**Team All-Around Simulation:** To simulate the team all-around competition, three gymnasts would need to be selected to compete for each apparatus, from the five gymnasts on each team. We simulated scores for all of the 5 athletes across all events by sampling scores from the appropriate kernel density, and chose the athletes who had the 3 highest simulated scores on each apparatus to represent their country for that apparatus in the Team All Around. We assumed this approximately mimics a coach's selection criteria in real life. Once every qualifying country had three athletes selected for each apparatus, the scores for the actual event with these athletes were again simulated from their kernel densities. Then, the scores for all apparatuses were summed by country to create the final scores for the Team All-Around event. The top 3 teams were given the appropriate medal counts.
 
-#### Team All-Around Simulation
+**Individual Events Simulation:** Unlike the Team All-Around, individual events allow for athletes from countries that did not qualify as part of a team. Therefore, when simulating individual events, our dataset included five athletes who were selected (via the weighted random selection process) for each qualifying country, as well as all of the athletes who passed our athlete selection criteria but did not belong to a qualifying country. For each individual event and athlete, we assigned scores by randomly sampling using the appropriate athlete and apparatus KDE score density. For individual events where multiple scores can be recorded (the individual all-around and vault events), we summed each score together to represent the final score for each event. The top 3 athletes for each event were given the appropriate medal counts.
 
-To simulate the team all-around competition, three gymnasts would need to be selected to compete for each apparatus, from the five gymnasts on each team. We simulated scores for all of the 5 athletes across all events by sampling scores from the appropriate kernel density, and chose the athletes who had the 3 highest simulated scores on each apparatus to represent their country for that apparatus in the Team All Around. We assumed this approximately mimics a coach's selection criteria in real life. Once every qualifying country had three athletes selected for each apparatus, the scores for the actual event with these athletes were again simulated from their kernel densities. Then, the scores for all apparatuses were summed by country to create the final scores for the Team All-Around event. The top 3 teams were given the appropriate medal counts.
+**Finding the Top USA Teams:** We ran 3000 simulations for the Men's Artistic Gymnastics Event, and a separate 3000 simulations for the Women's Artistic Gymnastics Event. Every simulation repeated the weighted random sampling process to select a new set of five athletes who would represent each qualifying country. After running these simulations, we selected the top 10 simulations where the USA scored the highest weighted medal count for each gender. We extracted the athletes that represented Team USA in each of these top 10 simulations. Since the USA performed highly in each of these simulations, we decided to run another 300 simulations to narrow down from these top 10 teams. With the additional 300 simulations, we randomly selected the athletes in other qualifying countries but kept the same athletes in every simulation for the United States. These additional simulations address the potential variability in our simulated scores and the possibility that Team USA may have just scored highly in one of the "top 10" simulations due to poor performances of other countries. After running the 300 simulations for each of the top 10 teams (so 3000 simulations total) per gender, we tracked how many times the United States had the highest weighted medal count of all countries for each team. We chose the team that had the maximum weighted medal count of all countries for the highest percentage of times as our final suggested men's Team USA. For women's gymnastics, there ended up being multiple teams tied with the same highest percentage.
 
-#### Individual Events Simulation
-
-Unlike the Team All-Around, individual events allow for athletes from countries that did not qualify as part of a team. Therefore, when simulating individual events, our dataset included five athletes who were selected (via the weighted random selection process) for each qualifying country, as well as all of the athletes who passed our athlete selection criteria but did not belong to a qualifying country. For each individual event and athlete, we assigned scores by randomly sampling using the appropriate athlete and apparatus KDE score density. For individual events where multiple scores can be recorded (the individual all-around and vault events), we summed each score together to represent the final score for each event. The top 3 athletes for each event were given the appropriate medal counts.
-
-#### Finding the Top USA Teams
-
-We ran 3000 simulations for the Men's Artistic Gymnastics Event, and a separate 3000 simulations for the Women's Artistic Gymnastics Event. Each simulation included a separate selection process for the five athletes who would represent each qualifying country. After running these simulations, we selected the top 10 simulations where the USA scored the highest weighted medal count for each gender. We extracted the athletes that represented Team USA in each of these top 10 simulations. Since the USA performed highly in each of these simulations, we decided to run another 300 simulations to narrow down from these top 10 teams. With the additional 300 simulations, we randomly selected the athletes in other qualifying countries but kept the same athletes in every simulation for the United States. These additional simulations address the potential variability in our simulated scores and the possibility that Team USA may have just scored highly in one of the "top 10" simulations due to poor performances of other countries. After running the 300 simulations for each of the top 10 teams (so 3000 simulations total) per gender, we tracked how many times the United States had the highest weighted medal count of all countries for each team. We chose the team that had the maximum weighted medal count of all countries for the highest percentage of times as our final suggested men's Team USA. For women's gymnastics, there ended up being multiple teams tied with the same highest percentage.
-
-#### Breaking the Tie for Women
-
-There were multiple teams who tied amongst the women, which are included in the results section. We took the teams that tied, found the athletes who were chosen the most frequently from these teams, and created the second iteration of "high-performing teams" with these athletes. Additional details and the end result of these simulations are included in the results section.
+**Breaking the Tie for Women:** There were multiple teams who tied amongst the women, which are included in the results section. We took the teams that tied, found the athletes who were chosen the most frequently from these teams, and created the second iteration of "high-performing teams" with these athletes. Additional details and the end result of these simulations are included in the results section.
 
 ## Results
 
@@ -452,12 +436,10 @@ Of the 3000 simulations for both men and women, the 10 simulation with the highe
 ```{=latex}
 
 \newcommand{\highlight}[1]{\colorbox{yellow}{#1}}
-
 ```
-
 ```{r, echo = FALSE, results='asis'}
   
-cat("\\begin{table}[htbp]\n")
+cat("\\begin{table}[h]\n")
 cat("\\centering\n")
 cat("\\caption{Men's Artistic Gymnastics - Simulations for Possible Top Teams}\n")
 cat("\\medskip\n")
@@ -506,7 +488,7 @@ Since this Team 7 was identified as the men's Team USA, we have included Table 2
 
 ```{r, results='asis'}
 
-cat("\\begin{table}[htbp]\n")
+cat("\\begin{table}[h]\n")
 cat("\\centering\n")
 cat("\\caption{Men's Artistic Gymnastics - Best Simulated Outcome for Chosen Team USA}\n")
 cat("\\medskip\n")
@@ -546,7 +528,7 @@ The same process above was repeated for the women's event. The results are inclu
 
 ```{=latex}
 
-\begin{table}[htbp]
+\begin{table}[h]
 \begin{center}
   \caption{Women's Artistic Gymnastics - Simulations for Possible Top Teams}
   \medskip
@@ -596,7 +578,7 @@ In these additional simulations, the USA won the highest weighted medal count th
 
 ```{=latex}
 
-\begin{table}[htbp]
+\begin{table}[h]
 \begin{center}
   \caption{Women's Artistic Gymnastics - Simulations for Tied Top Teams}
   \medskip
@@ -631,7 +613,7 @@ Since this Team 3 was identified as the women's Team USA, we have included Table
 
 ```{r, echo=FALSE, results='asis'}
 
-cat("\\begin{table}[htbp]\n")
+cat("\\begin{table}[h]\n")
 cat("\\begin{center}\n")  # Center the table
 cat("\\caption{Women's Artistic Gymnastics - Best Simulated Outcome for Team USA}\n")
 cat("\\medskip\n")
@@ -661,9 +643,10 @@ cat("\\label{tab:gymnastics_medals}\n")
 cat("\\end{table}\n")
 
 ```
+
 ## Discussion
 
-Simone Biles, Shilese Jones, Jordan Chiles, Konnor McClain, and Jade Carey were selected as the women’s Team USA. All five of these athletes are proven to be highly accomplished [4]: Simone Biles is the most decorated gymnast in history, Shilese Jones was part of the gold-winning team at the 2022 World Championships, Jordan Chiles was part of the gold-winning team at the 2022 World Championships, Konnor McClain is the 2022 U.S. National Champion, and Jade Carey represented Team USA in the Tokyo Olympic Games.
+Simone Biles, Shilese Jones, Jordan Chiles, Konnor McClain, and Jade Carey were selected as the women's Team USA. All five of these athletes are proven to be highly accomplished [4]: Simone Biles is the most decorated gymnast in history, Shilese Jones was part of the gold-winning team at the 2022 World Championships, Jordan Chiles was part of the gold-winning team at the 2022 World Championships, Konnor McClain is the 2022 U.S. National Champion, and Jade Carey represented Team USA in the Tokyo Olympic Games.
 
 Brody Malone, Asher Hong, Patrick Hoopes, Paul Juda, and Colt Walker were selected as the men's Team USA in the simulation where the USA has the highest weighted medal score. All five of these athletes are also proven to be highly accomplished [4]: Brody Malone is the 2021 and 2022 U.S. National All-Around Champion, Asher Hong was part of the bronze-winning team at the 2023 World Championships, Patrick Hoopes was a 2023 NCAA All-American on the pommel horse, Paul Juda was part of the bronze-winning team at the 2023 World Championships, and Colt Walker was part of the gold-winning team at the 2022 Pan-American Championships.
 
@@ -752,7 +735,7 @@ grid.arrange(range_of_rank_m, range_of_rank_w, ncol = 2)
 
 ```
 
-Additionally, we created heatmaps of the average country performance across the 300 simulations with team USA held constant and with the selected athletes from Results. Figure 2, below, shows that for men's gymnastics, individual athletes who do not belong to a qualifying country tend to dominate events such as Pommel Horse, Floor Exercise, Vault, and Still Rings. However, this could be unrealistic in the Olympics, as individual athletes still have to qualify in order to compete. For our selected USA men's team, Team All-Around and Individual All-Around appear to have the highest average weighted medal count for the USA. The heatmap also shows that China and Japan are strong competitors. China and Japan have historically dominated past Olympic men gymnastic events [6]. 
+Additionally, we created heatmaps of the average country performance across the 300 simulations with team USA held constant and with the selected athletes from Results. Figure 2, below, shows that for men's gymnastics, individual athletes who do not belong to a qualifying country tend to dominate events such as Pommel Horse, Floor Exercise, Vault, and Still Rings. However, this could be unrealistic in the Olympics, as individual athletes still have to qualify in order to compete. Our current simulation allows for all individuals not part of a qualifying country and who passed our athlete selection criteria to compete in the individual medal events, regardless of whether it is probable for them to qualify in the real-world Olympic Games. For our selected USA men's team, Team All-Around and Individual All-Around appear to have the highest average weighted medal count for the USA. The heatmap also shows that China and Japan are strong competitors. China and Japan have historically dominated past Olympic men gymnastic events [6]. 
 
 Figure 2 shows that for women's gymnastics, our selected USA team tends to dominate most events, except uneven bars. USA's relative weakness in uneven bars is consistent historical performances, as the USA has not won gold in Uneven Bars at the Olympics since 1984 [7]. USA has a high average weighted medal count in the Individual All-Around event in this simulation, and has won gold in women's Individual All-Around at every single Olympics since 2004 [8]. Although the data in this simulation only included information from 2022 and 2023 competitions, it is interesting to compare the results of the simulation to past real-world Olympic outcomes.
 
@@ -780,11 +763,13 @@ heatmap_women <- ggplot(long_format_data_women, aes(x = Country, y = Event_clean
     legend.position = "bottom",
   #  plot.margin = margin(t=4,1,1,1, "lines"),
     axis.title.x = element_text(size = 9),
-    axis.title.y = element_text(size = 9)
+    axis.title.y = element_text(size = 9),
+  legend.title = element_text(size = 9)
   )+
   labs(title = "Women's Average Country Performance",
        x = "Country",
-       y = "Event") 
+       y = "Event",
+       fill = "Weighted Medal Count") 
 ```
 
 ```{r heatmap-men}
@@ -811,7 +796,7 @@ heatmap_men <- ggplot(long_format_data_men, aes(x = Country, y = Event_clean, fi
   labs(title = "Men's Average Country Performance",
     y = "Event",
        x = NULL,
-       fill = "Medals") 
+       fill = "Weighted Medal Count") 
 ```
 
 ```{r heatmap-output, fig.cap = "Average Weighted Medal Count Performance Across Simulations", fig.show = 'asis', fig.height = 4, fig.width = 6}
@@ -830,7 +815,7 @@ More generally, since our method included taking the median of the kernel densit
 
 Due to our method of creating a continuous distribution from the observed scores of the athletes, the simulation did not truncate the potential scores that athletes could receive at the maximum possible score for each apparatus. The score distributions for each athlete and apparatus potentially allow for technically impossible scores (such as a simulated score higher than the highest possible real-world score), albeit at a low probability.
 
-Additionally, our simulation did not weight scores based on recency, which does not take into account if athletes experienced a growth trajectory during the 2022-2023 season \-  who may have ranked poorly in the beginning competitions but are beginning to perform better \-  had kernel densities that weighted their poor rankings the same as their more recent high rankings. More qualitative data about each athlete could also be important to include. For example, an athlete's future plans or competition data from past Olympics were not included; it could make sense to include whether a past Olympian is defending his/her title, or whether this is someone's last planned Olympics, as determining factors if two athletes have otherwise similar performance history. It could also be important to have feedback from coaches about the mental and physical readiness of each athlete. Including these additional variables could have added nuance to our selection process.
+Additionally, our simulation did not weight scores based on recency, which does not take into account if athletes experienced a growth trajectory during the 2022-2023 season -  who may have ranked poorly in the beginning competitions but are beginning to perform better -  had kernel densities that weighted their poor rankings the same as their more recent high rankings. More qualitative data about each athlete could also be important to include. For example, an athlete's future plans or competition data from past Olympics were not included; it could make sense to include whether a past Olympian is defending his/her title, or whether this is someone's last planned Olympics, as determining factors if two athletes have otherwise similar performance history. It could also be important to have feedback from coaches about the mental and physical readiness of each athlete. Including these additional variables could have added nuance to our selection process.
 
 Our method of simulation included assumptions that defined what a "best performance" by Team USA meant. Particularly, the weighting of medals (with gold = 3, silver = 2, and bronze = 1) assumed an increase in prestige that could differ from other interpretations. If the United States is only interested in the total number of people on the podium, for example, a bronze medal may be weighted the same as a gold medal. Another assumption made was that each event medal was equally prestigious; a "gold" in vault was weighted the same as a "gold" in the floor exercise. Depending on the priorities or strategies of the USA Gymnastics, they may see certain events as more important to win (for example to defend a title), in which case it would be appropriate to apply a different level of weighting for weighted random sampling of teams. For example, if team USA wants to focus on winning gold for uneven bars, the weights could then be biased towards gymnasts who compete in this event. These alternative methods could be useful depending on the specific goals of USA Gymnastics.
 
@@ -956,6 +941,7 @@ ggplot(data = top_countries, aes(y = clean_country, x = Rank))+
     title = "Appendix 1: Each Athlete's Competition Ranks for Olympic Qualified Countries"
   )
 ```
+
 ```{r}
 
 df_penalties <- rbind(df_women_c, df_men_c)
@@ -967,7 +953,6 @@ df_penalties <- df_penalties %>% mutate(Gender = case_when (
 
 
 ```
-
 
 ```{r penalty-dist-women1}
 
@@ -985,7 +970,6 @@ ggplot(data = df_penalties, aes(x = Penalty)) +
   scale_color_aaas()
 
 ```
-
 
 ## Mathematical Details
 

@@ -528,7 +528,7 @@ Of the 3000 simulations for both men and women, the 10 simulation with the highe
   Matt Cormier & Patrick Hoopes & Vitaliy Guimaraes & Vitaliy Guimaraes & Asher Hong \\
   Vitaliy Guimaraes & Paul Juda & Brody Malone & Paul Juda & Paul Juda \\
   Paul Juda & Brody Malone & Yul Moldauer & Riley Loos & Curran Phillips \\
-  Frederick Richaard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
+  Frederick Richard & Colt Walker & Khoi Young & Khoi Young & Khoi Young \\
   \hline
   \multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest Weighted Medal Count} \\
   \hline

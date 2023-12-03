@@ -431,3 +431,163 @@ ggplot(long_format_data_men, aes(x = Country, y = Event, fill = Medals)) +
        fill = "Medals") +
   theme_minimal()
 ```
+
+### Finding Average Weighted Medal Count for Top Teams
+
+Loading in Top Men's Teams
+
+```{r}
+
+top_men_team_1 <- readRDS("men_team_sim1.rds")
+top_men_team_2 <- readRDS("men_team_sim2.rds")
+top_men_team_3 <- readRDS("men_team_sim3.rds")
+top_men_team_4 <- readRDS("men_team_sim4.rds")
+top_men_team_5 <- readRDS("men_team_sim5.rds")
+top_men_team_6 <- readRDS("men_team_sim6.rds")
+top_men_team_7 <- readRDS("men_team_sim7.rds")
+top_men_team_8 <- readRDS("men_team_sim8.rds")
+top_men_team_9 <- readRDS("men_team_sim9.rds")
+top_men_team_10 <- readRDS("men_team_sim10.rds")
+```
+
+```{r}
+
+# avg total medals for team combination 1
+top_team_1_totals_m = 0
+
+for (i in seq_along(top_men_team_1)) {
+  summaryTeam <- top_men_team_1[[i]]@teamSummary
+  top_team_1_totals_m = top_team_1_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team1_m = top_team_1_totals_m / 300
+avg_total_medals_team1_m
+
+```
+
+```{r}
+top_team_2_totals_m = 0
+
+for (i in seq_along(top_men_team_2)) {
+  summaryTeam <- top_men_team_2[[i]]@teamSummary
+  top_team_2_totals_m = top_team_2_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team2_m = top_team_2_totals_m / 300
+avg_total_medals_team2_m
+
+```
+
+```{r}
+
+top_team_3_totals_m = 0
+
+for (i in seq_along(top_men_team_3)) {
+  summaryTeam <- top_men_team_3[[i]]@teamSummary
+  top_team_3_totals_m = top_team_3_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team3_m = top_team_3_totals_m / 300
+avg_total_medals_team3_m
+
+```
+
+```{r}
+
+top_team_4_totals_m = 0
+
+for (i in seq_along(top_men_team_4)) {
+  summaryTeam <- top_men_team_4[[i]]@teamSummary
+  top_team_4_totals_m = top_team_4_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team4_m = top_team_4_totals_m / 300
+avg_total_medals_team4_m
+
+```
+
+```{r}
+
+top_team_5_totals_m = 0
+
+for (i in seq_along(top_men_team_5)) {
+  summaryTeam <- top_men_team_5[[i]]@teamSummary
+  top_team_5_totals_m = top_team_5_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team5_m = top_team_5_totals_m / 300
+avg_total_medals_team5_m
+
+```
+
+```{r}
+
+top_team_6_totals_m = 0
+
+for (i in seq_along(top_men_team_6)) {
+  summaryTeam <- top_men_team_6[[i]]@teamSummary
+  top_team_6_totals_m = top_team_6_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team6_m = top_team_6_totals_m / 300
+avg_total_medals_team6_m
+
+```
+
+```{r}
+
+top_team_7_totals_m = 0
+
+for (i in seq_along(top_men_team_7)) {
+  summaryTeam <- top_men_team_7[[i]]@teamSummary
+  top_team_7_totals_m = top_team_7_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team7_m = top_team_7_totals_m / 300
+avg_total_medals_team7_m
+
+```
+
+```{r}
+
+top_team_8_totals_m = 0
+
+for (i in seq_along(top_men_team_8)) {
+  summaryTeam <- top_men_team_8[[i]]@teamSummary
+  top_team_8_totals_m = top_team_8_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team8_m = top_team_8_totals_m / 300
+avg_total_medals_team8_m
+
+```
+
+```{r}
+
+# avg total medals for team combination 1
+top_team_9_totals_m = 0
+
+for (i in seq_along(top_men_team_9)) {
+  summaryTeam <- top_men_team_9[[i]]@teamSummary
+  top_team_9_totals_m = top_team_9_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team9_m = top_team_9_totals_m / 300
+avg_total_medals_team9_m
+
+```
+
+```{r}
+
+# avg total medals for team combination 1
+top_team_10_totals_m = 0
+
+for (i in seq_along(top_men_team_10)) {
+  summaryTeam <- top_men_team_10[[i]]@teamSummary
+  top_team_10_totals_m = top_team_10_totals_m + summaryTeam$total_medals[summaryTeam$clean_country == "USA"]
+}
+
+avg_total_medals_team10_m = top_team_10_totals_m / 300
+avg_total_medals_team10_m
+
+```

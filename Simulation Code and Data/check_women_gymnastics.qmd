@@ -570,8 +570,6 @@ for (m in women_sims){
 }
 ```
 
-
-
 Looking at the second iteration of Women's Teams:
 
 ```{r}
@@ -581,9 +579,8 @@ top_women_team_sim2 <- readRDS("part2_women_team_sim2.rds")
 top_women_team_sim3 <- readRDS("part2_women_team_sim3.rds")
 ```
 
-
-
 For Team 1:
+
 ```{r}
 winning_countries <- c()
 
@@ -604,14 +601,13 @@ for (i in seq_along(top_women_team_sim1)){
 }
 ```
 
-
 ```{r}
 country_counts <- table(winning_countries)
 country_counts
 ```
 
-
 For Team 2:
+
 ```{r}
 winning_countries <- c()
 
@@ -637,8 +633,8 @@ country_counts <- table(winning_countries)
 country_counts
 ```
 
-
 For Team 3:
+
 ```{r}
 winning_countries <- c()
 
@@ -706,12 +702,6 @@ avg_total_medals_team3
 
 ```
 
-
-
-
-
-
-
 ```{r}
 aggregated_heatmap_data <- data.frame(Country = character(), Event = character(), Medals = numeric(), stringsAsFactors = FALSE)
 
@@ -737,7 +727,6 @@ for (i in seq_along(top_women_team_sim3)) {
   #summarise(across(everything(), mean, na.rm = TRUE))
 ```
 
-
 ```{r}
 long_format_data_women <- aggregated_heatmap_data %>%
   select(-c("total_medals")) %>%
@@ -762,9 +751,9 @@ ggplot(long_format_data_women, aes(x = Country, y = Event, fill = Medals)) +
        fill = "Medals") +
   theme_minimal()
 ```
+
 ```{r}
 long_format_data_women %>%
   group_by(Country, Event) %>%
   sum(Medals)
 ```
-

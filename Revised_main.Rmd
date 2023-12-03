@@ -395,7 +395,7 @@ Winning a medal in an Olympic gymnastics event is an honor for both the individu
 
 The objective of this project is to extend this analysis to the Artistic Gymnastics events, and to select the 5 athletes for each of the men's and women's events that will optimize performance for Team USA. The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) floor exercise (FX), 4) pommel horse (PH), 5) still rings (SR), 6) vault (VT), 7) parallel bars (PB), and 8) high bar (HB). Women's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) vault (VT), 4) uneven bars (UB), 5) balance beam (BB), and 6) floor exercise (FX). The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
 
-Our hypothesis is: Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
+Our research question is: Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
 
 ### Data Description
 

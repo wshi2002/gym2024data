@@ -391,10 +391,15 @@ df_men_c <- df_men_c %>%
 
 The Olympic Games are an international multi-sport event held every four years, and are largely considered to be the most prestigious sporting competition in the world. These Games are therefore a popular spectator event across the world, with an average viewership of more than 15 million people in past years [1]. The 2024 Olympic Games will be held in Paris, France, and will include both Men's and Women's Artistic Gymnastics events. These Gymnastics events in particular are highly anticipated: as of March 2021, Artistic Gymnastics was the most followed Summer Olympics sport [2].
 
-Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women who will represent our country as Team USA in the Artistic Gymnastics events. The importance of and interest surrounding the Olympics provides a rich foundation for statistical analysis of past athlete performances and an interesting platform for making predictions about who will best represent Team USA in future Olympics. There have already been analyses, published in major news outlets, about who Team USA will consist of for non-gymnastics sports in 2024 [3]. However, there has overall been very minimal statistical analysis surrounding predictions for the 2024 Olympic Games. Riley Grube for Women's Sport Exchange did some informal analysis surround team qualifications for the 2024 Olympic Games, but it was minimal.[17] A majority of predictions were simply personal observations without statistical reinforcement. 
+Winning a medal in an Olympic gymnastics event is an honor for both the individual athlete and for the country that athlete represents; the medal brings a sense of national pride to citizens across the country and promotes the global recognition of the winning country. Because of the high honor and importance of upholding the legacy of the United States in these competitions, it is important to carefully select the men and women who will represent our country as Team USA in the Artistic Gymnastics events. The importance of and interest surrounding the Olympics provides a rich foundation for statistical analysis of past athlete performances and an interesting platform for making predictions about who will best represent Team USA in future Olympics. There have already been analyses, published in major news outlets, about who Team USA will consist of for non-gymnastics sports in 2024 [3].
 
-The objective of this project is to extend this analysis to the Artistic Gymnastics events, and to select the 5 athletes for each of the men's and women's events that will optimize performance for Team USA. The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) floor exercise (FX), 4) pommel horse (PH), 5) still rings (SR), 6) vault (VT), 7) parallel bars (PB), and 8) high bar (HB). Women's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) vault (VT), 4) uneven bars (UB), 5) balance beam (BB), and 6) floor exercise (FX). The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
+Statistical analysis are also a large part of the sport of gymnastics. For example, the Olympics have published articles about using statistical techniques to evaluate the fairness of judging in past years [18]. Additionally, there have been research articles that predict the all-around scores of athletes based on their individual apparatus scores [19]. However, these analyses largely focus on competitions that have already occurred. There has been minimal statistical analysis surrounding forward-facing predictions for the Artistic Gymnastics Event of the 2024 Olympic Games, and the predictions that do exist are largely personal observations without statistical reinforcement [17].
 
+<<<<<<< HEAD
+=======
+The objective of this project is to close this gap, and extend statistical analysis to the Artistic Gymnastics events in order to select the 5 athletes for each of the men's and women's events that will optimize performance for Team USA in the 2024 Olympic Games. The format of the Olympic Artistic Gymnastics event includes a qualifying round and final round. Scores from qualifying rounds do not impact medal determinations, but rather decide which athletes advance to the finals. The final round, which is what determines medal placements, consists of team all-around, individual all-around, and individual apparatus events. Men's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) floor exercise (FX), 4) pommel horse (PH), 5) still rings (SR), 6) vault (VT), 7) parallel bars (PB), and 8) high bar (HB). Women's opportunities for medals are: 1) team all-around (Team AA), 2) individual all-around (Indiv), 3) vault (VT), 4) uneven bars (UB), 5) balance beam (BB), and 6) floor exercise (FX). The athletes representing Team USA will compete in a pool of 96 men and 96 women, which will include teams of five from other countries as well as the option for individual entries for countries without full team qualifications.
+
+>>>>>>> cc24c9d79de954b4fd93f08e36f3fa63df9c06da
 Our research question is: Who are the 5 men and 5 women who can make Team USA achieve the highest level of success at the Paris 2024 Artistic Gymnastics Event?
 
 ### Data Description
@@ -461,6 +466,10 @@ cat("\\multicolumn{5}{c}{Percentage of Simulations With USA Having Highest Weigh
 cat("\\hline\n")
 cat("\\textit{13.7\\%} & \\textit{10.0\\%} & \\textit{6.7\\%} & \\textit{9.3\\%} & \\textit{15.3\\%} \\\\\n")
 cat("\\hline\n")
+cat("\\multicolumn{5}{c}{Average Weighted Medal Count} \\\\\n")
+cat("\\hline\n")
+cat("\\textit{5.9\\%} & \\textit{5.4\\%} & \\textit{4.5\\%} & \\textit{4.8\\%} & \\textit{6.2\\%} \\\\\n")
+cat("\\hline\n")
 cat("\\multicolumn{5}{c}{Teams 6-10} \\\\\n")
 cat("\\cline{1-5}\n")
 cat("\\textbf{Team 6} & \\textbf{Team 7} & \\textbf{Team 8} & \\textbf{Team 9} & \\textbf{Team 10} \\\\\n")
@@ -477,12 +486,15 @@ cat("\\multicolumn{5}{c}{Percentage of Simulations With USA Having the Highest W
 cat("\\hline\n")
 cat("\\textit{6.7\\%} & \\highlight{\\textit{15.7\\%}} & \\textit{8.7\\%} & \\textit{3.3\\%} & \\textit{13.7\\%} \\\\\n")
 cat("\\hline\n")
+cat("\\multicolumn{5}{c}{Average Weighted Medal Count} \\\\\n")
+cat("\\hline\n")
+cat("\\textit{4.4\\%} & \\textit{6.1\\%} & \\textit{5.7\\%} & \\textit{4.3\\%} & \\textit{5.4\\%} \\\\\n")
 cat("\\end{tabular}\n")
 cat("\\end{table}\n")
 
 ```
 
-As seen in the table above, Team USA is taken to be Asher Hong, Patrick Hoopes, Paul Juda, Brody Malone, and Colt Walker (Team 7 above). This Team USA won the highest weighted medal count of any country 15.7% of time during the second round simulations.
+As seen in the table above, Team USA is taken to be Asher Hong, Patrick Hoopes, Paul Juda, Brody Malone, and Colt Walker (Team 7 above). This Team USA won the highest weighted medal count of any country 15.7% of time during the second round simulations. The average weighted medal count from these simulation rounds was also included in this table. Although Team USA was chosen from the highest weighted medal count due to the importance of selecting the team that can best compete against the other countries in the Olympics, Team 7 also had the second-highest average weighted medal count of the top 10 men's teams. This further provides evidence that the team can perform consistently well in medal events. 
 
 Since this Team 7 was identified as the men's Team USA, we have included Table 2 below to demonstrate a potential outcome of the Olympics with this team. This table portrays the best performance of Team 7 in the 300 simulations that were run. It is important to understand the limitations of showcasing only the best score; the simulation process inherently included randomness and could, although at a low probability, include an unreasonable high score. The outcomes of each other simulation are included in the raw code accessible in GitHub.
 
@@ -877,10 +889,14 @@ www.statista.com/statistics/370560/worldwide-sports-market-revenue/.
 
 [16] \*\*"Chatgpt." ChatGPT, openai.com/chatgpt. Accessed 19 Nov. 2023.
 
-[17] Grube, Riley "2024 Olympic Gymnastics Qualification Predictions."wsportsxchange.com 28 Sept. 2023 2023https://www.wsportsxchange.com/post/2024-olympic-gymnastics-qualification-predictions
-
-
 \*\*Note: We used ChatGPT to help with understanding and using S4 Objects, which we used to store our data, as well as general debugging.
+
+[17] Grube, Riley "2024 Olympic Gymnastics Qualification Predictions." wsportsxchange.com, 28 Sept. 2023 https://www.wsportsxchange.com/post/2024-olympic-gymnastics-qualification-predictions.
+
+[18] "Judging the judges – how statistical analysis evaluates fairness and accuracy in gymnastics scoring". Olympics, https://olympics.com/en/news/how-statistical-analysis-evaluates-fairness-accuracy-gymnastics. Accessed 2 Dec. 2023.
+
+[19] "THE PREDICTION OF ALL-AROUND EVENT FINAL SCORE BASED ON D AND E SCORE FACTORS IN WOMEN ARTISTIC GYMNASTICS". ResearchGate, https://www.researchgate.net/publication/349519419. Accessed 2 Dec. 2023.
+
 
 # Appendix
 

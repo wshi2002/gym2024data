@@ -1,0 +1,1 @@
+Due to the amount of data we generated, the file size was too big to be uploaded to the compeition Google Form submission. However, it is still on GitHub. The link is provided in the Google Form as well, but here is the link, as well: https://github.com/wshi2002/gym2024data
